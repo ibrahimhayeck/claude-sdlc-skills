@@ -1,11 +1,21 @@
 # Engineering Skills
 
 A comprehensive-but-simple set of agent skills for engineering teams. They make the coding
-agent **align before it builds, document decisions as it goes, test what it ships, and keep
-the codebase healthy** — the same way across every repo. Built on
+agent **align before it builds, document decisions as it goes, test and review what it ships,
+and keep the codebase healthy** — the same way across every repo. Built on
 [mattpocock/skills](https://github.com/mattpocock/skills) (MIT), with a tracker-agnostic setup
 (GitHub / Jira / local markdown docs), language-agnostic testing, and an added
 `functional-test` skill (API + Playwright).
+
+> **New here? Start with the core.** If 14 skills feels like a lot, install the trimmed
+> [`engineering-core`](./core/) plugin instead — **4 everyday commands, zero setup**, that
+> hand off to each other (align → build → review → debug). Upgrade to the full pack below
+> whenever you want the planning, triage, and architecture skills. Pick one, not both.
+>
+> ```
+> /plugin marketplace add ibrahim-hayeck/AI-Claude-engineering-skills
+> /plugin install engineering-core@telus-tools
+> ```
 
 ## The one-page flow for the team
 
@@ -21,11 +31,13 @@ Each is a slash command in your agent. You only ever run step 0 once per repo.
 4. **Manage the queue:** `/triage` — moves incoming issues through a state machine.
 5. **Build it:** `/tdd` for units, `/functional-test` for acceptance (API, Playwright E2E,
    cross-service flows).
-6. **When stuck:** `/diagnose` (disciplined debugging) and `/zoom-out` (understand unfamiliar code).
-7. **Keep it healthy:** `/improve-codebase-architecture` every so often. `/handoff` when
+6. **Review it:** `/review` checks a diff/PR against the acceptance criteria, glossary, and
+   ADRs; `/security-review` for changes touching auth, input, data, or dependencies.
+7. **When stuck:** `/diagnose` (disciplined debugging) and `/zoom-out` (understand unfamiliar code).
+8. **Keep it healthy:** `/improve-codebase-architecture` every so often. `/handoff` when
    context runs low.
 
-The core loop: **align → document → plan → build → test → debug → improve.**
+The core loop: **align → document → plan → build → test → review → debug → improve.**
 
 ## Pick your issue tracker (flexible, like the original)
 
@@ -54,9 +66,10 @@ Full detail in [CONVENTIONS.md](./CONVENTIONS.md). Rule of thumb:
 
 ## What's in the box
 
-Twelve skills: `setup-skills`, `grill-me`, `grill-with-docs`, `to-prd`, `to-issues`,
-`triage`, `tdd`, `functional-test`, `diagnose`, `improve-codebase-architecture`, `zoom-out`,
-`handoff`. Plus `CONVENTIONS.md` and copy-paste `templates/`.
+Fourteen skills: `setup-skills`, `grill-me`, `grill-with-docs`, `to-prd`, `to-issues`,
+`triage`, `tdd`, `functional-test`, `review`, `security-review`, `diagnose`,
+`improve-codebase-architecture`, `zoom-out`, `handoff`. Plus `CONVENTIONS.md` and copy-paste
+`templates/`.
 
 ## Install (Claude Code / compatible agents)
 
@@ -64,15 +77,19 @@ Twelve skills: `setup-skills`, `grill-me`, `grill-with-docs`, `to-prd`, `to-issu
 repo, then each person runs:
 
 ```
-/plugin marketplace add <your-org>/engineering-skills
+/plugin marketplace add ibrahim-hayeck/AI-Claude-engineering-skills
 /plugin install engineering-skills@telus-tools
 ```
+
+Here `ibrahim-hayeck/AI-Claude-engineering-skills` is the **owner/repo**; `engineering-skills@telus-tools` is **plugin@marketplace** (the `name` fields in `plugin.json` and `marketplace.json`). One install brings all fourteen skills.
 
 **Option B — drop-in skills.** Copy the `skills/*` folders into `~/.claude/skills/` (global)
 or a project's `.claude/skills/`, and keep `CONVENTIONS.md` + `templates/` where the team can
 find them.
 
-After installing, everyone runs `/setup-skills` once per repo.
+**Option C — skills.sh installer** (public repos): `npx skills@latest add ibrahim-hayeck/AI-Claude-engineering-skills`.
+
+After installing, everyone runs `/setup-skills` once per repo. Push updates by bumping `version` in `plugin.json`; teammates run `/plugin marketplace update telus-tools`.
 
 ## Data & environment note
 The testing skills enforce a simple guardrail: **synthetic data only — no real or production

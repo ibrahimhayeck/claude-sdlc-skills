@@ -4,8 +4,8 @@
 #   ./push-to-github.sh
 
 # ─── EDIT THESE ───────────────────────────────────────────────
-ORG="telus-health"            # your GitHub org OR username
-REPO="engineering-skills"     # the repo name on GitHub
+ORG="ibrahim-hayeck"                 # your GitHub org OR username
+REPO="AI-Claude-engineering-skills"  # the repo name on GitHub
 PROTO="ssh"                   # "ssh" or "https"
 VISIBILITY="private"          # "private" or "public" (used only if we create the repo)
 NAME="Ibrahim Hayeck"

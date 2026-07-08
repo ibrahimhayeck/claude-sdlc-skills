@@ -1,0 +1,14 @@
+{
+  "name": "engineering-core",
+  "version": "0.1.0",
+  "description": "The essentials only: align, build, review, debug. Four zero-config slash commands for everyday development. Describe your task and the right one fires. The full 14-skill pack is available separately.",
+  "author": {
+    "name": "Engineering"
+  },
+  "skills": [
+    "./skills/grill-with-docs",
+    "./skills/tdd",
+    "./skills/review",
+    "./skills/diagnose"
+  ]
+}

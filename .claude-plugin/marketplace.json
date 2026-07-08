@@ -9,9 +9,14 @@
   },
   "plugins": [
     {
+      "name": "engineering-core",
+      "source": "./core",
+      "description": "Start here. The 4 everyday commands — align, build, review, debug — that hand off to each other. Zero config. Install this OR the full pack, not both."
+    },
+    {
       "name": "engineering-skills",
       "source": "./",
-      "description": "Align → document → plan → build → test → debug → improve. Works with GitHub, Jira, or local markdown issue docs, and any language."
+      "description": "The full pack: align → document → plan → build → test → review → debug → improve (14 skills). Works with GitHub, Jira, or local markdown issue docs, and any language."
     }
   ]
 }

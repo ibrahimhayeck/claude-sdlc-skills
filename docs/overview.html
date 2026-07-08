@@ -6,207 +6,372 @@
 <title>Engineering Skills — Overview</title>
 <style>
 :root{
-  --bg:#ffffff; --panel:#f7f8fa; --panel2:#f0f2f5; --ink:#16181d; --muted:#5b6270;
-  --border:#e2e5ea; --border-strong:#c9cdd6; --brand:#2563eb;
-  --glossary:#0d9488; --decision:#7c3aed; --plan:#2563eb; --config:#d97706; --tests:#db2777;
+  --bg:#f5f6f8; --surface:#ffffff; --panel:#f7f8fa; --panel2:#eef1f5;
+  --ink:#15181e; --muted:#5b6270; --border:#e4e7ec; --border-strong:#d3d8e0;
+  --brand:#4f46e5; --brand2:#7c3aed; --brand3:#0ea5e9;
+  --setup:#64748b; --align:#8b5cf6; --plan:#2563eb; --build:#0d9488; --review:#0891b2; --debug:#e0891b; --improve:#db2777;
+  --glossary:#0d9488; --decision:#7c3aed; --pln:#2563eb; --config:#e0891b; --tests:#db2777;
+  --code-bg:#0d1117; --code-ink:#e6edf3;
+  --shadow:0 1px 2px rgba(16,24,40,.05),0 1px 3px rgba(16,24,40,.04);
+  --shadow-lg:0 12px 32px rgba(16,24,40,.12);
   --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
 }
 @media (prefers-color-scheme:dark){
-  :root{--bg:#0f1115;--panel:#171a20;--panel2:#1d222a;--ink:#e9ecf1;--muted:#9aa2b1;
-    --border:#272c35;--border-strong:#3a414d;--brand:#6ea8ff;}
+  :root{--bg:#0a0c10;--surface:#12151c;--panel:#161a22;--panel2:#1c212b;
+    --ink:#e9ecf1;--muted:#9aa2b1;--border:#242a34;--border-strong:#333b47;
+    --brand:#818cf8;--brand2:#a78bfa;--brand3:#38bdf8;--shadow:none;--shadow-lg:0 12px 32px rgba(0,0,0,.5);}
 }
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.55;font-size:15px}
-.page{max-width:1000px;margin:0 auto;padding:40px 22px 80px}
-a{color:var(--brand)}
-code,kbd{font-family:var(--mono);font-size:.88em}
-h1{font-size:30px;letter-spacing:-.02em;margin:0 0 6px}
-h2{font-size:21px;letter-spacing:-.01em;margin:44px 0 6px;padding-top:14px;border-top:1px solid var(--border)}
-h3{font-size:15px;margin:18px 0 4px}
+.page{max-width:1000px;margin:0 auto;padding:22px 22px 90px}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+code{font-family:var(--mono);font-size:.86em;background:var(--panel2);padding:1px 5px;border-radius:5px}
 p{margin:8px 0}
-.lede{color:var(--muted);font-size:16px;margin:0 0 8px}
-.tagrow{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 4px}
-.chip{font-size:12px;font-weight:600;padding:4px 11px;border-radius:999px;border:1px solid var(--border-strong);color:var(--muted)}
 .muted{color:var(--muted)}
-.loop{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:14px 0;padding:12px 14px;background:var(--panel);border:1px solid var(--border);border-radius:12px}
-.loop b{background:var(--bg);border:1px solid var(--border-strong);border-radius:8px;padding:3px 9px;font-size:12.5px}
-.loop .ar{color:var(--muted)}
-.nav{display:flex;flex-wrap:wrap;gap:8px 16px;margin:18px 0 6px;font-size:13px}
-.nav a{text-decoration:none}
 
-/* skill catalog */
-.phase{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:24px 0 8px}
-.skill{border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin:10px 0;background:var(--panel)}
-.skill .cmd{font-family:var(--mono);font-weight:700;font-size:14px;color:var(--ink)}
-.skill .files{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:2px}
-.skill .what{margin:6px 0 4px}
+/* hero */
+.hero{position:relative;overflow:hidden;border-radius:22px;padding:44px 38px 40px;color:#fff;
+  background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 52%,#0ea5e9 120%);box-shadow:var(--shadow-lg)}
+.hero::before{content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 85% -10%,rgba(255,255,255,.28),transparent 45%),
+             radial-gradient(circle at 0% 120%,rgba(255,255,255,.16),transparent 40%);}
+.hero::after{content:"";position:absolute;inset:0;opacity:.5;
+  background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
+  background-size:34px 34px;mask-image:linear-gradient(180deg,#000,transparent 75%)}
+.hero>*{position:relative;z-index:1}
+.hero h1{font-size:36px;letter-spacing:-.025em;margin:0 0 10px;font-weight:800}
+.hero .lede{font-size:17px;color:rgba(255,255,255,.94);max-width:74ch;margin:0}
+.hero .lede b{color:#fff}
+.tagrow{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 0}
+.chip{font-size:12px;font-weight:600;padding:5px 12px;border-radius:999px;
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);color:#fff;backdrop-filter:blur(4px)}
+.repobtn{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:9px 16px;border-radius:10px;
+  background:#fff;color:#4530c4;font-weight:700;font-size:13px;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.repobtn:hover{text-decoration:none;transform:translateY(-1px)}
+.repobtn .gh{width:16px;height:16px;fill:currentColor}
+
+/* sticky nav */
+.topnav{position:sticky;top:0;z-index:20;margin:14px 0 8px;padding:9px 6px;
+  display:flex;flex-wrap:wrap;gap:6px;border-radius:12px;
+  background:color-mix(in srgb,var(--surface) 82%,transparent);backdrop-filter:saturate(150%) blur(10px);
+  border:1px solid var(--border);box-shadow:var(--shadow)}
+.topnav a{font-size:12.5px;font-weight:600;color:var(--muted);padding:5px 11px;border-radius:8px}
+.topnav a:hover{background:var(--panel2);color:var(--ink);text-decoration:none}
+
+/* section headings */
+h2{font-size:22px;letter-spacing:-.01em;margin:46px 0 4px;padding-left:14px;position:relative;font-weight:750}
+h2::before{content:"";position:absolute;left:0;top:3px;bottom:3px;width:5px;border-radius:3px;
+  background:linear-gradient(var(--brand),var(--brand2))}
+h3{font-size:15px;margin:20px 0 4px}
+.sec-sub{color:var(--muted);margin:6px 0 4px}
+
+/* loop */
+.loop{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:16px 0}
+.loop b{color:#fff;border-radius:9px;padding:6px 13px;font-size:12.5px;font-weight:700;box-shadow:var(--shadow)}
+.loop .s1{background:var(--setup)}.loop .s2{background:var(--align)}.loop .s3{background:var(--plan)}
+.loop .s4{background:var(--build)}.loop .s5{background:var(--build)}.loop .s6{background:var(--review)}.loop .s7{background:var(--debug)}.loop .s8{background:var(--improve)}
+.loop .ar{color:var(--muted);font-weight:700}
+/* core chain */
+.chain{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:14px 0}
+.chain.sub{align-items:center;font-size:13px;color:var(--muted);margin-top:0}
+.cstep{border:1px solid var(--border);border-top:3px solid var(--ac,var(--brand));border-radius:10px;
+  padding:9px 12px;background:var(--surface);box-shadow:var(--shadow);min-width:118px}
+.cstep b{display:block;font-family:var(--mono);font-size:12.5px;color:var(--ink)}
+.cstep small{color:var(--muted);font-size:11px}
+.carrow{align-self:center;color:var(--muted);font-weight:700;font-size:16px}
+.cmerge{align-self:center;border:1px dashed var(--border-strong);border-radius:10px;padding:9px 14px;
+  font-weight:700;color:var(--muted);font-size:12.5px}
+.cbranch{align-self:center;font-style:italic}
+.tiernote{display:inline-block;font-size:11.5px;font-weight:700;color:var(--build);
+  background:color-mix(in srgb,var(--build) 12%,var(--surface));border-radius:6px;padding:2px 9px;margin-left:8px}
+
+/* skills */
+.phase{display:inline-block;margin:26px 0 6px;padding:5px 13px;border-radius:999px;font-size:11.5px;font-weight:800;
+  text-transform:uppercase;letter-spacing:.07em}
+.p-setup{background:color-mix(in srgb,var(--setup) 16%,var(--surface));color:var(--setup)}
+.p-align{background:color-mix(in srgb,var(--align) 15%,var(--surface));color:var(--align)}
+.p-plan{background:color-mix(in srgb,var(--plan) 14%,var(--surface));color:var(--plan)}
+.p-build{background:color-mix(in srgb,var(--build) 15%,var(--surface));color:var(--build)}
+.p-debug{background:color-mix(in srgb,var(--debug) 17%,var(--surface));color:var(--debug)}
+.p-review{background:color-mix(in srgb,var(--review) 15%,var(--surface));color:var(--review)}
+.p-improve{background:color-mix(in srgb,var(--improve) 14%,var(--surface));color:var(--improve)}
+.skill{border:1px solid var(--border);border-left:4px solid var(--ac,var(--brand));border-radius:12px;
+  padding:14px 16px;margin:10px 0;background:var(--surface);box-shadow:var(--shadow);
+  transition:transform .16s ease,box-shadow .16s ease}
+.skill:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.skill .cmd{display:inline-block;font-family:var(--mono);font-weight:700;font-size:13px;
+  color:var(--ac,var(--brand));background:color-mix(in srgb,var(--ac,var(--brand)) 10%,var(--surface));
+  padding:3px 10px;border-radius:7px}
+.skill .files{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:6px}
+.skill .what{margin:8px 0 4px}
 .skill .use{font-size:13px;color:var(--muted)}
 .skill .use b{color:var(--ink);font-weight:600}
+.ac-setup{--ac:var(--setup)}.ac-align{--ac:var(--align)}.ac-plan{--ac:var(--plan)}
+.ac-build{--ac:var(--build)}.ac-review{--ac:var(--review)}.ac-debug{--ac:var(--debug)}.ac-improve{--ac:var(--improve)}
 
-/* repo visual (reused) */
-.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin:14px 0}
+/* repo structure */
+.legend{display:flex;flex-wrap:wrap;gap:9px 18px;margin:14px 0}
 .legend span{display:inline-flex;align-items:center;gap:7px;color:var(--muted);font-size:12.5px}
 .dot{width:11px;height:11px;border-radius:3px;display:inline-block;flex:none}
-.flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0;padding:10px 14px;border:1px dashed var(--border-strong);border-radius:12px}
-.flab{color:var(--muted);font-size:12px;font-weight:600}
-.pill{padding:3px 11px;border-radius:999px;border:1px solid var(--border-strong);font-weight:600;font-size:12px;font-family:var(--mono)}
-.arr{color:var(--muted);font-size:15px}.arr2{color:var(--muted);font-size:12px;margin-left:6px}
-.card{border:1px solid var(--border);border-radius:14px;padding:13px 15px;background:var(--panel);margin:12px 0}
-.hub{border-color:var(--plan);border-width:1.5px}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0;padding:12px 15px;
+  border:1px solid var(--border);border-radius:12px;background:var(--surface);box-shadow:var(--shadow)}
+.flab{color:var(--muted);font-size:12px;font-weight:700}
+.pill{padding:4px 12px;border-radius:999px;font-weight:700;font-size:12px;font-family:var(--mono);
+  background:color-mix(in srgb,var(--plan) 12%,var(--surface));color:var(--plan);border:1px solid color-mix(in srgb,var(--plan) 30%,var(--surface))}
+.arr{color:var(--muted);font-size:15px;font-weight:700}.arr2{color:var(--muted);font-size:12px;margin-left:6px}
+.card{border:1px solid var(--border);border-radius:14px;padding:14px 16px;background:var(--surface);margin:12px 0;
+  box-shadow:var(--shadow);transition:transform .16s ease,box-shadow .16s ease}
+.card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.hub{border:1px solid color-mix(in srgb,var(--plan) 40%,var(--border));
+  background:linear-gradient(180deg,color-mix(in srgb,var(--plan) 7%,var(--surface)),var(--surface))}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.cardhead{font-weight:700;font-size:14.5px;display:flex;flex-wrap:wrap;align-items:baseline;gap:8px}
+.cardhead{font-weight:750;font-size:14.5px;display:flex;flex-wrap:wrap;align-items:baseline;gap:8px}
 .tag{font-weight:500;font-size:11.5px;color:var(--muted)}
 .cardrole{color:var(--muted);font-size:12px;margin:3px 0 9px}
-.row{padding:5px 0 5px 9px;border-left:3px solid transparent;margin-bottom:1px}
-.row code{font-size:11.5px;color:var(--ink);font-weight:700;display:block;margin-bottom:1px;word-break:break-word}
+.row{padding:5px 0 5px 10px;border-left:3px solid transparent;margin-bottom:1px}
+.row code{font-size:11.5px;color:var(--ink);font-weight:700;display:block;margin-bottom:1px;word-break:break-word;background:none;padding:0}
 .row .note{color:var(--muted);font-size:11.5px;display:block}
 .row.glossary{border-left-color:var(--glossary)}.row.decision{border-left-color:var(--decision)}
-.row.plan{border-left-color:var(--plan)}.row.config{border-left-color:var(--config)}.row.tests{border-left-color:var(--tests)}
-.temp{background:var(--panel2);border:1px solid var(--border);border-radius:4px;padding:0 5px;font-size:11px;font-weight:600}
-.foot{margin-top:14px;padding:11px 14px;border:1px solid var(--border);border-radius:12px;color:var(--muted);font-size:12.5px;line-height:1.5}
+.row.plan{border-left-color:var(--pln)}.row.config{border-left-color:var(--config)}.row.tests{border-left-color:var(--tests)}
+.temp{background:var(--panel2);border:1px solid var(--border);border-radius:5px;padding:0 6px;font-size:11px;font-weight:700}
+.foot{margin-top:14px;padding:12px 15px;border:1px dashed var(--border-strong);border-radius:12px;color:var(--muted);font-size:12.5px;line-height:1.55}
 .foot b{color:var(--ink)}
 
-/* install */
-pre{background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;overflow:auto;font-family:var(--mono);font-size:12.5px;line-height:1.5}
-.opt{border:1px solid var(--border);border-radius:12px;padding:2px 16px 14px;margin:12px 0;background:var(--panel)}
-table{border-collapse:collapse;width:100%;margin:10px 0;font-size:13px}
-th,td{border:1px solid var(--border);padding:7px 10px;text-align:left;vertical-align:top}
-th{background:var(--panel2)}
-.hr{height:1px;background:var(--border);margin:30px 0}
-footer{margin-top:40px;color:var(--muted);font-size:12.5px}
-@media(max-width:640px){.grid{grid-template-columns:1fr}.page{padding:28px 16px 60px}}
+/* concept cards */
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:14px 0}
+.concept{border-radius:14px;padding:16px;box-shadow:var(--shadow);border:1px solid var(--border);border-top:4px solid var(--ac)}
+.concept.c1{--ac:var(--glossary);background:linear-gradient(180deg,color-mix(in srgb,var(--glossary) 8%,var(--surface)),var(--surface))}
+.concept.c2{--ac:var(--brand);background:linear-gradient(180deg,color-mix(in srgb,var(--brand) 10%,var(--surface)),var(--surface))}
+.concept.c3{--ac:var(--config);background:linear-gradient(180deg,color-mix(in srgb,var(--config) 10%,var(--surface)),var(--surface))}
+.concept .ct{font-weight:800;font-size:15px;margin-bottom:5px;color:var(--ac)}
+.concept .cd{color:var(--muted);font-size:12.5px;line-height:1.55}
+
+/* terminal code blocks */
+.term{border-radius:11px;overflow:hidden;margin:12px 0;box-shadow:var(--shadow);border:1px solid #1f2530}
+.term-bar{background:#161b22;padding:9px 12px;display:flex;gap:6px;align-items:center}
+.term-bar i{width:11px;height:11px;border-radius:50%;display:inline-block}
+.term-bar i:nth-child(1){background:#ff5f56}.term-bar i:nth-child(2){background:#ffbd2e}.term-bar i:nth-child(3){background:#27c93f}
+.term-bar span{margin-left:8px;color:#8b949e;font-size:11px;font-family:var(--mono)}
+.term pre{margin:0;background:var(--code-bg);color:var(--code-ink);padding:13px 15px;overflow:auto;
+  font-family:var(--mono);font-size:12.5px;line-height:1.6}
+.term pre .c{color:#8b949e}.term pre .g{color:#7ee787}
+
+.opt{border:1px solid var(--border);border-radius:14px;padding:4px 18px 16px;margin:14px 0;background:var(--surface);box-shadow:var(--shadow)}
+.opt h3{color:var(--ink)}
+.badge{display:inline-block;font-size:11px;font-weight:800;color:#fff;background:var(--build);border-radius:6px;padding:2px 8px;margin-left:6px;vertical-align:middle}
+table{border-collapse:separate;border-spacing:0;width:100%;margin:12px 0;font-size:13px;border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+th,td{padding:9px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--border)}
+tr:last-child td{border-bottom:none}
+th{background:var(--panel2);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+td code{background:var(--panel2)}
+footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color:var(--muted);font-size:12.5px}
+@media(max-width:640px){.grid,.grid3{grid-template-columns:1fr}.page{padding:16px 14px 60px}.hero{padding:32px 22px}.hero h1{font-size:28px}}
 </style>
 </head>
 <body>
 <div class="page">
 
-<h1>Engineering Skills</h1>
-<p class="lede">A comprehensive-but-simple set of agent skills that make a coding agent <b>align before it builds, document decisions as it goes, test what it ships, and keep the codebase healthy</b> — the same way across every repo.</p>
-<div class="tagrow">
-  <span class="chip">Tracker-agnostic · GitHub / Jira / local docs</span>
-  <span class="chip">Language-agnostic</span>
-  <span class="chip">Multi-repo aware</span>
-  <span class="chip">Based on mattpocock/skills (MIT)</span>
-</div>
+<header class="hero">
+  <h1>Engineering Skills</h1>
+  <p class="lede">A comprehensive-but-simple set of agent skills that make a coding agent <b>align before it builds, document as it goes, test what it ships, and keep the codebase healthy</b> — the same way across every repo.</p>
+  <div class="tagrow">
+    <span class="chip">Tracker-agnostic · GitHub / Jira / local docs</span>
+    <span class="chip">Language-agnostic</span>
+    <span class="chip">Multi-repo aware</span>
+    <span class="chip">Based on mattpocock/skills (MIT)</span>
+  </div>
+  <a class="repobtn" href="https://github.com/ibrahim-hayeck/AI-Claude-engineering-skills">
+    <svg class="gh" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+    github.com/ibrahim-hayeck/AI-Claude-engineering-skills
+  </a>
+</header>
 
-<nav class="nav">
+<nav class="topnav">
   <a href="#what">What this is</a>
   <a href="#loop">The loop</a>
-  <a href="#skills">Skills</a>
+  <a href="#core-skills">Core four</a>
+  <a href="#skills">All skills</a>
   <a href="#structure">Repo structure</a>
+  <a href="#concept">Plugins &amp; marketplaces</a>
   <a href="#install">Install</a>
 </nav>
 
+<div class="opt" style="border-color:var(--build);background:color-mix(in srgb,var(--build) 7%,var(--surface))">
+<h3>New here? Start with the core <span class="badge">easiest</span></h3>
+<p class="muted">Fourteen skills feels like a lot? Install the trimmed <b>engineering-core</b> plugin: <b>4 everyday commands, zero setup</b> — <code>/grill-with-docs</code> → <code>/tdd</code> → <code>/review</code> → <code>/diagnose</code> — that hand off to each other. Describe your work; the right one fires. Upgrade to the full pack whenever you want planning, triage, and architecture.</p>
+<div class="term"><div class="term-bar"><i></i><i></i><i></i><span>Claude Code</span></div><pre><span class="g">/plugin marketplace add</span> ibrahim-hayeck/AI-Claude-engineering-skills
+<span class="g">/plugin install</span> engineering-core@telus-tools</pre></div>
+<p class="muted">Install <b>engineering-core</b> (simple) <b>or</b> <b>engineering-skills</b> (full) — not both.</p>
+</div>
+
 <h2 id="what">What this is</h2>
-<p>Most AI-coding failures aren’t about typing speed — they’re misalignment (the agent built the wrong thing), verbosity (no shared language), broken code (no feedback loop), and architectural entropy (a growing ball of mud). This pack is a small, composable set of skills that each target one of those failure modes, wrapped in decades-old engineering fundamentals rather than a heavyweight framework.</p>
+<p>Most AI-coding failures aren't about typing speed — they're misalignment (the agent built the wrong thing), verbosity (no shared language), broken code (no feedback loop), and architectural entropy (a growing ball of mud). This pack is a small, composable set of skills that each target one of those failure modes, wrapped in decades-old engineering fundamentals rather than a heavyweight framework.</p>
 <p>Skills are invoked as slash commands (e.g. <code>/grill-with-docs</code>). They read a tiny per-repo config that <code>/setup-skills</code> writes once, so the whole team works the same way regardless of language or issue tracker.</p>
 
 <h2 id="loop">The core loop</h2>
 <div class="loop">
-  <b>align</b><span class="ar">→</span><b>document</b><span class="ar">→</span><b>plan</b><span class="ar">→</span><b>build</b><span class="ar">→</span><b>test</b><span class="ar">→</span><b>debug</b><span class="ar">→</span><b>improve</b>
+  <b class="s1">align</b><span class="ar">›</span><b class="s2">document</b><span class="ar">›</span><b class="s3">plan</b><span class="ar">›</span><b class="s4">build</b><span class="ar">›</span><b class="s5">test</b><span class="ar">›</span><b class="s6">review</b><span class="ar">›</span><b class="s7">debug</b><span class="ar">›</span><b class="s8">improve</b>
 </div>
 <p class="muted">Run <code>/setup-skills</code> once per repo. Then, per change: grill to align, capture a PRD, split into issues, build with tests, debug when stuck, and periodically improve the architecture.</p>
 
-<h2 id="skills">Skills, one by one</h2>
+<h2 id="core-skills">The core four <span class="tiernote">start here · engineering-core</span></h2>
+<p class="sec-sub">The <b>engineering-core</b> plugin is four zero-config commands that cover the everyday loop and <b>hand off to each other</b>. This is all most developers need day to day — install it and skip everything below until you want more.</p>
 
-<div class="phase">Setup · once per repo</div>
-<div class="skill">
-  <div class="cmd">/setup-skills</div>
-  <div class="files">writes → CLAUDE.md · docs/agents/*.md</div>
-  <div class="what">Records this repo’s <b>issue tracker</b> (GitHub, Jira, or local markdown), <b>where PRDs/ADRs live</b> (in-repo or a central docs repo), the <b>triage label</b> vocabulary, and the <b>CONTEXT.md layout</b>.</div>
+<div class="chain">
+  <div class="cstep ac-align"><b>/grill-with-docs</b><small>align on what &amp; why</small></div>
+  <span class="carrow">▶</span>
+  <div class="cstep ac-build"><b>/tdd</b><small>build it test-first</small></div>
+  <span class="carrow">▶</span>
+  <div class="cstep ac-review"><b>/review</b><small>check before merge</small></div>
+  <span class="carrow">▶</span>
+  <div class="cmerge">merge ✓</div>
+</div>
+<div class="chain sub">
+  <span class="cbranch">↳ if review finds a hard bug</span><span class="carrow">▶</span>
+  <div class="cstep ac-debug"><b>/diagnose</b><small>fix + regression test</small></div>
+  <span class="carrow">▶</span><span class="cbranch">back to /review</span>
+</div>
+
+<h3>How the chain reacts</h3>
+<p class="muted">Each skill ends by <b>offering</b> the next step, and because skills auto-trigger from plain-language requests, saying "yes" (or just describing the next task) fires the following one. <code>/grill-with-docs</code> aligns you, then offers to build with <code>/tdd</code>; <code>/tdd</code> finishes green and offers <code>/review</code>; <code>/review</code> routes on what it finds — a clean pass means merge, a clear fix loops back to <code>/tdd</code>, a mysterious bug goes to <code>/diagnose</code>; <code>/diagnose</code> fixes with a regression test and offers <code>/review</code> again. It's a guided loop, not a rigid pipeline: you approve each hop, and any skill can be the entry point — a bug report drops straight into <code>/diagnose</code>, "review my branch" straight into <code>/review</code>.</p>
+
+<div class="skill ac-align">
+  <span class="cmd">/grill-with-docs</span>
+  <div class="files">hands off to → /tdd (or /diagnose)</div>
+  <div class="what">Interviews you about the change until it's clear, then captures agreed terms in <code>CONTEXT.md</code> and hard decisions as short ADRs (both optional/lazy).</div>
+</div>
+<div class="skill ac-build">
+  <span class="cmd">/tdd</span>
+  <div class="files">hands off to → /review</div>
+  <div class="what">Builds the feature or fix test-first, one behaviour at a time (red-green-refactor), testing behaviour through public interfaces.</div>
+</div>
+<div class="skill ac-review">
+  <span class="cmd">/review</span>
+  <div class="files">hands off to → /tdd or /diagnose · else merge</div>
+  <div class="what">Reviews a diff/PR before merge — correctness, tests, clarity, architecture, basic safety — reported by severity. Zero config; prints in chat, can post to a GitHub PR.</div>
+</div>
+<div class="skill ac-debug">
+  <span class="cmd">/diagnose</span>
+  <div class="files">hands off to → /review</div>
+  <div class="what">A disciplined loop for hard bugs: build a fast feedback signal, reproduce, rank hypotheses, instrument, fix with a regression test, clean up.</div>
+</div>
+
+<h2 id="skills">All skills — the full pack <span class="tiernote" style="color:var(--brand);background:color-mix(in srgb,var(--brand) 12%,var(--surface))">14 · engineering-skills</span></h2>
+<p class="sec-sub">The complete toolkit, grouped by phase. Install <b>engineering-skills</b> for everything, including planning, triage, functional/security testing, architecture, and handoff. (The four above are included here too.)</p>
+
+<span class="phase p-setup">Setup · once per repo</span>
+<div class="skill ac-setup">
+  <span class="cmd">/setup-skills</span>
+  <div class="files">writes: CLAUDE.md, docs/agents/*.md</div>
+  <div class="what">Records this repo's <b>issue tracker</b> (GitHub, Jira, or local markdown), <b>where PRDs/ADRs live</b> (in-repo or a central docs repo), the <b>triage label</b> vocabulary, and the <b>CONTEXT.md layout</b>.</div>
   <div class="use"><b>Use it</b> once per repo before anything else — every other skill reads what it writes. Re-run only to switch trackers.</div>
 </div>
 
-<div class="phase">Align</div>
-<div class="skill">
-  <div class="cmd">/grill-me</div>
+<span class="phase p-align">Align</span>
+<div class="skill ac-align">
+  <span class="cmd">/grill-me</span>
   <div class="what">Interviews you relentlessly about a plan or design, one question at a time, resolving every branch of the decision tree.</div>
   <div class="use"><b>Use it</b> to stress-test any non-code plan before committing to it.</div>
 </div>
-<div class="skill">
-  <div class="cmd">/grill-with-docs</div>
-  <div class="files">updates → CONTEXT.md · docs/adr/</div>
+<div class="skill ac-align">
+  <span class="cmd">/grill-with-docs</span>
+  <div class="files">updates: CONTEXT.md, docs/adr/</div>
   <div class="what">The same grilling, for code work — and it captures the results as it goes: sharpens terminology into <code>CONTEXT.md</code> and records hard-to-reverse decisions as ADRs.</div>
   <div class="use"><b>Use it</b> at the start of any non-trivial change. This is the highest-leverage skill in the pack.</div>
 </div>
 
-<div class="phase">Plan</div>
-<div class="skill">
-  <div class="cmd">/to-prd</div>
-  <div class="files">writes → docs/prds/ (or central) + a tracking item</div>
-  <div class="what">Synthesizes the conversation into a Product Requirements Doc — problem, user stories, modules, testing plan — and opens the tracking epic/issue. No interview; it uses what you’ve already discussed.</div>
+<span class="phase p-plan">Plan</span>
+<div class="skill ac-plan">
+  <span class="cmd">/to-prd</span>
+  <div class="files">writes: docs/prds/ (or central) + a tracking item</div>
+  <div class="what">Synthesizes the conversation into a Product Requirements Doc — problem, user stories, modules, testing plan — and opens the tracking epic/issue. No interview; it uses what you've already discussed.</div>
   <div class="use"><b>Use it</b> right after grilling to lock the plan down.</div>
 </div>
-<div class="skill">
-  <div class="cmd">/to-issues</div>
+<div class="skill ac-plan">
+  <span class="cmd">/to-issues</span>
   <div class="what">Breaks the plan into <b>tracer-bullet vertical slices</b> — thin end-to-end issues, each demoable on its own. For multi-repo work it creates one issue per repo per slice, linked to the parent.</div>
   <div class="use"><b>Use it</b> to turn a PRD into grabbable work.</div>
 </div>
-<div class="skill">
-  <div class="cmd">/triage</div>
-  <div class="what">Moves incoming issues through a state machine — <code>needs-triage → needs-info → ready-for-agent / ready-for-human / wontfix</code> — reproducing bugs and writing durable agent briefs.</div>
+<div class="skill ac-plan">
+  <span class="cmd">/triage</span>
+  <div class="what">Moves incoming issues through a state machine — needs-triage, needs-info, ready-for-agent, ready-for-human, wontfix — reproducing bugs and writing durable agent briefs.</div>
   <div class="use"><b>Use it</b> to keep the backlog groomed and hand well-specified work to AFK agents.</div>
 </div>
 
-<div class="phase">Build &amp; test</div>
-<div class="skill">
-  <div class="cmd">/tdd</div>
+<span class="phase p-build">Build &amp; test</span>
+<div class="skill ac-build">
+  <span class="cmd">/tdd</span>
   <div class="what">Red-green-refactor, one behaviour at a time. Writes a failing unit/integration test, makes it pass, refactors — tests verify behaviour through public interfaces, so they survive refactors.</div>
   <div class="use"><b>Use it</b> while implementing a slice.</div>
 </div>
-<div class="skill">
-  <div class="cmd">/functional-test</div>
-  <div class="files">API tests · Playwright E2E · cross-repo contract tests</div>
-  <div class="what">The acceptance layer above <code>/tdd</code>: verifies a feature against its acceptance criteria through its <b>real external interface</b> — HTTP APIs, browser flows, and multi-service contract tests. Language-agnostic: it detects the repo’s stack.</div>
+<div class="skill ac-build">
+  <span class="cmd">/functional-test</span>
+  <div class="files">API tests, Playwright E2E, cross-repo contract tests</div>
+  <div class="what">The acceptance layer above <code>/tdd</code>: verifies a feature against its acceptance criteria through its <b>real external interface</b> — HTTP APIs, browser flows, and multi-service contract tests. Language-agnostic: it detects the repo's stack.</div>
   <div class="use"><b>Use it</b> to prove a feature works end-to-end and to lock cross-service seams.</div>
 </div>
 
-<div class="phase">Debug &amp; understand</div>
-<div class="skill">
-  <div class="cmd">/diagnose</div>
+<span class="phase p-review">Review</span>
+<div class="skill ac-review">
+  <span class="cmd">/review</span>
+  <div class="files">reads: PRD / acceptance criteria, CONTEXT.md, docs/adr/</div>
+  <div class="what">Reviews a diff, PR, or branch against the <b>acceptance criteria</b>, the <b>glossary</b>, and the <b>ADRs</b> — flagging correctness, missing tests, architectural smells, naming, and data guardrails by severity (blocker / should-fix / nit) — then posts the review to the configured tracker.</div>
+  <div class="use"><b>Use it</b> on every change before merge.</div>
+</div>
+<div class="skill ac-review">
+  <span class="cmd">/security-review</span>
+  <div class="what">A focused security pass: secrets, authn/authz (incl. IDOR), input validation &amp; injection, sensitive-data handling, crypto, and dependency risk — findings ranked critical to low, plus an explicit list of what was checked and found safe.</div>
+  <div class="use"><b>Use it</b> when a change touches auth, external input, data access, or dependencies.</div>
+</div>
+
+<span class="phase p-debug">Debug &amp; understand</span>
+<div class="skill ac-debug">
+  <span class="cmd">/diagnose</span>
   <div class="what">A discipline for hard bugs: build a fast deterministic feedback loop, reproduce, generate ranked falsifiable hypotheses, instrument one variable at a time, fix with a regression test, then clean up and note what would have prevented it.</div>
   <div class="use"><b>Use it</b> for stubborn bugs and performance regressions.</div>
 </div>
-<div class="skill">
-  <div class="cmd">/zoom-out</div>
-  <div class="what">Asks the agent to go up a layer and map the relevant modules and callers using the project’s glossary.</div>
-  <div class="use"><b>Use it</b> when you’re dropped into unfamiliar code.</div>
+<div class="skill ac-debug">
+  <span class="cmd">/zoom-out</span>
+  <div class="what">Asks the agent to go up a layer and map the relevant modules and callers using the project's glossary.</div>
+  <div class="use"><b>Use it</b> when you're dropped into unfamiliar code.</div>
 </div>
 
-<div class="phase">Improve &amp; hand off</div>
-<div class="skill">
-  <div class="cmd">/improve-codebase-architecture</div>
+<span class="phase p-improve">Improve &amp; hand off</span>
+<div class="skill ac-improve">
+  <span class="cmd">/improve-codebase-architecture</span>
   <div class="what">Finds <b>deepening opportunities</b> — shallow modules to consolidate into deep, testable ones — informed by your glossary and ADRs. Presents candidates, then designs interfaces with you.</div>
   <div class="use"><b>Use it</b> every few days to fight architectural entropy.</div>
 </div>
-<div class="skill">
-  <div class="cmd">/handoff</div>
+<div class="skill ac-improve">
+  <span class="cmd">/handoff</span>
   <div class="what">Compacts the current conversation into a handoff document (saved to a temp dir, secrets redacted) so a fresh agent can continue.</div>
   <div class="use"><b>Use it</b> when context is running low.</div>
 </div>
 
 <h2 id="structure">Where everything lives — a multi-repo change</h2>
-<p class="muted">One change (epic <b>ORD-42 “express checkout”</b>) spanning four repos, using the <b>local-markdown</b> issue tracker and a <b>central docs repo</b>. Everything shown is committed to git (persistent) unless marked <span class="temp">temp</span>.</p>
+<p class="sec-sub">One change (epic <b>ORD-42 "express checkout"</b>) spanning four repos, using the <b>local-markdown</b> issue tracker and a <b>central docs repo</b>. Everything shown is committed to git (persistent) unless marked <span class="temp">temp</span>.</p>
 
 <div class="legend">
   <span><i class="dot" style="background:var(--glossary)"></i>Glossary — what words mean</span>
   <span><i class="dot" style="background:var(--decision)"></i>Decision (ADR) — why we chose it</span>
-  <span><i class="dot" style="background:var(--plan)"></i>Plan — PRD &amp; issues</span>
+  <span><i class="dot" style="background:var(--pln)"></i>Plan — PRD &amp; issues</span>
   <span><i class="dot" style="background:var(--config)"></i>Config — how this repo works</span>
   <span><i class="dot" style="background:var(--tests)"></i>Tests — proof it works</span>
 </div>
 
 <div class="flow">
   <span class="flab">Dependency flow:</span>
-  <span class="pill">frontend-web</span><span class="arr">→</span>
-  <span class="pill">orders-api</span><span class="arr">→</span>
+  <span class="pill">frontend-web</span><span class="arr">›</span>
+  <span class="pill">orders-api</span><span class="arr">›</span>
   <span class="pill">payments-service</span>
-  <span class="arr2">· orders-api →</span><span class="pill">orders-db</span>
+  <span class="arr2">· orders-api ›</span><span class="pill">orders-db</span>
 </div>
 
 <div class="card hub">
-  <div class="cardhead">📁 engineering-docs <span class="tag">central docs repo · the hub</span></div>
+  <div class="cardhead">engineering-docs <span class="tag">central docs repo · the hub</span></div>
   <div class="cardrole">No code. The single home for anything that belongs to the whole change, not one repo.</div>
   <div class="row plan"><code>prds/ORD-42.md</code><span class="note">The <b>one PRD</b> for the entire change — problem, user stories, affected repos, test plan. Keyed by the epic so code + docs + tests link back.</span></div>
   <div class="row decision"><code>docs/adr/0007-checkout-payment-contract.md</code><span class="note"><b>Cross-repo ADR</b>: the shared API/event contract between orders-api and payments-service. Lives here because it binds more than one repo.</span></div>
@@ -215,26 +380,26 @@ footer{margin-top:40px;color:var(--muted);font-size:12.5px}
 
 <div class="grid">
   <div class="card">
-    <div class="cardhead">📁 frontend-web <span class="tag">React · calls orders-api</span></div>
+    <div class="cardhead">frontend-web <span class="tag">React · calls orders-api</span></div>
     <div class="cardrole">Owns the end-to-end user journey (entry point).</div>
-    <div class="row config"><code>CLAUDE.md</code><span class="note"><code>## Agent skills</code> block → points to <code>docs/agents/</code>.</span></div>
+    <div class="row config"><code>CLAUDE.md</code><span class="note"><code>## Agent skills</code> block, points to <code>docs/agents/</code>.</span></div>
     <div class="row glossary"><code>CONTEXT.md</code><span class="note">Frontend glossary (Cart, CheckoutStep). Versions with the code.</span></div>
     <div class="row config"><code>docs/agents/*.md</code><span class="note">Written once by <code>/setup-skills</code>: issue-tracker, docs-location, triage-labels, domain.</span></div>
     <div class="row decision"><code>docs/adr/0003-optimistic-cart.md</code><span class="note">A decision local to the frontend.</span></div>
-    <div class="row decision"><code>docs/adr/0007-stub.md</code><span class="note">One-line stub → cross-repo ADR-0007 in the hub.</span></div>
+    <div class="row decision"><code>docs/adr/0007-stub.md</code><span class="note">One-line stub to cross-repo ADR-0007 in the hub.</span></div>
     <div class="row plan"><code>.scratch/ORD-42/000-prd.md</code><span class="note">Pointer to the central PRD.</span></div>
     <div class="row plan"><code>.scratch/ORD-42/001-checkout-page.md</code><span class="note"><b>Local issue</b> = one vertical slice for this repo.</span></div>
     <div class="row tests"><code>tests/e2e/checkout.spec.ts</code><span class="note">Playwright E2E for the whole journey (entry-point repo).</span></div>
   </div>
 
   <div class="card">
-    <div class="cardhead">📁 orders-api <span class="tag">backend · calls payments + db</span></div>
+    <div class="cardhead">orders-api <span class="tag">backend · calls payments + db</span></div>
     <div class="cardrole">Consumer of the payments contract; owns order data.</div>
-    <div class="row config"><code>CLAUDE.md</code><span class="note">Agent skills block → <code>docs/agents/</code>.</span></div>
+    <div class="row config"><code>CLAUDE.md</code><span class="note">Agent skills block, points to <code>docs/agents/</code>.</span></div>
     <div class="row glossary"><code>CONTEXT.md</code><span class="note">Backend glossary (Order, LineItem, Payment).</span></div>
     <div class="row config"><code>docs/agents/*.md</code><span class="note">Same four config files, per this repo.</span></div>
     <div class="row decision"><code>docs/adr/0005-order-state-machine.md</code><span class="note">Backend-local decision.</span></div>
-    <div class="row decision"><code>docs/adr/0007-stub.md</code><span class="note">Stub → central ADR-0007 (consumer side).</span></div>
+    <div class="row decision"><code>docs/adr/0007-stub.md</code><span class="note">Stub to central ADR-0007 (consumer side).</span></div>
     <div class="row plan"><code>.scratch/ORD-42/003-create-order.md</code><span class="note">Local issue — slice.</span></div>
     <div class="row plan"><code>.scratch/ORD-42/004-call-payments.md</code><span class="note">Slice; blocked-by the payments slice.</span></div>
     <div class="row tests"><code>tests/functional/orders_api_*</code><span class="note">API/service tests through the endpoint.</span></div>
@@ -242,19 +407,19 @@ footer{margin-top:40px;color:var(--muted);font-size:12.5px}
   </div>
 
   <div class="card">
-    <div class="cardhead">📁 payments-service <span class="tag">microservice · dependency of orders-api</span></div>
+    <div class="cardhead">payments-service <span class="tag">microservice · dependency of orders-api</span></div>
     <div class="cardrole">Provider of the contract; owned by another team.</div>
     <div class="row config"><code>CLAUDE.md</code><span class="note">Agent skills block.</span></div>
     <div class="row glossary"><code>CONTEXT.md</code><span class="note">Its own glossary (Charge, Refund, PaymentIntent).</span></div>
     <div class="row config"><code>docs/agents/*.md</code><span class="note">Its own setup config.</span></div>
-    <div class="row decision"><code>docs/adr/0007-stub.md</code><span class="note">Stub → central ADR-0007 (provider side).</span></div>
+    <div class="row decision"><code>docs/adr/0007-stub.md</code><span class="note">Stub to central ADR-0007 (provider side).</span></div>
     <div class="row plan"><code>contracts/payments-openapi.yaml</code><span class="note"><b>The contract itself</b> — source of truth for the seam both sides test against.</span></div>
     <div class="row plan"><code>.scratch/ORD-42/005-charge-endpoint.md</code><span class="note">Local issue — slice.</span></div>
     <div class="row tests"><code>tests/contract/payments-provider.*</code><span class="note"><b>Provider contract test</b> — proves it still matches the contract.</span></div>
   </div>
 
   <div class="card">
-    <div class="cardhead">📁 orders-db <span class="tag">database · dependency of orders-api</span></div>
+    <div class="cardhead">orders-db <span class="tag">database · dependency of orders-api</span></div>
     <div class="cardrole">Schema &amp; migrations for order/checkout data.</div>
     <div class="row config"><code>CLAUDE.md</code><span class="note">Agent skills block.</span></div>
     <div class="row glossary"><code>CONTEXT.md</code><span class="note">Schema domain terms, aligned to orders-api.</span></div>
@@ -267,34 +432,76 @@ footer{margin-top:40px;color:var(--muted);font-size:12.5px}
 </div>
 
 <div class="foot">
-  <b>Two swaps to know:</b> pick <b>GitHub/Jira</b> in <code>/setup-skills</code> and every <code>.scratch/ORD-42/*</code> file becomes a remote GitHub issue / Jira story instead (one per repo, linked to the epic) — nothing else moves. Choose <b>in-repo docs</b> and the PRD/cross-repo ADR move into each repo’s <code>docs/</code> rather than the hub (best only for single-repo work). <span class="temp">temp</span> = the <code>/handoff</code> doc goes to your OS temp dir and debug logs are deleted at the end — deliberately <i>not</i> persisted.
+  <b>Two swaps to know:</b> pick <b>GitHub/Jira</b> in <code>/setup-skills</code> and every <code>.scratch/ORD-42/*</code> file becomes a remote GitHub issue / Jira story instead (one per repo, linked to the epic) — nothing else moves. Choose <b>in-repo docs</b> and the PRD/cross-repo ADR move into each repo's <code>docs/</code> rather than the hub (best only for single-repo work). <span class="temp">temp</span> = the <code>/handoff</code> doc goes to your OS temp dir and debug logs are deleted at the end — deliberately <i>not</i> persisted.
 </div>
+
+<h2 id="concept">Plugins &amp; marketplaces</h2>
+<p class="sec-sub">Like an app store: the <b>marketplace</b> is the store, a <b>plugin</b> is an app, and a <b>skill</b> is a feature inside the app.</p>
+
+<div class="grid3">
+  <div class="concept c1">
+    <div class="ct">Skill</div>
+    <div class="cd">One capability — a folder with a <code>SKILL.md</code> the agent reads when a task matches (e.g. <code>functional-test</code>). On its own, just a file.</div>
+  </div>
+  <div class="concept c2">
+    <div class="ct">Plugin</div>
+    <div class="cd">A bundle you install as a unit — skills plus optional slash commands, subagents, hooks, and MCP servers. Defined by <code>plugin.json</code>. Ours bundles all 14 skills.</div>
+  </div>
+  <div class="concept c3">
+    <div class="ct">Marketplace</div>
+    <div class="cd">A catalog listing one or more plugins and where to find them — how they're discovered, installed, versioned, updated. Defined by <code>marketplace.json</code>. Ours is <code>telus-tools</code>.</div>
+  </div>
+</div>
+
+<h3>How the files fit together</h3>
+<p class="muted">Both definition files live in a <code>.claude-plugin/</code> folder at the repo root:</p>
+<div class="term"><div class="term-bar"><i></i><i></i><i></i><span>repo layout</span></div><pre>AI-Claude-engineering-skills/     <span class="c"># the git repo you host</span>
+    .claude-plugin/
+        plugin.json         <span class="c"># what is this plugin + its skills</span>
+        marketplace.json    <span class="c"># what plugins this catalog offers + where</span>
+    skills/                 <span class="c"># the actual skills the plugin ships</span>
+    templates/  docs/  README.md</pre></div>
+<p class="muted"><code>plugin.json</code> → <code>{ "name": "engineering-skills", "version": "0.1.0", "skills": [ ... ] }</code>. <code>marketplace.json</code> → <code>{ "name": "telus-tools", "plugins": [ { "name": "engineering-skills", "source": "./" } ] }</code>. The <code>"source": "./"</code> means the plugin sits at the root of this same repo; a marketplace can also point at other folders or other repos, so one catalog can offer many plugins.</p>
+
+<h3>How to create one</h3>
+<p class="muted">(1) Build the plugin — a <code>skills/</code> folder plus <code>plugin.json</code>. (2) Write <code>marketplace.json</code> listing it. (3) Host it — push the repo to GitHub (public, or private for a team). (4) Version it — bump <code>version</code> in <code>plugin.json</code> when skills change. This repo already has all four.</p>
+
+<h3>Why bother vs. copying skill folders</h3>
+<p class="muted">One-command install of the whole bundle, versioned updates (push once, everyone runs <code>update</code>), and central discovery — a private repo becomes your internal "app store".</p>
 
 <h2 id="install">Install</h2>
 
 <div class="opt">
-<h3>Option A — as a plugin (recommended for a team)</h3>
-<p class="muted">Push this <code>engineering-skills/</code> folder to an internal git repo (it already contains <code>.claude-plugin/plugin.json</code> and <code>marketplace.json</code>). Then each teammate runs, in Claude Code:</p>
-<pre>/plugin marketplace add &lt;your-org&gt;/engineering-skills
-/plugin install engineering-skills@telus-tools</pre>
-<p class="muted">One install brings all twelve skills. Everyone then runs <code>/setup-skills</code> once per repo.</p>
+<h3>Option A — as a plugin <span class="badge">recommended</span></h3>
+<p class="muted">The repo already contains <code>.claude-plugin/plugin.json</code> and <code>marketplace.json</code>. Each teammate runs, in Claude Code:</p>
+<div class="term"><div class="term-bar"><i></i><i></i><i></i><span>Claude Code</span></div><pre><span class="g">/plugin marketplace add</span> ibrahim-hayeck/AI-Claude-engineering-skills
+<span class="g">/plugin install</span> engineering-skills@telus-tools</pre></div>
+<p class="muted">The <code>marketplace add</code> line uses the <b>owner/repo</b>; the <code>install</code> line uses <b>plugin@marketplace</b> (the <code>name</code> fields inside the two JSON files). One install brings all fourteen skills. Everyone then runs <code>/setup-skills</code> once per repo.</p>
+</div>
+
+<div class="opt">
+<h3>Keeping it updated</h3>
+<p class="muted">After you push changes to the repo, teammates pull the new version:</p>
+<div class="term"><div class="term-bar"><i></i><i></i><i></i><span>Claude Code</span></div><pre><span class="g">/plugin marketplace update</span> telus-tools
+<span class="g">/plugin</span>                                  <span class="c"># open the plugin manager UI</span>
+<span class="g">/plugin uninstall</span> engineering-skills@telus-tools</pre></div>
 </div>
 
 <div class="opt">
 <h3>Option B — drop-in skills (no marketplace)</h3>
 <p class="muted">Copy the skill folders into your skills directory — globally or per-project:</p>
-<pre># global (all projects on this machine)
-cp -r engineering-skills/skills/* ~/.claude/skills/
+<div class="term"><div class="term-bar"><i></i><i></i><i></i><span>bash</span></div><pre><span class="c"># global (all projects on this machine)</span>
+cp -r skills/* ~/.claude/skills/
 
-# or per-project
-cp -r engineering-skills/skills/* &lt;repo&gt;/.claude/skills/</pre>
+<span class="c"># or per-project</span>
+cp -r skills/* &lt;repo&gt;/.claude/skills/</pre></div>
 <p class="muted">Keep <code>CONVENTIONS.md</code> and <code>templates/</code> somewhere the team can find them.</p>
 </div>
 
 <div class="opt">
 <h3>Option C — skills.sh installer (like the original)</h3>
-<p class="muted">If the repo is public, the community installer works too and lets people pick which skills + which agents (Claude Code, Codex, …):</p>
-<pre>npx skills@latest add &lt;your-org&gt;/engineering-skills</pre>
+<p class="muted">If the repo is public, the community installer lets people pick which skills + which agents (Claude Code, Codex, ...):</p>
+<div class="term"><div class="term-bar"><i></i><i></i><i></i><span>bash</span></div><pre>npx skills@latest add ibrahim-hayeck/AI-Claude-engineering-skills</pre></div>
 </div>
 
 <h3>Pick your issue tracker at setup</h3>
@@ -303,10 +510,11 @@ cp -r engineering-skills/skills/* &lt;repo&gt;/.claude/skills/</pre>
   <tr><td>GitHub Issues</td><td>Remote, via <code>gh</code> / GitHub MCP</td><td>Teams already on GitHub</td></tr>
   <tr><td>Jira</td><td>Remote, via Atlassian MCP / REST</td><td>Enterprise boards</td></tr>
   <tr><td>Local markdown</td><td><code>.scratch/&lt;feature&gt;/*.md</code> in the repo</td><td>Solo work, prototypes, no tracker</td></tr>
-  <tr><td>Other</td><td>Described in one paragraph</td><td>Linear, Azure DevOps, …</td></tr>
+  <tr><td>Other</td><td>Described in one paragraph</td><td>Linear, Azure DevOps, ...</td></tr>
 </table>
 
 <footer>
+Repo: <a href="https://github.com/ibrahim-hayeck/AI-Claude-engineering-skills">github.com/ibrahim-hayeck/AI-Claude-engineering-skills</a><br>
 Adapted from <a href="https://github.com/mattpocock/skills">mattpocock/skills</a> (MIT). Reference docs in this repo: <code>README.md</code>, <code>CONVENTIONS.md</code>, <code>NOTICE.md</code>.
 </footer>
 
