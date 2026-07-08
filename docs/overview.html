@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Engineering Skills — Overview</title>
+<style>
+:root{
+  --bg:#ffffff; --panel:#f7f8fa; --panel2:#f0f2f5; --ink:#16181d; --muted:#5b6270;
+  --border:#e2e5ea; --border-strong:#c9cdd6; --brand:#2563eb;
+  --glossary:#0d9488; --decision:#7c3aed; --plan:#2563eb; --config:#d97706; --tests:#db2777;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#0f1115;--panel:#171a20;--panel2:#1d222a;--ink:#e9ecf1;--muted:#9aa2b1;
+    --border:#272c35;--border-strong:#3a414d;--brand:#6ea8ff;}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.55;font-size:15px}
+.page{max-width:1000px;margin:0 auto;padding:40px 22px 80px}
+a{color:var(--brand)}
+code,kbd{font-family:var(--mono);font-size:.88em}
+h1{font-size:30px;letter-spacing:-.02em;margin:0 0 6px}
+h2{font-size:21px;letter-spacing:-.01em;margin:44px 0 6px;padding-top:14px;border-top:1px solid var(--border)}
+h3{font-size:15px;margin:18px 0 4px}
+p{margin:8px 0}
+.lede{color:var(--muted);font-size:16px;margin:0 0 8px}
+.tagrow{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 4px}
+.chip{font-size:12px;font-weight:600;padding:4px 11px;border-radius:999px;border:1px solid var(--border-strong);color:var(--muted)}
+.muted{color:var(--muted)}
+.loop{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:14px 0;padding:12px 14px;background:var(--panel);border:1px solid var(--border);border-radius:12px}
+.loop b{background:var(--bg);border:1px solid var(--border-strong);border-radius:8px;padding:3px 9px;font-size:12.5px}
+.loop .ar{color:var(--muted)}
+.nav{display:flex;flex-wrap:wrap;gap:8px 16px;margin:18px 0 6px;font-size:13px}
+.nav a{text-decoration:none}
+
+/* skill catalog */
+.phase{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:24px 0 8px}
+.skill{border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin:10px 0;background:var(--panel)}
+.skill .cmd{font-family:var(--mono);font-weight:700;font-size:14px;color:var(--ink)}
+.skill .files{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:2px}
+.skill .what{margin:6px 0 4px}
+.skill .use{font-size:13px;color:var(--muted)}
+.skill .use b{color:var(--ink);font-weight:600}
+
+/* repo visual (reused) */
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin:14px 0}
+.legend span{display:inline-flex;align-items:center;gap:7px;color:var(--muted);font-size:12.5px}
+.dot{width:11px;height:11px;border-radius:3px;display:inline-block;flex:none}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0;padding:10px 14px;border:1px dashed var(--border-strong);border-radius:12px}
+.flab{color:var(--muted);font-size:12px;font-weight:600}
+.pill{padding:3px 11px;border-radius:999px;border:1px solid var(--border-strong);font-weight:600;font-size:12px;font-family:var(--mono)}
+.arr{color:var(--muted);font-size:15px}.arr2{color:var(--muted);font-size:12px;margin-left:6px}
+.card{border:1px solid var(--border);border-radius:14px;padding:13px 15px;background:var(--panel);margin:12px 0}
+.hub{border-color:var(--plan);border-width:1.5px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cardhead{font-weight:700;font-size:14.5px;display:flex;flex-wrap:wrap;align-items:baseline;gap:8px}
+.tag{font-weight:500;font-size:11.5px;color:var(--muted)}
+.cardrole{color:var(--muted);font-size:12px;margin:3px 0 9px}
+.row{padding:5px 0 5px 9px;border-left:3px solid transparent;margin-bottom:1px}
+.row code{font-size:11.5px;color:var(--ink);font-weight:700;display:block;margin-bottom:1px;word-break:break-word}
+.row .note{color:var(--muted);font-size:11.5px;display:block}
+.row.glossary{border-left-color:var(--glossary)}.row.decision{border-left-color:var(--decision)}
+.row.plan{border-left-color:var(--plan)}.row.config{border-left-color:var(--config)}.row.tests{border-left-color:var(--tests)}
+.temp{background:var(--panel2);border:1px solid var(--border);border-radius:4px;padding:0 5px;font-size:11px;font-weight:600}
+.foot{margin-top:14px;padding:11px 14px;border:1px solid var(--border);border-radius:12px;color:var(--muted);font-size:12.5px;line-height:1.5}
+.foot b{color:var(--ink)}
+
+/* install */
+pre{background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;overflow:auto;font-family:var(--mono);font-size:12.5px;line-height:1.5}
+.opt{border:1px solid var(--border);border-radius:12px;padding:2px 16px 14px;margin:12px 0;background:var(--panel)}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:13px}
+th,td{border:1px solid var(--border);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--panel2)}
+.hr{height:1px;background:var(--border);margin:30px 0}
+footer{margin-top:40px;color:var(--muted);font-size:12.5px}
+@media(max-width:640px){.grid{grid-template-columns:1fr}.page{padding:28px 16px 60px}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<h1>Engineering Skills</h1>
+<p class="lede">A comprehensive-but-simple set of agent skills that make a coding agent <b>align before it builds, document decisions as it goes, test what it ships, and keep the codebase healthy</b> — the same way across every repo.</p>
+<div class="tagrow">
+  <span class="chip">Tracker-agnostic · GitHub / Jira / local docs</span>
+  <span class="chip">Language-agnostic</span>
+  <span class="chip">Multi-repo aware</span>
+  <span class="chip">Based on mattpocock/skills (MIT)</span>
+</div>
+
+<nav class="nav">
+  <a href="#what">What this is</a>
+  <a href="#loop">The loop</a>
+  <a href="#skills">Skills</a>
+  <a href="#structure">Repo structure</a>
+  <a href="#install">Install</a>
+</nav>
+
+<h2 id="what">What this is</h2>
+<p>Most AI-coding failures aren’t about typing speed — they’re misalignment (the agent built the wrong thing), verbosity (no shared language), broken code (no feedback loop), and architectural entropy (a growing ball of mud). This pack is a small, composable set of skills that each target one of those failure modes, wrapped in decades-old engineering fundamentals rather than a heavyweight framework.</p>
+<p>Skills are invoked as slash commands (e.g. <code>/grill-with-docs</code>). They read a tiny per-repo config that <code>/setup-skills</code> writes once, so the whole team works the same way regardless of language or issue tracker.</p>
+
+<h2 id="loop">The core loop</h2>
+<div class="loop">
+  <b>align</b><span class="ar">→</span><b>document</b><span class="ar">→</span><b>plan</b><span class="ar">→</span><b>build</b><span class="ar">→</span><b>test</b><span class="ar">→</span><b>debug</b><span class="ar">→</span><b>improve</b>
+</div>
+<p class="muted">Run <code>/setup-skills</code> once per repo. Then, per change: grill to align, capture a PRD, split into issues, build with tests, debug when stuck, and periodically improve the architecture.</p>
+
+<h2 id="skills">Skills, one by one</h2>
+
+<div class="phase">Setup · once per repo</div>
+<div class="skill">
+  <div class="cmd">/setup-skills</div>
+  <div class="files">writes → CLAUDE.md · docs/agents/*.md</div>
+  <div class="what">Records this repo’s <b>issue tracker</b> (GitHub, Jira, or local markdown), <b>where PRDs/ADRs live</b> (in-repo or a central docs repo), the <b>triage label</b> vocabulary, and the <b>CONTEXT.md layout</b>.</div>
+  <div class="use"><b>Use it</b> once per repo before anything else — every other skill reads what it writes. Re-run only to switch trackers.</div>
+</div>
+
+<div class="phase">Align</div>
+<div class="skill">
+  <div class="cmd">/grill-me</div>
+  <div class="what">Interviews you relentlessly about a plan or design, one question at a time, resolving every branch of the decision tree.</div>
+  <div class="use"><b>Use it</b> to stress-test any non-code plan before committing to it.</div>
+</div>
+<div class="skill">
+  <div class="cmd">/grill-with-docs</div>
+  <div class="files">updates → CONTEXT.md · docs/adr/</div>
+  <div class="what">The same grilling, for code work — and it captures the results as it goes: sharpens terminology into <code>CONTEXT.md</code> and records hard-to-reverse decisions as ADRs.</div>
+  <div class="use"><b>Use it</b> at the start of any non-trivial change. This is the highest-leverage skill in the pack.</div>
+</div>
+
+<div class="phase">Plan</div>
+<div class="skill">
+  <div class="cmd">/to-prd</div>
+  <div class="files">writes → docs/prds/ (or central) + a tracking item</div>
+  <div class="what">Synthesizes the conversation into a Product Requirements Doc — problem, user stories, modules, testing plan — and opens the tracking epic/issue. No interview; it uses what you’ve already discussed.</div>
+  <div class="use"><b>Use it</b> right after grilling to lock the plan down.</div>
+</div>
+<div class="skill">
+  <div class="cmd">/to-issues</div>
+  <div class="what">Breaks the plan into <b>tracer-bullet vertical slices</b> — thin end-to-end issues, each demoable on its own. For multi-repo work it creates one issue per repo per slice, linked to the parent.</div>
+  <div class="use"><b>Use it</b> to turn a PRD into grabbable work.</div>
+</div>
+<div class="skill">
+  <div class="cmd">/triage</div>
+  <div class="what">Moves incoming issues through a state machine — <code>needs-triage → needs-info → ready-for-agent / ready-for-human / wontfix</code> — reproducing bugs and writing durable agent briefs.</div>
+  <div class="use"><b>Use it</b> to keep the backlog groomed and hand well-specified work to AFK agents.</div>
+</div>
+
+<div class="phase">Build &amp; test</div>
+<div class="skill">
+  <div class="cmd">/tdd</div>
+  <div class="what">Red-green-refactor, one behaviour at a time. Writes a failing unit/integration test, makes it pass, refactors — tests verify behaviour through public interfaces, so they survive refactors.</div>
+  <div class="use"><b>Use it</b> while implementing a slice.</div>
+</div>
+<div class="skill">
+  <div class="cmd">/functional-test</div>
+  <div class="files">API tests · Playwright E2E · cross-repo contract tests</div>
+  <div class="what">The acceptance layer above <code>/tdd</code>: verifies a feature against its acceptance criteria through its <b>real external interface</b> — HTTP APIs, browser flows, and multi-service contract tests. Language-agnostic: it detects the repo’s stack.</div>
+  <div class="use"><b>Use it</b> to prove a feature works end-to-end and to lock cross-service seams.</div>
+</div>
+
+<div class="phase">Debug &amp; understand</div>
+<div class="skill">
+  <div class="cmd">/diagnose</div>
+  <div class="what">A discipline for hard bugs: build a fast deterministic feedback loop, reproduce, generate ranked falsifiable hypotheses, instrument one variable at a time, fix with a regression test, then clean up and note what would have prevented it.</div>
+  <div class="use"><b>Use it</b> for stubborn bugs and performance regressions.</div>
+</div>
+<div class="skill">
+  <div class="cmd">/zoom-out</div>
+  <div class="what">Asks the agent to go up a layer and map the relevant modules and callers using the project’s glossary.</div>
+  <div class="use"><b>Use it</b> when you’re dropped into unfamiliar code.</div>
+</div>
+
+<div class="phase">Improve &amp; hand off</div>
+<div class="skill">
+  <div class="cmd">/improve-codebase-architecture</div>
+  <div class="what">Finds <b>deepening opportunities</b> — shallow modules to consolidate into deep, testable ones — informed by your glossary and ADRs. Presents candidates, then designs interfaces with you.</div>
+  <div class="use"><b>Use it</b> every few days to fight architectural entropy.</div>
+</div>
+<div class="skill">
+  <div class="cmd">/handoff</div>
+  <div class="what">Compacts the current conversation into a handoff document (saved to a temp dir, secrets redacted) so a fresh agent can continue.</div>
+  <div class="use"><b>Use it</b> when context is running low.</div>
+</div>
+
+<h2 id="structure">Where everything lives — a multi-repo change</h2>
+<p class="muted">One change (epic <b>ORD-42 “express checkout”</b>) spanning four repos, using the <b>local-markdown</b> issue tracker and a <b>central docs repo</b>. Everything shown is committed to git (persistent) unless marked <span class="temp">temp</span>.</p>
+
+<div class="legend">
+  <span><i class="dot" style="background:var(--glossary)"></i>Glossary — what words mean</span>
+  <span><i class="dot" style="background:var(--decision)"></i>Decision (ADR) — why we chose it</span>
+  <span><i class="dot" style="background:var(--plan)"></i>Plan — PRD &amp; issues</span>
+  <span><i class="dot" style="background:var(--config)"></i>Config — how this repo works</span>
+  <span><i class="dot" style="background:var(--tests)"></i>Tests — proof it works</span>
+</div>
+
+<div class="flow">
+  <span class="flab">Dependency flow:</span>
+  <span class="pill">frontend-web</span><span class="arr">→</span>
+  <span class="pill">orders-api</span><span class="arr">→</span>
+  <span class="pill">payments-service</span>
+  <span class="arr2">· orders-api →</span><span class="pill">orders-db</span>
+</div>
+
+<div class="card hub">
+  <div class="cardhead">📁 engineering-docs <span class="tag">central docs repo · the hub</span></div>
+  <div class="cardrole">No code. The single home for anything that belongs to the whole change, not one repo.</div>
+  <div class="row plan"><code>prds/ORD-42.md</code><span class="note">The <b>one PRD</b> for the entire change — problem, user stories, affected repos, test plan. Keyed by the epic so code + docs + tests link back.</span></div>
+  <div class="row decision"><code>docs/adr/0007-checkout-payment-contract.md</code><span class="note"><b>Cross-repo ADR</b>: the shared API/event contract between orders-api and payments-service. Lives here because it binds more than one repo.</span></div>
+  <div class="row glossary"><code>CONTEXT-MAP.md</code><span class="note">Org glossary + which repo owns which domain. Resolves shared terms (e.g. <i>Order</i> vs <i>Charge</i>).</span></div>
+</div>
+
+<div class="grid">
+  <div class="card">
+    <div class="cardhead">📁 frontend-web <span class="tag">React · calls orders-api</span></div>
+    <div class="cardrole">Owns the end-to-end user journey (entry point).</div>
+    <div class="row config"><code>CLAUDE.md</code><span class="note"><code>## Agent skills</code> block → points to <code>docs/agents/</code>.</span></div>
+    <div class="row glossary"><code>CONTEXT.md</code><span class="note">Frontend glossary (Cart, CheckoutStep). Versions with the code.</span></div>
+    <div class="row config"><code>docs/agents/*.md</code><span class="note">Written once by <code>/setup-skills</code>: issue-tracker, docs-location, triage-labels, domain.</span></div>
+    <div class="row decision"><code>docs/adr/0003-optimistic-cart.md</code><span class="note">A decision local to the frontend.</span></div>
+    <div class="row decision"><code>docs/adr/0007-stub.md</code><span class="note">One-line stub → cross-repo ADR-0007 in the hub.</span></div>
+    <div class="row plan"><code>.scratch/ORD-42/000-prd.md</code><span class="note">Pointer to the central PRD.</span></div>
+    <div class="row plan"><code>.scratch/ORD-42/001-checkout-page.md</code><span class="note"><b>Local issue</b> = one vertical slice for this repo.</span></div>
+    <div class="row tests"><code>tests/e2e/checkout.spec.ts</code><span class="note">Playwright E2E for the whole journey (entry-point repo).</span></div>
+  </div>
+
+  <div class="card">
+    <div class="cardhead">📁 orders-api <span class="tag">backend · calls payments + db</span></div>
+    <div class="cardrole">Consumer of the payments contract; owns order data.</div>
+    <div class="row config"><code>CLAUDE.md</code><span class="note">Agent skills block → <code>docs/agents/</code>.</span></div>
+    <div class="row glossary"><code>CONTEXT.md</code><span class="note">Backend glossary (Order, LineItem, Payment).</span></div>
+    <div class="row config"><code>docs/agents/*.md</code><span class="note">Same four config files, per this repo.</span></div>
+    <div class="row decision"><code>docs/adr/0005-order-state-machine.md</code><span class="note">Backend-local decision.</span></div>
+    <div class="row decision"><code>docs/adr/0007-stub.md</code><span class="note">Stub → central ADR-0007 (consumer side).</span></div>
+    <div class="row plan"><code>.scratch/ORD-42/003-create-order.md</code><span class="note">Local issue — slice.</span></div>
+    <div class="row plan"><code>.scratch/ORD-42/004-call-payments.md</code><span class="note">Slice; blocked-by the payments slice.</span></div>
+    <div class="row tests"><code>tests/functional/orders_api_*</code><span class="note">API/service tests through the endpoint.</span></div>
+    <div class="row tests"><code>tests/contract/payments-consumer.*</code><span class="note"><b>Consumer contract test</b> against the payments seam.</span></div>
+  </div>
+
+  <div class="card">
+    <div class="cardhead">📁 payments-service <span class="tag">microservice · dependency of orders-api</span></div>
+    <div class="cardrole">Provider of the contract; owned by another team.</div>
+    <div class="row config"><code>CLAUDE.md</code><span class="note">Agent skills block.</span></div>
+    <div class="row glossary"><code>CONTEXT.md</code><span class="note">Its own glossary (Charge, Refund, PaymentIntent).</span></div>
+    <div class="row config"><code>docs/agents/*.md</code><span class="note">Its own setup config.</span></div>
+    <div class="row decision"><code>docs/adr/0007-stub.md</code><span class="note">Stub → central ADR-0007 (provider side).</span></div>
+    <div class="row plan"><code>contracts/payments-openapi.yaml</code><span class="note"><b>The contract itself</b> — source of truth for the seam both sides test against.</span></div>
+    <div class="row plan"><code>.scratch/ORD-42/005-charge-endpoint.md</code><span class="note">Local issue — slice.</span></div>
+    <div class="row tests"><code>tests/contract/payments-provider.*</code><span class="note"><b>Provider contract test</b> — proves it still matches the contract.</span></div>
+  </div>
+
+  <div class="card">
+    <div class="cardhead">📁 orders-db <span class="tag">database · dependency of orders-api</span></div>
+    <div class="cardrole">Schema &amp; migrations for order/checkout data.</div>
+    <div class="row config"><code>CLAUDE.md</code><span class="note">Agent skills block.</span></div>
+    <div class="row glossary"><code>CONTEXT.md</code><span class="note">Schema domain terms, aligned to orders-api.</span></div>
+    <div class="row config"><code>docs/agents/*.md</code><span class="note">Its own setup config.</span></div>
+    <div class="row decision"><code>docs/adr/0006-orders-schema.md</code><span class="note">Local decision (table design, indexing).</span></div>
+    <div class="row plan"><code>migrations/2026_07_checkout.sql</code><span class="note">The schema change — the persistent build artifact.</span></div>
+    <div class="row plan"><code>.scratch/ORD-42/006-schema-migration.md</code><span class="note">Local issue — slice.</span></div>
+    <div class="row tests"><code>tests/migration_*</code><span class="note">Migration up/down + seed checks.</span></div>
+  </div>
+</div>
+
+<div class="foot">
+  <b>Two swaps to know:</b> pick <b>GitHub/Jira</b> in <code>/setup-skills</code> and every <code>.scratch/ORD-42/*</code> file becomes a remote GitHub issue / Jira story instead (one per repo, linked to the epic) — nothing else moves. Choose <b>in-repo docs</b> and the PRD/cross-repo ADR move into each repo’s <code>docs/</code> rather than the hub (best only for single-repo work). <span class="temp">temp</span> = the <code>/handoff</code> doc goes to your OS temp dir and debug logs are deleted at the end — deliberately <i>not</i> persisted.
+</div>
+
+<h2 id="install">Install</h2>
+
+<div class="opt">
+<h3>Option A — as a plugin (recommended for a team)</h3>
+<p class="muted">Push this <code>engineering-skills/</code> folder to an internal git repo (it already contains <code>.claude-plugin/plugin.json</code> and <code>marketplace.json</code>). Then each teammate runs, in Claude Code:</p>
+<pre>/plugin marketplace add &lt;your-org&gt;/engineering-skills
+/plugin install engineering-skills@telus-tools</pre>
+<p class="muted">One install brings all twelve skills. Everyone then runs <code>/setup-skills</code> once per repo.</p>
+</div>
+
+<div class="opt">
+<h3>Option B — drop-in skills (no marketplace)</h3>
+<p class="muted">Copy the skill folders into your skills directory — globally or per-project:</p>
+<pre># global (all projects on this machine)
+cp -r engineering-skills/skills/* ~/.claude/skills/
+
+# or per-project
+cp -r engineering-skills/skills/* &lt;repo&gt;/.claude/skills/</pre>
+<p class="muted">Keep <code>CONVENTIONS.md</code> and <code>templates/</code> somewhere the team can find them.</p>
+</div>
+
+<div class="opt">
+<h3>Option C — skills.sh installer (like the original)</h3>
+<p class="muted">If the repo is public, the community installer works too and lets people pick which skills + which agents (Claude Code, Codex, …):</p>
+<pre>npx skills@latest add &lt;your-org&gt;/engineering-skills</pre>
+</div>
+
+<h3>Pick your issue tracker at setup</h3>
+<table>
+  <tr><th>Choice</th><th>Where issues live</th><th>Best for</th></tr>
+  <tr><td>GitHub Issues</td><td>Remote, via <code>gh</code> / GitHub MCP</td><td>Teams already on GitHub</td></tr>
+  <tr><td>Jira</td><td>Remote, via Atlassian MCP / REST</td><td>Enterprise boards</td></tr>
+  <tr><td>Local markdown</td><td><code>.scratch/&lt;feature&gt;/*.md</code> in the repo</td><td>Solo work, prototypes, no tracker</td></tr>
+  <tr><td>Other</td><td>Described in one paragraph</td><td>Linear, Azure DevOps, …</td></tr>
+</table>
+
+<footer>
+Adapted from <a href="https://github.com/mattpocock/skills">mattpocock/skills</a> (MIT). Reference docs in this repo: <code>README.md</code>, <code>CONVENTIONS.md</code>, <code>NOTICE.md</code>.
+</footer>
+
+</div>
+</body>
+</html>

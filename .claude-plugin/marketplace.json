@@ -1,0 +1,17 @@
+{
+  "name": "telus-tools",
+  "owner": {
+    "name": "Engineering"
+  },
+  "metadata": {
+    "description": "Comprehensive engineering skills. Tracker-agnostic (GitHub / Jira / local docs), language-agnostic.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "engineering-skills",
+      "source": "./",
+      "description": "Align → document → plan → build → test → debug → improve. Works with GitHub, Jira, or local markdown issue docs, and any language."
+    }
+  ]
+}
