@@ -75,3 +75,9 @@ One-paragraph verdict: approve / approve-with-nits / changes-requested, and why.
 
 Be specific and kind. Praise what's genuinely good; don't pad. If there are no blockers,
 say so plainly.
+
+## Next step (core chain)
+Route from the findings and offer the next step: a blocker with a clear fix → `/tdd` to fix
+it test-first; a mysterious or intermittent bug → `/diagnose`; a deeper structural issue →
+`/improve-codebase-architecture`; a change touching auth/input/data/deps → `/security-review`;
+no blockers → it's good to merge. After a fix lands, offer to re-run `/review`.

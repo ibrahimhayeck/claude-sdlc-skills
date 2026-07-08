@@ -68,4 +68,9 @@ item (epic)** and **one PRD** for the whole change (in the configured docs locat
 which repos are affected so `/to-issues` can split work per repo. Shared terms go to the
 central `CONTEXT-MAP.md`; each repo still keeps its own local `CONTEXT.md`.
 
+### Next step (core chain)
+When the plan is clear, offer the next step rather than ending flat: "Want me to build this
+test-first with `/tdd`?" (or `/diagnose` if it turned out to be a bug hunt). For a larger
+change, `/to-prd` to capture it first. Offer — don't auto-run.
+
 </supporting-info>

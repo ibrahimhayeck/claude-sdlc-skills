@@ -72,6 +72,11 @@ fail → apply the fix → watch it pass → re-run the Phase 1 loop against the
 - [ ] Throwaway prototypes deleted or clearly marked
 - [ ] The correct hypothesis is stated in the commit/PR message
 
+## Next step (core chain)
+Once the fix is in with a regression test, offer to `/review` the change before it merges —
+or resume `/tdd` if you were mid-feature. If the bug's root cause was structural, hand off to
+`/improve-codebase-architecture` with the specifics (after the fix, not before).
+
 **Then ask: what would have prevented this bug?** If the answer is architectural (no good
 test seam, tangled callers, hidden coupling), hand off to `/improve-codebase-architecture`
 with the specifics — *after* the fix is in, when you know the most.

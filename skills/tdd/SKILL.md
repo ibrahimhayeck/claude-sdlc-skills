@@ -67,3 +67,8 @@ couples tests to structure. Prefer real objects and in-memory/test databases.
 ## Data note
 Use synthetic data only — no real or production data in tests or fixtures (no PHI/PII in
 regulated domains).
+
+## Next step (core chain)
+When the feature is built and green, offer to verify and check it: `/functional-test` for
+acceptance/E2E coverage where it's warranted, then `/review` before it merges. Offer, don't
+auto-run.

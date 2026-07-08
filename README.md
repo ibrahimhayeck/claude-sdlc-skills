@@ -7,14 +7,15 @@ and keep the codebase healthy** — the same way across every repo. Built on
 (GitHub / Jira / local markdown docs), language-agnostic testing, and an added
 `functional-test` skill (API + Playwright).
 
-> **New here? Start with the core.** If 14 skills feels like a lot, install the trimmed
-> [`engineering-core`](./core/) plugin instead — **4 everyday commands, zero setup**, that
-> hand off to each other (align → build → review → debug). Upgrade to the full pack below
-> whenever you want the planning, triage, and architecture skills. Pick one, not both.
+> **Most days you use four.** It's one plugin with 14 skills, but the everyday loop is just
+> `/grill-with-docs` → `/tdd` → `/review` → `/diagnose`. They **hand off to each other**, so
+> you describe your work in plain language, the right one fires, and it offers the next step.
+> The other ten (planning, triage, functional/security testing, architecture, handoff) stay
+> out of your way until a task calls for them — nothing to run or remember up front.
 >
 > ```
 > /plugin marketplace add ibrahim-hayeck/AI-Claude-engineering-skills
-> /plugin install engineering-core@telus-tools
+> /plugin install engineering-skills@telus-tools
 > ```
 
 ## The one-page flow for the team
