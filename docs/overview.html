@@ -9,7 +9,7 @@
   --bg:#f5f6f8; --surface:#ffffff; --panel:#f7f8fa; --panel2:#eef1f5;
   --ink:#15181e; --muted:#5b6270; --border:#e4e7ec; --border-strong:#d3d8e0;
   --brand:#4f46e5; --brand2:#7c3aed; --brand3:#0ea5e9;
-  --setup:#64748b; --align:#8b5cf6; --plan:#2563eb; --build:#0d9488; --review:#0891b2; --debug:#e0891b; --improve:#db2777;
+  --setup:#64748b; --align:#8b5cf6; --plan:#2563eb; --build:#0d9488; --test:#10b981; --review:#0891b2; --debug:#e0891b; --security:#e11d48; --improve:#db2777;
   --glossary:#0d9488; --decision:#7c3aed; --pln:#2563eb; --config:#e0891b; --tests:#db2777;
   --code-bg:#0d1117; --code-ink:#e6edf3;
   --shadow:0 1px 2px rgba(16,24,40,.05),0 1px 3px rgba(16,24,40,.04);
@@ -110,7 +110,7 @@ h3{font-size:15px;margin:20px 0 4px}
 .skill .use{font-size:13px;color:var(--muted)}
 .skill .use b{color:var(--ink);font-weight:600}
 .ac-setup{--ac:var(--setup)}.ac-align{--ac:var(--align)}.ac-plan{--ac:var(--plan)}
-.ac-build{--ac:var(--build)}.ac-review{--ac:var(--review)}.ac-debug{--ac:var(--debug)}.ac-improve{--ac:var(--improve)}
+.ac-build{--ac:var(--build)}.ac-test{--ac:var(--test)}.ac-review{--ac:var(--review)}.ac-debug{--ac:var(--debug)}.ac-security{--ac:var(--security)}.ac-improve{--ac:var(--improve)}
 
 /* repo structure */
 .legend{display:flex;flex-wrap:wrap;gap:9px 18px;margin:14px 0}
@@ -139,6 +139,28 @@ h3{font-size:15px;margin:20px 0 4px}
 .temp{background:var(--panel2);border:1px solid var(--border);border-radius:5px;padding:0 6px;font-size:11px;font-weight:700}
 .foot{margin-top:14px;padding:12px 15px;border:1px dashed var(--border-strong);border-radius:12px;color:var(--muted);font-size:12.5px;line-height:1.55}
 .foot b{color:var(--ink)}
+h2 .n{font-size:13px;color:var(--muted);font-weight:600;margin-right:6px}
+.term{position:relative}
+.copybtn{position:absolute;top:7px;right:8px;z-index:2;font:600 11px var(--sans);color:#c9d1d9;background:#21262d;border:1px solid #30363d;border-radius:6px;padding:3px 9px;cursor:pointer}
+.copybtn:hover{background:#30363d}
+.tl{border-left:2px solid var(--border);margin:16px 0 8px;padding-left:18px}
+.turn{position:relative;margin:0 0 18px}
+.turn::before{content:"";position:absolute;left:-25px;top:3px;width:12px;height:12px;border-radius:50%;background:var(--ac,var(--brand));border:2px solid var(--bg)}
+.turn.you::before{background:var(--muted)}
+.say{background:var(--panel);border:1px solid var(--border);border-radius:12px;border-top-left-radius:3px;padding:9px 13px;font-style:italic;color:var(--ink)}
+.say b{font-style:normal;color:var(--muted);font-size:11.5px;display:block;margin-bottom:2px;letter-spacing:.03em;text-transform:uppercase}
+.does{margin:7px 0 0;font-size:14px}
+.does .fires{font-family:var(--mono);font-weight:700;font-size:12.5px}
+.cmd4{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.cmdcard{border:1px solid var(--border);border-left:4px solid var(--ac,var(--brand));border-radius:12px;padding:13px 15px;background:var(--surface);box-shadow:var(--shadow)}
+.cmdcard .cmd{font-family:var(--mono);font-weight:700;font-size:14px;color:var(--ac,var(--brand))}
+.cmdcard .say2{font-size:12.5px;color:var(--muted);margin:5px 0}
+.cmdcard .does2{font-size:13px;margin:5px 0 0}
+.cmdcard .hand{font-size:11.5px;color:var(--muted);margin-top:7px;font-family:var(--mono)}
+.faq{margin:9px 0}
+.faq b{display:block}
+.faq p{margin:3px 0 0;color:var(--muted);font-size:13.5px}
+#reference{border-top:2px dashed var(--border-strong);padding-top:26px;margin-top:52px}
 
 /* concept cards */
 .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:14px 0}
@@ -190,77 +212,132 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
 </header>
 
 <nav class="topnav">
-  <a href="#what">What this is</a>
-  <a href="#loop">The loop</a>
-  <a href="#core-skills">Core four</a>
+  <a href="#start">Get started</a>
+  <a href="#first-change">First change</a>
+  <a href="#commands">Commands</a>
+  <a href="#reference">Reference</a>
   <a href="#skills">All skills</a>
   <a href="#structure">Repo structure</a>
-  <a href="#concept">Plugins &amp; marketplaces</a>
   <a href="#install">Install</a>
 </nav>
 
-<div class="opt" style="border-color:var(--build);background:color-mix(in srgb,var(--build) 7%,var(--surface))">
-<h3>Most days you use four <span class="badge">start here</span></h3>
-<p class="muted">It's <b>one plugin</b> with 14 skills, but the everyday loop is just <code>/grill-with-docs</code> → <code>/tdd</code> → <code>/review</code> → <code>/diagnose</code>. They <b>hand off to each other</b>, so you describe your work in plain language, the right one fires, and it offers the next step. The other ten stay out of your way until a task needs them. One install, no setup:</p>
-<div class="term"><div class="term-bar"><i></i><i></i><i></i><span>Claude Code</span></div><pre><span class="g">/plugin marketplace add</span> ibrahim-hayeck/AI-Claude-engineering-skills
-<span class="g">/plugin install</span> engineering-skills@telus-tools</pre></div>
-<p class="muted">Then just start working — see <b>The core four</b> below for how the chain flows.</p>
+<p class="sec-sub">Two parts: <b>Get started</b> is all a developer needs day one; <b>Reference</b> below is the full catalog for when you want depth.</p>
+
+<h2 id="start"><span class="n">1</span>Install once</h2>
+<p class="sub">One plugin, no configuration. In Claude Code:</p>
+<div class="term">
+  <button class="copybtn" data-copy="/plugin marketplace add ibrahim-hayeck/AI-Claude-engineering-skills
+/plugin install engineering-skills@telus-tools">Copy</button>
+  <div class="term-bar"><i></i><i></i><i></i><span>Claude Code</span></div>
+  <pre><span class="g">/plugin marketplace add</span> ibrahim-hayeck/AI-Claude-engineering-skills
+<span class="g">/plugin install</span> engineering-skills@telus-tools</pre>
 </div>
+<p class="muted">That's the whole setup — no <code>/setup-skills</code>, no config files. It's one plugin with 14 skills, but you only learn a handful.</p>
 
-<h2 id="what">What this is</h2>
-<p>Most AI-coding failures aren't about typing speed — they're misalignment (the agent built the wrong thing), verbosity (no shared language), broken code (no feedback loop), and architectural entropy (a growing ball of mud). This pack is a small, composable set of skills that each target one of those failure modes, wrapped in decades-old engineering fundamentals rather than a heavyweight framework.</p>
-<p>Skills are invoked as slash commands (e.g. <code>/grill-with-docs</code>). They read a tiny per-repo config that <code>/setup-skills</code> writes once, so the whole team works the same way regardless of language or issue tracker.</p>
-
-<h2 id="loop">The core loop</h2>
-<div class="loop">
-  <b class="s1">align</b><span class="ar">›</span><b class="s2">document</b><span class="ar">›</span><b class="s3">plan</b><span class="ar">›</span><b class="s4">build</b><span class="ar">›</span><b class="s5">test</b><span class="ar">›</span><b class="s6">review</b><span class="ar">›</span><b class="s7">debug</b><span class="ar">›</span><b class="s8">improve</b>
-</div>
-<p class="muted">Run <code>/setup-skills</code> once per repo. Then, per change: grill to align, capture a PRD, split into issues, build with tests, debug when stuck, and periodically improve the architecture.</p>
-
-<h2 id="core-skills">The core four <span class="tiernote">your everyday loop</span></h2>
-<p class="sec-sub">Of the 14 skills, these four are the everyday loop — and they <b>hand off to each other</b>, so most days you just describe your work and let the chain flow. No setup, nothing to memorize. The other ten skills (below) trigger only when a task needs them.</p>
-
+<h2 id="habit"><span class="n">2</span>The one habit</h2>
+<p class="sub"><b>Describe what you want in plain language.</b> The matching skill triggers on its own, and when it finishes it offers the next step. Say yes, and the chain flows:</p>
 <div class="chain">
-  <div class="cstep ac-align"><b>/grill-with-docs</b><small>align on what &amp; why</small></div>
+  <div class="cstep ac-align"><b>align</b><small>/grill-with-docs</small></div>
   <span class="carrow">▶</span>
-  <div class="cstep ac-build"><b>/tdd</b><small>build it test-first</small></div>
+  <div class="cstep ac-build"><b>build</b><small>/tdd</small></div>
   <span class="carrow">▶</span>
-  <div class="cstep ac-review"><b>/review</b><small>check before merge</small></div>
+  <div class="cstep ac-test"><b>test</b><small>/functional-test</small></div>
+  <span class="carrow">▶</span>
+  <div class="cstep ac-review"><b>review</b><small>/review</small></div>
   <span class="carrow">▶</span>
   <div class="cmerge">merge ✓</div>
 </div>
 <div class="chain sub">
-  <span class="cbranch">↳ if review finds a hard bug</span><span class="carrow">▶</span>
-  <div class="cstep ac-debug"><b>/diagnose</b><small>fix + regression test</small></div>
-  <span class="carrow">▶</span><span class="cbranch">back to /review</span>
+  <span class="cbranch">↳ touches auth or data?</span><span class="carrow">▶</span>
+  <div class="cstep ac-security"><b>/security-review</b></div>
+  <span class="carrow">▶</span><span class="cbranch">then merge</span>
+</div>
+<div class="chain sub">
+  <span class="cbranch">↳ hit a bug?</span><span class="carrow">▶</span>
+  <div class="cstep ac-debug"><b>/diagnose</b></div>
+  <span class="carrow">▶</span><span class="cbranch">back to review</span>
+</div>
+<p class="muted">You stay in control — it <b>suggests</b> the next step, you decide. Two reflexes are always on: <b>/review asks a safety-gate question</b> ("does this touch auth or data?") and runs <b>/security-review</b> when yes; and <b>/diagnose</b> takes over the moment something breaks. Any point is a valid start — a bug report jumps straight to debug, "review my branch" straight to review.</p>
+
+<h2 id="first-change"><span class="n">3</span>Your first change, start to finish</h2>
+<p class="sub">A real example. The italic line is what you type; below it is what happens.</p>
+<div class="tl">
+  <div class="turn you">
+    <div class="say"><b>You type</b>“Help me add an endpoint that returns a customer's orders.”</div>
+    <div class="does"><span class="fires" style="color:var(--align)">/grill-with-docs</span> fires. It asks the sharp questions — <i>“Only active orders, or archived too? Paginated? What does an empty result return?”</i> — and records agreed terms in <code>CONTEXT.md</code>. Then: <i>“Clear enough — want me to build it with /tdd?”</i></div>
+  </div>
+  <div class="turn you">
+    <div class="say"><b>You type</b>“Yes, build it.”</div>
+    <div class="does"><span class="fires" style="color:var(--build)">/tdd</span> writes one failing test (<code>customer sees their orders newest-first</code>), makes it pass, then the next — one behaviour at a time. When green: <i>“It's a customer-facing endpoint — prove it end-to-end with /functional-test?”</i></div>
+  </div>
+  <div class="turn you">
+    <div class="say"><b>You type</b>“Yes.”</div>
+    <div class="does"><span class="fires" style="color:var(--test)">/functional-test</span> writes an API test that hits the real endpoint: an authenticated request returns that customer's active orders, newest-first, and a request with no token is rejected. Green. <i>“Want me to /review before merge?”</i></div>
+  </div>
+  <div class="turn you">
+    <div class="say"><b>You type</b>“Review it.”</div>
+    <div class="does"><span class="fires" style="color:var(--review)">/review</span> checks the diff against what you agreed, then asks the safety gate: <i>“This endpoint reads member data — I'll run /security-review before merge.”</i></div>
+  </div>
+  <div class="turn you">
+    <div class="say"><b>You type</b>“Go ahead.”</div>
+    <div class="does"><span class="fires" style="color:var(--security)">/security-review</span> finds the real problem: the endpoint never checks that the caller <i>owns</i> the customer — any signed-in user could read anyone's orders (an IDOR). It recommends an ownership check and a failing test for the unauthorized case. You fix it with <span class="fires" style="color:var(--build)">/tdd</span>; green → merge.</div>
+  </div>
+</div>
+<p class="muted">Five plain sentences, and the agent walked the whole loop — proving the feature end-to-end and catching a data-exposure bug before it shipped. You never looked up a command.</p>
+
+<h2 id="commands"><span class="n">4</span>Your everyday commands</h2>
+<p class="sub">You rarely type these — describe the work instead. The build loop, plus two always-on reflexes (<b>debug</b> when something breaks, <b>security review</b> when a change touches auth or data).</p>
+<div class="cmd4">
+  <div class="cmdcard ac-align">
+    <div class="cmd">/grill-with-docs</div>
+    <div class="say2">“let's align”, “grill me”, “help me plan X”</div>
+    <div class="does2">Interviews you until the change is clear; captures terms + key decisions (optional, lazy).</div>
+    <div class="hand">→ /tdd (or /diagnose)</div>
+  </div>
+  <div class="cmdcard ac-build">
+    <div class="cmd">/tdd</div>
+    <div class="say2">“build X”, “implement Y”, “fix Z with tests”</div>
+    <div class="does2">Builds test-first, one behaviour at a time — tests that survive refactors.</div>
+    <div class="hand">→ /functional-test</div>
+  </div>
+  <div class="cmdcard ac-test">
+    <div class="cmd">/functional-test</div>
+    <div class="say2">“prove it works end-to-end”</div>
+    <div class="does2">Acceptance tests through the real interface — HTTP APIs, Playwright browser flows, cross-service contracts. Detects your stack.</div>
+    <div class="hand">→ /review</div>
+  </div>
+  <div class="cmdcard ac-review">
+    <div class="cmd">/review</div>
+    <div class="say2">“review my branch / this PR”</div>
+    <div class="does2">Checks a change before merge by severity, then asks the safety gate — auth or data touched?</div>
+    <div class="hand">→ /security-review · /tdd · /diagnose · else merge</div>
+  </div>
+  <div class="cmdcard ac-debug">
+    <div class="cmd">/diagnose</div>
+    <div class="say2">“X is broken / throwing / slow”</div>
+    <div class="does2">Reproduce → hypothesise → fix with a regression test → clean up.</div>
+    <div class="hand">→ /review</div>
+  </div>
+  <div class="cmdcard ac-security">
+    <div class="cmd">/security-review</div>
+    <div class="say2">auth / data / input / dependencies changed</div>
+    <div class="does2">Secrets, authz (incl. IDOR), injection, sensitive-data handling, dependency risk — ranked critical → low.</div>
+    <div class="hand">runs as part of /review</div>
+  </div>
 </div>
 
-<h3>How the chain reacts</h3>
-<p class="muted">Each skill ends by <b>offering</b> the next step, and because skills auto-trigger from plain-language requests, saying "yes" (or just describing the next task) fires the following one. <code>/grill-with-docs</code> aligns you, then offers to build with <code>/tdd</code>; <code>/tdd</code> finishes green and offers <code>/review</code>; <code>/review</code> routes on what it finds — a clean pass means merge, a clear fix loops back to <code>/tdd</code>, a mysterious bug goes to <code>/diagnose</code>; <code>/diagnose</code> fixes with a regression test and offers <code>/review</code> again. It's a guided loop, not a rigid pipeline: you approve each hop, and any skill can be the entry point — a bug report drops straight into <code>/diagnose</code>, "review my branch" straight into <code>/review</code>.</p>
+<h2 id="faq"><span class="n">5</span>Good to know</h2>
+<div class="faq"><b>Do I have to run setup or create docs?</b><p>No. Nothing is required. <code>CONTEXT.md</code> and ADRs are created only if they'd help, and never for trivial changes.</p></div>
+<div class="faq"><b>What if I don't know which command to use?</b><p>Don't — just describe the task. If nothing fires, type the closest phrase (e.g. "review this") and it will.</p></div>
+<div class="faq"><b>Touching auth or data?</b><p><code>/review</code> asks a safety-gate question before merge and runs <code>/security-review</code> when the answer is yes. In data-sensitive work (e.g. anything with PHI/PII) that pass is expected, not optional.</p></div>
+<div class="faq"><b>Will it change my code without asking?</b><p>It proposes and offers next steps; you approve each hop. The chain guides, it doesn't run away.</p></div>
+<div class="faq"><b>Can I make a skill fit how my team works?</b><p>Yes — each skill is a single <code>SKILL.md</code> in <code>skills/&lt;name&gt;/</code>. Open it, edit the wording, save. To remove one, delete its folder and its line in <code>plugin.json</code>.</p></div>
 
-<div class="skill ac-align">
-  <span class="cmd">/grill-with-docs</span>
-  <div class="files">hands off to → /tdd (or /diagnose)</div>
-  <div class="what">Interviews you about the change until it's clear, then captures agreed terms in <code>CONTEXT.md</code> and hard decisions as short ADRs (both optional/lazy).</div>
-</div>
-<div class="skill ac-build">
-  <span class="cmd">/tdd</span>
-  <div class="files">hands off to → /review</div>
-  <div class="what">Builds the feature or fix test-first, one behaviour at a time (red-green-refactor), testing behaviour through public interfaces.</div>
-</div>
-<div class="skill ac-review">
-  <span class="cmd">/review</span>
-  <div class="files">hands off to → /tdd or /diagnose · else merge</div>
-  <div class="what">Reviews a diff/PR before merge — correctness, tests, clarity, architecture, basic safety — reported by severity. Zero config; prints in chat, can post to a GitHub PR.</div>
-</div>
-<div class="skill ac-debug">
-  <span class="cmd">/diagnose</span>
-  <div class="files">hands off to → /review</div>
-  <div class="what">A disciplined loop for hard bugs: build a fast feedback signal, reproduce, rank hypotheses, instrument, fix with a regression test, clean up.</div>
-</div>
+<h2 id="reference">Reference</h2>
+<p class="sec-sub">Everything above is all a developer needs to start. The rest is reference — the full skill catalog, where files live across repos, and how the plugin/marketplace works. Skim as needed.</p>
 
 <h2 id="skills">All skills <span class="tiernote" style="color:var(--brand);background:color-mix(in srgb,var(--brand) 12%,var(--surface))">all 14 · one plugin</span></h2>
-<p class="sec-sub">The complete toolkit in the single <b>engineering-skills</b> plugin, grouped by phase — planning, triage, functional/security testing, architecture, and handoff, plus the four everyday skills above. They all install together; you only invoke what a task needs.</p>
+<p class="sec-sub">The complete toolkit in the single <b>engineering-skills</b> plugin, grouped by phase — planning, triage, architecture, and handoff, plus the everyday skills above. They all install together; you only invoke what a task needs.</p>
 
 <span class="phase p-setup">Setup · once per repo</span>
 <div class="skill ac-setup">
@@ -519,5 +596,14 @@ Adapted from <a href="https://github.com/mattpocock/skills">mattpocock/skills</a
 </footer>
 
 </div>
+<script>
+document.querySelectorAll('.copybtn').forEach(function(b){
+  b.addEventListener('click',function(){
+    var text=b.getAttribute('data-copy')||'';
+    if(navigator.clipboard){navigator.clipboard.writeText(text);}
+    var old=b.textContent;b.textContent='Copied ✓';setTimeout(function(){b.textContent=old;},1200);
+  });
+});
+</script>
 </body>
 </html>

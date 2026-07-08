@@ -77,7 +77,16 @@ Be specific and kind. Praise what's genuinely good; don't pad. If there are no b
 say so plainly.
 
 ## Next step (core chain)
-Route from the findings and offer the next step: a blocker with a clear fix → `/tdd` to fix
-it test-first; a mysterious or intermittent bug → `/diagnose`; a deeper structural issue →
-`/improve-codebase-architecture`; a change touching auth/input/data/deps → `/security-review`;
-no blockers → it's good to merge. After a fix lands, offer to re-run `/review`.
+**Always ask the safety gate before merge**, even on a clean review:
+
+> "Does this change touch authentication/authorization, personal or production data,
+> external input, or third-party dependencies?"
+
+If the answer is yes — or the developer is unsure — run `/security-review`. In regulated or
+data-sensitive work (e.g. anything handling PHI/PII), treat that as expected, not optional.
+
+Then route from the findings and offer the next step: a blocker with a clear fix → `/tdd` to
+fix it test-first; a mysterious or intermittent bug → `/diagnose`; a deeper structural issue →
+`/improve-codebase-architecture`; behaviour not yet proven end-to-end → `/functional-test`.
+No blockers and the safety gate is clear → it's good to merge. After any fix lands, offer to
+re-run `/review`.
