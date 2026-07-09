@@ -5,7 +5,7 @@
 
 # ─── EDIT THESE ───────────────────────────────────────────────
 ORG="ibrahim-hayeck"                 # your GitHub org OR username
-REPO="AI-Claude-engineering-skills"  # the repo name on GitHub
+REPO="claude-sdlc-skills"  # the repo name on GitHub
 PROTO="ssh"                   # "ssh" or "https"
 VISIBILITY="private"          # "private" or "public" (used only if we create the repo)
 NAME="Ibrahim Hayeck"
@@ -58,7 +58,7 @@ else
   if command -v gh >/dev/null 2>&1; then
     step "4b. creating repo with gh"
     gh repo create "$ORG/$REPO" --"$VISIBILITY" --source=. --remote=origin --push \
-      && { echo "✓ created and pushed via gh"; echo ""; echo "Install: /plugin marketplace add $ORG/$REPO ; /plugin install engineering-skills@telus-tools"; exit 0; } \
+      && { echo "✓ created and pushed via gh"; echo ""; echo "Install: /plugin marketplace add $ORG/$REPO ; /plugin install engineering-skills@engineering-tools"; exit 0; } \
       || die "gh could not create $ORG/$REPO — check you're logged in ('gh auth status') and can create repos in '$ORG'."
   else
     echo ""
@@ -76,7 +76,7 @@ if git push -u origin main; then
   echo ""
   echo "✓ Done. Teammates can now run:"
   echo "    /plugin marketplace add $ORG/$REPO"
-  echo "    /plugin install engineering-skills@telus-tools"
+  echo "    /plugin install engineering-skills@engineering-tools"
 else
   die "push failed — see the git error above (usually auth or access to '$ORG')."
 fi

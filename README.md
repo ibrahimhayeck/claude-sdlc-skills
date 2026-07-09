@@ -14,8 +14,8 @@ and keep the codebase healthy** — the same way across every repo. Built on
 > out of your way until a task calls for them — nothing to run or remember up front.
 >
 > ```
-> /plugin marketplace add ibrahim-hayeck/AI-Claude-engineering-skills
-> /plugin install engineering-skills@telus-tools
+> /plugin marketplace add ibrahim-hayeck/claude-sdlc-skills
+> /plugin install engineering-skills@engineering-tools
 > ```
 
 ## The one-page flow for the team
@@ -78,19 +78,19 @@ Fourteen skills: `setup-skills`, `grill-me`, `grill-with-docs`, `to-prd`, `to-is
 repo, then each person runs:
 
 ```
-/plugin marketplace add ibrahim-hayeck/AI-Claude-engineering-skills
-/plugin install engineering-skills@telus-tools
+/plugin marketplace add ibrahim-hayeck/claude-sdlc-skills
+/plugin install engineering-skills@engineering-tools
 ```
 
-Here `ibrahim-hayeck/AI-Claude-engineering-skills` is the **owner/repo**; `engineering-skills@telus-tools` is **plugin@marketplace** (the `name` fields in `plugin.json` and `marketplace.json`). One install brings all fourteen skills.
+Here `ibrahim-hayeck/claude-sdlc-skills` is the **owner/repo**; `engineering-skills@engineering-tools` is **plugin@marketplace** (the `name` fields in `plugin.json` and `marketplace.json`). One install brings all fourteen skills.
 
 **Option B — drop-in skills.** Copy the `skills/*` folders into `~/.claude/skills/` (global)
 or a project's `.claude/skills/`, and keep `CONVENTIONS.md` + `templates/` where the team can
 find them.
 
-**Option C — skills.sh installer** (public repos): `npx skills@latest add ibrahim-hayeck/AI-Claude-engineering-skills`.
+**Option C — skills.sh installer** (public repos): `npx skills@latest add ibrahim-hayeck/claude-sdlc-skills`.
 
-After installing, everyone runs `/setup-skills` once per repo. Push updates by bumping `version` in `plugin.json`; teammates run `/plugin marketplace update telus-tools`.
+After installing, everyone runs `/setup-skills` once per repo. Push updates by bumping `version` in `plugin.json`; teammates run `/plugin marketplace update engineering-tools`.
 
 ## Data & environment note
 The testing skills enforce a simple guardrail: **synthetic data only — no real or production
