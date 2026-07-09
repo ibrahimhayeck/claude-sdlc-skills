@@ -33,7 +33,7 @@ p{margin:8px 0}
 .muted{color:var(--muted)}
 
 /* hero */
-.hero{position:relative;overflow:hidden;border-radius:22px;padding:44px 38px 40px;color:#fff;
+.hero{position:relative;overflow:hidden;border-radius:18px;padding:26px 30px 24px;color:#fff;
   background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 52%,#0ea5e9 120%);box-shadow:var(--shadow-lg)}
 .hero::before{content:"";position:absolute;inset:0;
   background:radial-gradient(circle at 85% -10%,rgba(255,255,255,.28),transparent 45%),
@@ -42,8 +42,8 @@ p{margin:8px 0}
   background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
   background-size:34px 34px;mask-image:linear-gradient(180deg,#000,transparent 75%)}
 .hero>*{position:relative;z-index:1}
-.hero h1{font-size:36px;letter-spacing:-.025em;margin:0 0 10px;font-weight:800}
-.hero .lede{font-size:17px;color:rgba(255,255,255,.94);max-width:74ch;margin:0}
+.hero h1{font-size:27px;letter-spacing:-.025em;margin:0 0 6px;font-weight:800}
+.hero .lede{font-size:15px;color:rgba(255,255,255,.94);max-width:74ch;margin:0}
 .hero .lede b{color:#fff}
 .tagrow{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 0}
 .chip{font-size:12px;font-weight:600;padding:5px 12px;border-radius:999px;
@@ -161,6 +161,23 @@ h2 .n{font-size:13px;color:var(--muted);font-weight:600;margin-right:6px}
 .faq b{display:block}
 .faq p{margin:3px 0 0;color:var(--muted);font-size:13.5px}
 #reference{border-top:2px dashed var(--border-strong);padding-top:26px;margin-top:52px}
+.tabs{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 22px;
+  position:sticky;top:10px;z-index:20;padding:10px;border-radius:16px;
+  background:var(--panel);border:1px solid var(--border);box-shadow:var(--shadow-lg)}
+.tabs button{flex:1 1 175px;justify-content:center;text-align:center;
+  font:800 16.5px var(--sans);letter-spacing:-.01em;color:var(--brand);
+  background:color-mix(in srgb,var(--brand) 7%,var(--surface));
+  border:2px solid color-mix(in srgb,var(--brand) 32%,var(--surface));border-radius:12px;
+  padding:16px 18px;cursor:pointer;transition:transform .12s ease,box-shadow .12s ease,background .12s ease}
+.tabs button:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);
+  background:color-mix(in srgb,var(--brand) 14%,var(--surface))}
+.tabs button[aria-selected="true"]{background:linear-gradient(135deg,var(--brand),var(--brand2));
+  color:#fff;border-color:transparent;box-shadow:0 6px 20px color-mix(in srgb,var(--brand) 45%,transparent)}
+.tabs button[aria-selected="true"]:hover{color:#fff;transform:translateY(-1px)}
+.tabpanel{scroll-margin-top:64px}
+body.js .tabpanel{display:none}
+body.js .tabpanel.active{display:block;animation:fade .18s ease}
+@keyframes fade{from{opacity:.4}to{opacity:1}}
 
 /* concept cards */
 .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:14px 0}
@@ -211,18 +228,14 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
   </a>
 </header>
 
-<nav class="topnav">
-  <a href="#start">Get started</a>
-  <a href="#first-change">First change</a>
-  <a href="#commands">Commands</a>
-  <a href="#reference">Reference</a>
-  <a href="#skills">All skills</a>
-  <a href="#structure">Repo structure</a>
-  <a href="#install">Install</a>
-</nav>
+<div class="tabs" role="tablist" aria-label="Sections">
+  <button role="tab" data-target="p-start" aria-selected="true">🚀 Get started</button>
+  <button role="tab" data-target="p-skills" aria-selected="false">📚 All skills</button>
+  <button role="tab" data-target="p-repo" aria-selected="false">🗂 Repo layout</button>
+  <button role="tab" data-target="p-install" aria-selected="false">🔌 Install &amp; plugins</button>
+</div>
 
-<p class="sec-sub">Two parts: <b>Get started</b> is all a developer needs day one; <b>Reference</b> below is the full catalog for when you want depth.</p>
-
+<section class="tabpanel active" id="p-start">
 <h2 id="start"><span class="n">1</span>Install once</h2>
 <p class="sub">One plugin, no configuration. In Claude Code:</p>
 <div class="term">
@@ -333,9 +346,8 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
 <div class="faq"><b>Will it change my code without asking?</b><p>It proposes and offers next steps; you approve each hop. The chain guides, it doesn't run away.</p></div>
 <div class="faq"><b>Can I make a skill fit how my team works?</b><p>Yes — each skill is a single <code>SKILL.md</code> in <code>skills/&lt;name&gt;/</code>. Open it, edit the wording, save. To remove one, delete its folder and its line in <code>plugin.json</code>.</p></div>
 
-<h2 id="reference">Reference</h2>
-<p class="sec-sub">Everything above is all a developer needs to start. The rest is reference — the full skill catalog, where files live across repos, and how the plugin/marketplace works. Skim as needed.</p>
-
+</section>
+<section class="tabpanel" id="p-skills">
 <h2 id="skills">All skills <span class="tiernote" style="color:var(--brand);background:color-mix(in srgb,var(--brand) 12%,var(--surface))">all 14 · one plugin</span></h2>
 <p class="sec-sub">The complete toolkit in the single <b>engineering-skills</b> plugin, grouped by phase — planning, triage, architecture, and handoff, plus the everyday skills above. They all install together; you only invoke what a task needs.</p>
 
@@ -428,6 +440,8 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
   <div class="use"><b>Use it</b> when context is running low.</div>
 </div>
 
+</section>
+<section class="tabpanel" id="p-repo">
 <h2 id="structure">Where everything lives — a multi-repo change</h2>
 <p class="sec-sub">One change (epic <b>ORD-42 "express checkout"</b>) spanning four repos, using the <b>local-markdown</b> issue tracker and a <b>central docs repo</b>. Everything shown is committed to git (persistent) unless marked <span class="temp">temp</span>.</p>
 
@@ -512,6 +526,8 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
   <b>Two swaps to know:</b> pick <b>GitHub/Jira</b> in <code>/setup-skills</code> and every <code>.scratch/ORD-42/*</code> file becomes a remote GitHub issue / Jira story instead (one per repo, linked to the epic) — nothing else moves. Choose <b>in-repo docs</b> and the PRD/cross-repo ADR move into each repo's <code>docs/</code> rather than the hub (best only for single-repo work). <span class="temp">temp</span> = the <code>/handoff</code> doc goes to your OS temp dir and debug logs are deleted at the end — deliberately <i>not</i> persisted.
 </div>
 
+</section>
+<section class="tabpanel" id="p-install">
 <h2 id="concept">Plugins &amp; marketplaces</h2>
 <p class="sec-sub">Like an app store: the <b>marketplace</b> is the store, a <b>plugin</b> is an app, and a <b>skill</b> is a feature inside the app.</p>
 
@@ -594,9 +610,32 @@ cp -r skills/* &lt;repo&gt;/.claude/skills/</pre></div>
 Repo: <a href="https://github.com/ibrahim-hayeck/AI-Claude-engineering-skills">github.com/ibrahim-hayeck/AI-Claude-engineering-skills</a><br>
 Adapted from <a href="https://github.com/mattpocock/skills">mattpocock/skills</a> (MIT). Reference docs in this repo: <code>README.md</code>, <code>CONVENTIONS.md</code>, <code>NOTICE.md</code>.
 </footer>
+</section>
 
 </div>
 <script>
+// progressive enhancement: without JS, all panels show stacked (and print fine)
+document.body.classList.add('js');
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tabs button'));
+  var panels=[].slice.call(document.querySelectorAll('.tabpanel'));
+  function show(id){
+    panels.forEach(function(p){p.classList.toggle('active',p.id===id);});
+    tabs.forEach(function(b){b.setAttribute('aria-selected',b.dataset.target===id?'true':'false');});
+  }
+  tabs.forEach(function(b){b.addEventListener('click',function(){
+    show(b.dataset.target);
+    history.replaceState(null,'','#'+b.dataset.target);
+  });});
+  // deep-link: #p-skills, or any heading id inside a panel (e.g. #install)
+  var start='p-start';
+  if(location.hash.length>1){
+    var el=document.getElementById(location.hash.slice(1));
+    var pane=el&&el.closest?el.closest('.tabpanel'):null;
+    if(pane){start=pane.id; setTimeout(function(){el.scrollIntoView();},0);}
+  }
+  show(start);
+})();
 document.querySelectorAll('.copybtn').forEach(function(b){
   b.addEventListener('click',function(){
     var text=b.getAttribute('data-copy')||'';
