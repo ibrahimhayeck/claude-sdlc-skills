@@ -14,7 +14,7 @@ and keep the codebase healthy** — the same way across every repo. Built on
 > out of your way until a task calls for them — nothing to run or remember up front.
 >
 > ```
-> /plugin marketplace add ibrahim-hayeck/claude-sdlc-skills
+> /plugin marketplace add ibrahimhayeck/claude-sdlc-skills
 > /plugin install engineering-skills@engineering-tools
 > ```
 
@@ -78,17 +78,17 @@ Fourteen skills: `setup-skills`, `grill-me`, `grill-with-docs`, `to-prd`, `to-is
 repo, then each person runs:
 
 ```
-/plugin marketplace add ibrahim-hayeck/claude-sdlc-skills
+/plugin marketplace add ibrahimhayeck/claude-sdlc-skills
 /plugin install engineering-skills@engineering-tools
 ```
 
-Here `ibrahim-hayeck/claude-sdlc-skills` is the **owner/repo**; `engineering-skills@engineering-tools` is **plugin@marketplace** (the `name` fields in `plugin.json` and `marketplace.json`). One install brings all fourteen skills.
+Here `ibrahimhayeck/claude-sdlc-skills` is the **owner/repo**; `engineering-skills@engineering-tools` is **plugin@marketplace** (the `name` fields in `plugin.json` and `marketplace.json`). One install brings all fourteen skills.
 
 **Option B — drop-in skills.** Copy the `skills/*` folders into `~/.claude/skills/` (global)
 or a project's `.claude/skills/`, and keep `CONVENTIONS.md` + `templates/` where the team can
 find them.
 
-**Option C — skills.sh installer** (public repos): `npx skills@latest add ibrahim-hayeck/claude-sdlc-skills`.
+**Option C — skills.sh installer** (public repos): `npx skills@latest add ibrahimhayeck/claude-sdlc-skills`.
 
 After installing, everyone runs `/setup-skills` once per repo. Push updates by bumping `version` in `plugin.json`; teammates run `/plugin marketplace update engineering-tools`.
 
