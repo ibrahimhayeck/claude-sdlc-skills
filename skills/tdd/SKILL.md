@@ -30,6 +30,9 @@ RIGHT (vertical):    test1→impl1, test2→impl2, test3→impl3, …
 ### 1. Planning
 Explore using the domain glossary (`CONTEXT.md`) so test/interface names match the project
 language; respect ADRs in the area. Before writing code:
+- **Framework:** use the unit `framework`/`runner` pinned in `docs/agents/testing.md` if set;
+  if it's `auto`, match the repo's existing test setup. Don't introduce a new framework
+  without the user's OK.
 - Confirm the interface changes needed.
 - Confirm which behaviours to test (prioritize — you can't test everything; focus on
   critical paths and complex logic).

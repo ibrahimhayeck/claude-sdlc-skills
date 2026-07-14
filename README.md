@@ -51,6 +51,14 @@ The core loop: **align → document → plan → build → test → review → d
 
 You can switch later by re-running `/setup-skills`.
 
+## Pick your test frameworks (default = auto-detect)
+
+`/tdd` and `/functional-test` detect the framework from each repo by default — but a developer
+can **pin** a choice in `docs/agents/testing.md` (unit, API, and E2E, each with a run command).
+Precedence is **repo file → org default → auto-detect**, so one repo can lock its tools, or a
+whole **set of repos** can share defaults via a `testing-defaults.md` in the central docs repo.
+No code changes — just edit the config.
+
 ## Where do the docs go? (short version)
 
 Full detail in [CONVENTIONS.md](./CONVENTIONS.md). Rule of thumb:

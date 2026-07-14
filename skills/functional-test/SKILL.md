@@ -21,24 +21,27 @@ Two kinds, chosen by what the feature exposes:
 
 For a change that spans several repos/services, see [CROSS-REPO.md](./CROSS-REPO.md).
 
-## Step 0 — Detect the stack (do not assume a language)
+## Step 0 — Which framework? (config first, then detect)
 
-The team is polyglot (Node/TS, Java, Python, .NET, Ruby, React, …). Before writing
-anything, look at the repo and match the **existing** conventions:
+Resolve the API and E2E frameworks in this order and stop at the first that answers:
 
-1. Read the manifest — `package.json`, `pom.xml` / `build.gradle`, `pyproject.toml` /
-   `requirements.txt`, `*.csproj`, `Gemfile` — to learn the language and installed test
-   tooling.
-2. Find existing functional/E2E tests and copy their structure, naming, and runner. **Do
-   not introduce a new framework if one is already in use.**
-3. Only if none exists, propose one and confirm with the user before adding a dependency:
-   - API: the language's standard HTTP-level test tool (e.g. supertest/`fetch`+vitest for
-     Node, REST-assured/`WebTestClient` for JVM, `httpx`+pytest for Python,
-     `WebApplicationFactory` for .NET).
-   - Web E2E: **Playwright** (the team standard), using `@playwright/test`.
+1. **`docs/agents/testing.md`** in this repo — if it pins a `framework`/`runner` (anything
+   not `auto`), use exactly that. This is how a developer locks a repo to a specific choice.
+2. **Org default** — if `testing.md` says `inherit`, read `testing-defaults.md` in the
+   central docs repo. This is how you standardise a *set* of repos.
+3. **Auto-detect** (the default) — the team is polyglot (Node/TS, Java, Python, .NET, Ruby,
+   React, …), so match the repo's **existing** conventions:
+   - Read the manifest (`package.json`, `pom.xml`/`build.gradle`, `pyproject.toml`/
+     `requirements.txt`, `*.csproj`, `Gemfile`) for language + installed test tooling.
+   - Find existing functional/E2E tests and copy their structure, naming, and runner. **Do
+     not introduce a new framework if one is already in use.**
+   - If none exists, propose one and confirm before adding a dependency: API → the language's
+     standard HTTP-level tool (supertest/`fetch`+vitest for Node, REST-assured/`WebTestClient`
+     for JVM, `httpx`+pytest for Python, `WebApplicationFactory` for .NET); Web E2E →
+     **Playwright** via `@playwright/test` (the default).
 
-Use the repo's domain glossary (`CONTEXT.md`) so test names and assertions speak the
-project's language. Respect ADRs in the area you're touching.
+Run tests with the `runner` command from `testing.md` when set. Use the repo's domain
+glossary (`CONTEXT.md`) so test names speak the project's language. Respect ADRs in the area.
 
 ## Workflow
 

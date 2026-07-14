@@ -242,6 +242,7 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
 <div class="tabs" role="tablist" aria-label="Sections">
   <button role="tab" data-target="p-start" aria-selected="true">🚀 Get started</button>
   <button role="tab" data-target="p-skills" aria-selected="false">📚 All skills</button>
+  <button role="tab" data-target="p-testing" aria-selected="false">🧪 Testing</button>
   <button role="tab" data-target="p-repo" aria-selected="false">🗂 Repo layout</button>
   <button role="tab" data-target="p-install" aria-selected="false">🔌 Install &amp; plugins</button>
 </div>
@@ -452,6 +453,64 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
 </div>
 
 </section>
+<section class="tabpanel" id="p-testing">
+<h2 id="testing">Testing — setup to execution</h2>
+<p class="sec-sub">Configure the frameworks once; every stage honours that choice — with auto-detect as the default.</p>
+
+<div class="chain">
+  <div class="cstep" style="--ac:var(--config)"><b>1 · setup</b><small>testing.md</small></div>
+  <span class="carrow">▶</span>
+  <div class="cstep" style="--ac:var(--pln)"><b>2 · plan</b><small>PRD tests</small></div>
+  <span class="carrow">▶</span>
+  <div class="cstep ac-build"><b>3 · unit</b><small>/tdd</small></div>
+  <span class="carrow">▶</span>
+  <div class="cstep ac-test"><b>4 · e2e</b><small>/functional-test</small></div>
+  <span class="carrow">▶</span>
+  <div class="cstep ac-review"><b>5 · review</b><small>+ security gate</small></div>
+  <span class="carrow">▶</span>
+  <div class="cstep" style="--ac:var(--brand)"><b>6 · execute</b><small>CI runner</small></div>
+</div>
+<div class="chain sub">
+  <span class="cbranch">↳ something breaks</span><span class="carrow">▶</span>
+  <div class="cstep ac-debug"><b>/diagnose</b><small>→ regression test</small></div>
+  <span class="carrow">▶</span><span class="cbranch">back to review</span>
+</div>
+
+<h3>Who picks the framework — the flexible part</h3>
+<div class="opt" style="border-color:var(--config);background:color-mix(in srgb,var(--config) 6%,var(--surface))">
+<p class="muted"><b>Default is auto-detect</b> — the skills read your manifest and existing tests, and never add a dependency without asking. To pin a choice, set it in <code>docs/agents/testing.md</code>. Resolution order:</p>
+<div class="chain sub">
+  <span class="pill">repo testing.md</span><span class="carrow">▶</span>
+  <span class="pill">org testing-defaults.md</span><span class="carrow">▶</span>
+  <span class="pill">auto-detect</span>
+</div>
+<p class="muted">So one repo can lock its tools, a <b>set of repos</b> can share defaults via the central docs repo, or you leave everything on <code>auto</code>. No code changes — just edit the config.</p>
+</div>
+
+<h3>The levels of tests</h3>
+<table>
+  <tr><th>Level</th><th>Skill</th><th>Default framework</th><th>Proves</th></tr>
+  <tr><td>Unit / integration</td><td><code>/tdd</code></td><td>auto — vitest, jest, pytest, junit5, …</td><td>each unit behaves, via its public interface</td></tr>
+  <tr><td>API / service</td><td><code>/functional-test</code></td><td>auto — supertest, rest-assured, httpx, …</td><td>the endpoint behaves end-to-end</td></tr>
+  <tr><td>Browser E2E</td><td><code>/functional-test</code></td><td>Playwright</td><td>the user journey works in a real browser</td></tr>
+  <tr><td>Cross-repo contract</td><td><code>/functional-test</code></td><td>contract file + tests both sides</td><td>services integrate without a full spin-up</td></tr>
+</table>
+
+<h3>Stage by stage</h3>
+<div class="filekey">
+  <div class="fk" style="--ac:var(--config)"><h4>1 · Setup — testing.md</h4><div class="role">/setup-skills writes the pinned frameworks + run commands (or leaves them auto).</div><div class="why"><b>Once per repo</b> — everything downstream honours it.</div></div>
+  <div class="fk" style="--ac:var(--pln)"><h4>2 · Plan — PRD tests</h4><div class="role">/grill-with-docs + /to-prd record which behaviours get unit vs functional tests, and the contract seams.</div><div class="why"><b>Deliberate coverage</b> tied to acceptance criteria.</div></div>
+  <div class="fk ac-build"><h4>3 · Unit — /tdd</h4><div class="role">Red-green-refactor, one behaviour at a time, through public interfaces.</div><div class="why">Fast feedback while building; survives refactors.</div></div>
+  <div class="fk ac-test"><h4>4 · End-to-end — /functional-test</h4><div class="role">API tests, Playwright browser flows, and cross-repo contract tests through the real interface.</div><div class="why">Proves the feature works; locks cross-service seams.</div></div>
+  <div class="fk ac-review"><h4>5 · Review — /review</h4><div class="role">Checks acceptance criteria have tests, then asks the auth/data safety gate → /security-review.</div><div class="why">No untested behaviour or unreviewed data change reaches merge.</div></div>
+  <div class="fk" style="--ac:var(--brand)"><h4>6 · Execute — CI</h4><div class="role">Runs with the runner from testing.md. Units gate every change; E2E gates merges to main; contract tests run on both services.</div><div class="why">Regressions caught before deploy.</div></div>
+  <div class="fk ac-debug"><h4>↺ Debug — /diagnose</h4><div class="role">Builds a failing test to reproduce a bug, fixes it, leaves a regression test.</div><div class="why">The bug can't return; hands back to /review.</div></div>
+  <div class="fk" style="--ac:var(--glossary)"><h4>Persistence</h4><div class="role">All tests + contract files are committed to the repo.</div><div class="why">The next iteration/agent runs the same suite; the contract stays the source of truth.</div></div>
+</div>
+
+<div class="foot"><b>Data guardrail at every level:</b> synthetic data only — never real or production data (no PHI/PII in regulated domains), against a dedicated test environment. · Standalone version: <a href="./testing-lifecycle.md">testing-lifecycle.md</a></div>
+
+</section>
 <section class="tabpanel" id="p-repo">
 <h2 id="structure">Where everything lives — a multi-repo change</h2>
 <p class="sec-sub">One change (epic <b>ORD-42 "express checkout"</b>) spanning four repos, using the <b>local-markdown</b> issue tracker and a <b>central docs repo</b>. Everything shown is committed to git (persistent) unless marked <span class="temp">temp</span>.</p>
@@ -550,7 +609,7 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
   </div>
   <div class="fk" style="--ac:var(--config)">
     <h4>docs/agents/</h4>
-    <div class="role">Per-repo settings the skills read: issue tracker, docs location, triage labels, domain layout.</div>
+    <div class="role">Per-repo settings the skills read: issue tracker, docs location, triage labels, domain layout, and <code>testing.md</code> (pin your unit/API/E2E frameworks, or leave on auto-detect).</div>
     <div class="why"><b>Why it persists:</b> written once by <code>/setup-skills</code>; every skill and every future run behaves consistently with zero reconfiguration.</div>
   </div>
   <div class="fk" style="--ac:var(--decision)">

@@ -1,6 +1,6 @@
 ---
 name: setup-skills
-description: One-time per-repo setup for the engineering skills. Records this repo's issue tracker (GitHub Issues, Jira, or local markdown docs), the triage label vocabulary, where PRDs/ADRs are stored, and the domain-doc layout — into CLAUDE.md/AGENTS.md + docs/agents/. The other skills read this config, so run it once per repo before using to-prd, to-issues, triage, tdd, functional-test, diagnose, or improve-codebase-architecture.
+description: One-time per-repo setup for the engineering skills. Records this repo's issue tracker (GitHub Issues, Jira, or local markdown docs), the triage label vocabulary, where PRDs/ADRs are stored, the domain-doc layout, and the test frameworks (auto-detect by default, or pin a choice for this repo / a set of repos) — into CLAUDE.md/AGENTS.md + docs/agents/. The other skills read this config, so run it once per repo before using to-prd, to-issues, triage, tdd, functional-test, diagnose, or improve-codebase-architecture.
 disable-model-invocation: true
 ---
 
@@ -72,8 +72,23 @@ trackers, these become front-matter fields in the issue files.)
 
 Write [domain.md](./domain.md) to `docs/agents/domain.md`.
 
+**Section E — Testing frameworks.**
+> `/tdd` and `/functional-test` default to **auto-detecting** the framework from the repo.
+> A developer can instead **pin** a choice here — for this repo, or (via an org default) a
+> whole set of repos.
+
+For each of the three, offer `auto` (recommended default) or a specific value:
+- **Unit / integration** (used by `/tdd`) — e.g. vitest, jest, pytest, junit5, xunit, rspec.
+- **API / service** (used by `/functional-test`) — e.g. supertest, rest-assured, httpx+pytest.
+- **End-to-end** (used by `/functional-test`) — Playwright by default; or cypress, selenium, none.
+
+Also capture a **runner** command per level when known (e.g. `npm test`, `mvn test`,
+`npx playwright test`). If the user wants a whole set of repos to share choices, tell them to
+put the same fields in `testing-defaults.md` in the central docs repo and set values here to
+`inherit`. Write [testing.md](./testing.md) to `docs/agents/testing.md`.
+
 ## 3. Confirm and write
-Show the user a draft of the `## Agent skills` block plus the four `docs/agents/*.md` files.
+Show the user a draft of the `## Agent skills` block plus the five `docs/agents/*.md` files.
 Let them edit before writing.
 
 **Pick the file to edit:** if `CLAUDE.md` exists, edit it; else if `AGENTS.md` exists, edit
@@ -96,6 +111,9 @@ Block template:
 
 ### Domain docs
 [single-context | multi-context]. CONTEXT.md is local to this repo. See `docs/agents/domain.md`.
+
+### Testing frameworks
+[auto-detect | pinned: unit=…, api=…, e2e=…]. See `docs/agents/testing.md`.
 ```
 
 ## 4. Done
