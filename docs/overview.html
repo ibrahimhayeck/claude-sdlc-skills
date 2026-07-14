@@ -10,7 +10,7 @@
   --ink:#15181e; --muted:#5b6270; --border:#e4e7ec; --border-strong:#d3d8e0;
   --brand:#4f46e5; --brand2:#7c3aed; --brand3:#0ea5e9;
   --setup:#64748b; --align:#8b5cf6; --plan:#2563eb; --build:#0d9488; --test:#10b981; --review:#0891b2; --debug:#e0891b; --security:#e11d48; --improve:#db2777;
-  --glossary:#0d9488; --decision:#7c3aed; --pln:#2563eb; --config:#e0891b; --tests:#db2777;
+  --agent:#4f46e5; --glossary:#0d9488; --decision:#7c3aed; --pln:#2563eb; --config:#e0891b; --tests:#db2777;
   --code-bg:#0d1117; --code-ink:#e6edf3;
   --shadow:0 1px 2px rgba(16,24,40,.05),0 1px 3px rgba(16,24,40,.04);
   --shadow-lg:0 12px 32px rgba(16,24,40,.12);
@@ -131,11 +131,22 @@ h3{font-size:15px;margin:20px 0 4px}
 .cardhead{font-weight:750;font-size:14.5px;display:flex;flex-wrap:wrap;align-items:baseline;gap:8px}
 .tag{font-weight:500;font-size:11.5px;color:var(--muted)}
 .cardrole{color:var(--muted);font-size:12px;margin:3px 0 9px}
-.row{padding:5px 0 5px 10px;border-left:3px solid transparent;margin-bottom:1px}
+.row{padding:8px 11px;border-left:4px solid transparent;border-radius:9px;margin-bottom:6px;background:var(--panel)}
 .row code{font-size:11.5px;color:var(--ink);font-weight:700;display:block;margin-bottom:1px;word-break:break-word;background:none;padding:0}
 .row .note{color:var(--muted);font-size:11.5px;display:block}
-.row.glossary{border-left-color:var(--glossary)}.row.decision{border-left-color:var(--decision)}
-.row.plan{border-left-color:var(--pln)}.row.config{border-left-color:var(--config)}.row.tests{border-left-color:var(--tests)}
+.row.agent{border-left-color:var(--agent);background:color-mix(in srgb,var(--agent) 14%,var(--surface))}
+.row.glossary{border-left-color:var(--glossary);background:color-mix(in srgb,var(--glossary) 14%,var(--surface))}
+.row.decision{border-left-color:var(--decision);background:color-mix(in srgb,var(--decision) 13%,var(--surface))}
+.row.plan{border-left-color:var(--pln);background:color-mix(in srgb,var(--pln) 12%,var(--surface))}
+.row.config{border-left-color:var(--config);background:color-mix(in srgb,var(--config) 14%,var(--surface))}
+.row.tests{border-left-color:var(--tests);background:color-mix(in srgb,var(--tests) 12%,var(--surface))}
+.filekey{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.fk{border:1px solid var(--border);border-left:5px solid var(--ac,var(--brand));border-radius:12px;
+  padding:12px 14px;background:color-mix(in srgb,var(--ac,var(--brand)) 6%,var(--surface));box-shadow:var(--shadow)}
+.fk h4{margin:0 0 4px;font:700 13.5px var(--mono);color:var(--ac,var(--brand))}
+.fk .role{font-size:13px;margin:0 0 6px}
+.fk .why{font-size:12px;color:var(--muted)}
+.fk .why b{color:var(--ink)}
 .temp{background:var(--panel2);border:1px solid var(--border);border-radius:5px;padding:0 6px;font-size:11px;font-weight:700}
 .foot{margin-top:14px;padding:12px 15px;border:1px dashed var(--border-strong);border-radius:12px;color:var(--muted);font-size:12.5px;line-height:1.55}
 .foot b{color:var(--ink)}
@@ -446,12 +457,14 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
 <p class="sec-sub">One change (epic <b>ORD-42 "express checkout"</b>) spanning four repos, using the <b>local-markdown</b> issue tracker and a <b>central docs repo</b>. Everything shown is committed to git (persistent) unless marked <span class="temp">temp</span>.</p>
 
 <div class="legend">
-  <span><i class="dot" style="background:var(--glossary)"></i>Glossary — what words mean</span>
-  <span><i class="dot" style="background:var(--decision)"></i>Decision (ADR) — why we chose it</span>
-  <span><i class="dot" style="background:var(--pln)"></i>Plan — PRD &amp; issues</span>
-  <span><i class="dot" style="background:var(--config)"></i>Config — how this repo works</span>
-  <span><i class="dot" style="background:var(--tests)"></i>Tests — proof it works</span>
+  <span><i class="dot" style="background:var(--agent)"></i><b>CLAUDE.md</b> — agent entry point</span>
+  <span><i class="dot" style="background:var(--glossary)"></i><b>CONTEXT.md</b> — glossary</span>
+  <span><i class="dot" style="background:var(--config)"></i><b>docs/agents/</b> — config</span>
+  <span><i class="dot" style="background:var(--decision)"></i><b>docs/adr/</b> — decisions</span>
+  <span><i class="dot" style="background:var(--pln)"></i><b>PRD &amp; issues</b> — plan</span>
+  <span><i class="dot" style="background:var(--tests)"></i><b>tests &amp; contracts</b> — proof</span>
 </div>
+<p class="sec-sub" style="margin-top:4px">Same colour = same kind of file in <i>every</i> repo, so you can trace one type across the whole system at a glance.</p>
 
 <div class="flow">
   <span class="flab">Dependency flow:</span>
@@ -473,7 +486,7 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
   <div class="card">
     <div class="cardhead">frontend-web <span class="tag">React · calls orders-api</span></div>
     <div class="cardrole">Owns the end-to-end user journey (entry point).</div>
-    <div class="row config"><code>CLAUDE.md</code><span class="note"><code>## Agent skills</code> block, points to <code>docs/agents/</code>.</span></div>
+    <div class="row agent"><code>CLAUDE.md</code><span class="note"><code>## Agent skills</code> block, points to <code>docs/agents/</code>.</span></div>
     <div class="row glossary"><code>CONTEXT.md</code><span class="note">Frontend glossary (Cart, CheckoutStep). Versions with the code.</span></div>
     <div class="row config"><code>docs/agents/*.md</code><span class="note">Written once by <code>/setup-skills</code>: issue-tracker, docs-location, triage-labels, domain.</span></div>
     <div class="row decision"><code>docs/adr/0003-optimistic-cart.md</code><span class="note">A decision local to the frontend.</span></div>
@@ -486,7 +499,7 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
   <div class="card">
     <div class="cardhead">orders-api <span class="tag">backend · calls payments + db</span></div>
     <div class="cardrole">Consumer of the payments contract; owns order data.</div>
-    <div class="row config"><code>CLAUDE.md</code><span class="note">Agent skills block, points to <code>docs/agents/</code>.</span></div>
+    <div class="row agent"><code>CLAUDE.md</code><span class="note">Agent skills block, points to <code>docs/agents/</code>.</span></div>
     <div class="row glossary"><code>CONTEXT.md</code><span class="note">Backend glossary (Order, LineItem, Payment).</span></div>
     <div class="row config"><code>docs/agents/*.md</code><span class="note">Same four config files, per this repo.</span></div>
     <div class="row decision"><code>docs/adr/0005-order-state-machine.md</code><span class="note">Backend-local decision.</span></div>
@@ -500,7 +513,7 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
   <div class="card">
     <div class="cardhead">payments-service <span class="tag">microservice · dependency of orders-api</span></div>
     <div class="cardrole">Provider of the contract; owned by another team.</div>
-    <div class="row config"><code>CLAUDE.md</code><span class="note">Agent skills block.</span></div>
+    <div class="row agent"><code>CLAUDE.md</code><span class="note">Agent skills block.</span></div>
     <div class="row glossary"><code>CONTEXT.md</code><span class="note">Its own glossary (Charge, Refund, PaymentIntent).</span></div>
     <div class="row config"><code>docs/agents/*.md</code><span class="note">Its own setup config.</span></div>
     <div class="row decision"><code>docs/adr/0007-stub.md</code><span class="note">Stub to central ADR-0007 (provider side).</span></div>
@@ -512,13 +525,48 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
   <div class="card">
     <div class="cardhead">orders-db <span class="tag">database · dependency of orders-api</span></div>
     <div class="cardrole">Schema &amp; migrations for order/checkout data.</div>
-    <div class="row config"><code>CLAUDE.md</code><span class="note">Agent skills block.</span></div>
+    <div class="row agent"><code>CLAUDE.md</code><span class="note">Agent skills block.</span></div>
     <div class="row glossary"><code>CONTEXT.md</code><span class="note">Schema domain terms, aligned to orders-api.</span></div>
     <div class="row config"><code>docs/agents/*.md</code><span class="note">Its own setup config.</span></div>
     <div class="row decision"><code>docs/adr/0006-orders-schema.md</code><span class="note">Local decision (table design, indexing).</span></div>
     <div class="row plan"><code>migrations/2026_07_checkout.sql</code><span class="note">The schema change — the persistent build artifact.</span></div>
     <div class="row plan"><code>.scratch/ORD-42/006-schema-migration.md</code><span class="note">Local issue — slice.</span></div>
     <div class="row tests"><code>tests/migration_*</code><span class="note">Migration up/down + seed checks.</span></div>
+  </div>
+</div>
+
+<h3>What each file is — and why it stays in the repo</h3>
+<p class="sec-sub">Every file here is committed on purpose. Persisting it is what lets the <i>next</i> iteration — and the next agent — pick up without re-deriving what was already figured out.</p>
+<div class="filekey">
+  <div class="fk" style="--ac:var(--agent)">
+    <h4>CLAUDE.md</h4>
+    <div class="role">The agent's entry point. Its <code>## Agent skills</code> block says how this repo works and points at <code>docs/agents/</code>.</div>
+    <div class="why"><b>Why it persists:</b> every future session starts here and inherits the same setup — no re-explaining the repo to each new agent or teammate.</div>
+  </div>
+  <div class="fk" style="--ac:var(--glossary)">
+    <h4>CONTEXT.md</h4>
+    <div class="role">The domain glossary — what each term means, in this repo's language.</div>
+    <div class="why"><b>Why it persists:</b> keeps humans and agents naming things the same way as the code grows, instead of re-deriving meaning every iteration.</div>
+  </div>
+  <div class="fk" style="--ac:var(--config)">
+    <h4>docs/agents/</h4>
+    <div class="role">Per-repo settings the skills read: issue tracker, docs location, triage labels, domain layout.</div>
+    <div class="why"><b>Why it persists:</b> written once by <code>/setup-skills</code>; every skill and every future run behaves consistently with zero reconfiguration.</div>
+  </div>
+  <div class="fk" style="--ac:var(--decision)">
+    <h4>docs/adr/</h4>
+    <div class="role">Short records of hard-to-reverse decisions and the reasoning behind them.</div>
+    <div class="why"><b>Why it persists:</b> stops a later iteration from re-litigating or accidentally "fixing" a deliberate choice — the <i>why</i> outlives the people who made it.</div>
+  </div>
+  <div class="fk" style="--ac:var(--pln)">
+    <h4>PRD &amp; .scratch issues</h4>
+    <div class="role">What we're building and the vertical slices to build it — the plan and its acceptance criteria.</div>
+    <div class="why"><b>Why it persists:</b> the durable record of intent; future work links back to the epic, and reviews and tests are measured against it.</div>
+  </div>
+  <div class="fk" style="--ac:var(--tests)">
+    <h4>tests &amp; contracts</h4>
+    <div class="role">Executable proof the behaviour works, plus the cross-service contract both sides test against.</div>
+    <div class="why"><b>Why it persists:</b> guards every future change against regressions, and the contract stays the shared source of truth as services evolve independently.</div>
   </div>
 </div>
 
