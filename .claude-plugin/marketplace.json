@@ -5,7 +5,7 @@
   },
   "metadata": {
     "description": "Comprehensive engineering skills. Tracker-agnostic (GitHub / Jira / local docs), language-agnostic.",
-    "version": "0.1.0"
+    "version": "0.2.0"
   },
   "plugins": [
     {
