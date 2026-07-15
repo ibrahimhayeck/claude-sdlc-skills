@@ -88,5 +88,5 @@ data-sensitive work (e.g. anything handling PHI/PII), treat that as expected, no
 Then route from the findings and offer the next step: a blocker with a clear fix → `/tdd` to
 fix it test-first; a mysterious or intermittent bug → `/diagnose`; a deeper structural issue →
 `/improve-codebase-architecture`; behaviour not yet proven end-to-end → `/functional-test`.
-No blockers and the safety gate is clear → it's good to merge. After any fix lands, offer to
-re-run `/review`.
+No blockers and the safety gate is clear → hand to `/verify` (evidence gate) and then
+`/finish` to land the change. After any fix lands, offer to re-run `/review`.

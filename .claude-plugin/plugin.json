@@ -1,7 +1,7 @@
 {
   "name": "engineering-skills",
   "version": "0.1.0",
-  "description": "A comprehensive, simple-to-use set of engineering skills: align, document, plan, build, test, review, debug, and improve. Works with any issue tracker (GitHub, Jira, or local markdown docs) and any language. Based on mattpocock/skills (MIT).",
+  "description": "A comprehensive, simple-to-use set of engineering skills: align, document, plan, build, test, review, verify, finish, debug, and improve. Works with any issue tracker (GitHub, Jira, or local markdown docs) and any language. Based on mattpocock/skills (MIT).",
   "author": {
     "name": "Engineering"
   },
@@ -16,6 +16,8 @@
     "./skills/functional-test",
     "./skills/review",
     "./skills/security-review",
+    "./skills/verify",
+    "./skills/finish",
     "./skills/diagnose",
     "./skills/improve-codebase-architecture",
     "./skills/zoom-out",

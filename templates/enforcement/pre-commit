@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Lightweight local guardrail. Copy to .git/hooks/pre-commit and: chmod +x .git/hooks/pre-commit
+# Blocks direct commits to main and obvious secrets. Not a replacement for real secret scanning.
+set -euo pipefail
+
+branch="$(git rev-parse --abbrev-ref HEAD)"
+if [ "$branch" = "main" ] || [ "$branch" = "master" ]; then
+  echo "✗ Don't commit directly to $branch — branch first (git switch -c my-change)."
+  exit 1
+fi
+
+# crude secret scan on staged changes
+if git diff --cached -U0 | grep -nEi '(api[_-]?key|secret|password|token)["'"'"' ]*[:=]|-----BEGIN [A-Z ]*PRIVATE KEY' ; then
+  echo "✗ Possible secret in staged changes — remove it (use env vars / a secret store)."
+  exit 1
+fi
+
+exit 0

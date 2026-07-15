@@ -34,11 +34,14 @@ Each is a slash command in your agent. You only ever run step 0 once per repo.
    cross-service flows).
 6. **Review it:** `/review` checks a diff/PR against the acceptance criteria, glossary, and
    ADRs; `/security-review` for changes touching auth, input, data, or dependencies.
-7. **When stuck:** `/diagnose` (disciplined debugging) and `/zoom-out` (understand unfamiliar code).
-8. **Keep it healthy:** `/improve-codebase-architecture` every so often. `/handoff` when
+7. **Verify &amp; land it:** `/verify` refuses to claim "done" without fresh evidence (it runs
+   the check and reads the output); `/finish` does the final green check, then PR/merge/cleanup.
+8. **When stuck:** `/diagnose` (disciplined debugging) and `/zoom-out` (understand unfamiliar code).
+9. **Keep it healthy:** `/improve-codebase-architecture` every so often. `/handoff` when
    context runs low.
 
-The core loop: **align → document → plan → build → test → review → debug → improve.**
+The core loop: **align → build → test → review → verify → finish**, with **debug** and
+**improve** as reflexes.
 
 ## Pick your issue tracker (flexible, like the original)
 
@@ -73,12 +76,33 @@ Full detail in [CONVENTIONS.md](./CONVENTIONS.md). Rule of thumb:
 `/setup-skills` lets you keep PRDs/ADRs **in-repo** (simplest, single-repo projects) or in a
 **central docs repo** (recommended once work spans several repos).
 
+## Right-size the ceremony
+
+Don't run the full loop for a typo. Match the process to the change — **trivial** (typo,
+one-liner) → just make it + `/verify`; **standard** (a feature/bug in one repo) → the full
+loop; **risky / multi-repo** (auth, data, schema, several repos) → add `/to-prd`,
+`/to-issues`, and `/security-review`. Details in [WORKFLOW.md](./WORKFLOW.md). You approve
+each step and can skip any — the framework is a default, not a cage.
+
+## Optional: make it binding later
+
+**Not required to use the framework.** The in-loop gate is `/verify` (the agent runs the check
+and reads the output before claiming done) — that's all you need day one. When a team is ready
+to *harden* the standard, the opt-in [`templates/enforcement/`](./templates/enforcement/) pack
+adds server-side enforcement that holds even without the agent: a PR checklist, a **CI check**
+(GitHub Actions running the same tests `/finish` runs), and a pre-commit hook. Adopt it after a
+pilot — copy the files in, and only then mark the CI check *required* in branch protection to
+make merges blocking. Until then it stays off and nothing changes. Governance (owner,
+versioning, adoption playbook) is in [CONTRIBUTING.md](./CONTRIBUTING.md); changes tracked in
+[CHANGELOG.md](./CHANGELOG.md).
+
 ## What's in the box
 
-Fourteen skills: `setup-skills`, `grill-me`, `grill-with-docs`, `to-prd`, `to-issues`,
-`triage`, `tdd`, `functional-test`, `review`, `security-review`, `diagnose`,
-`improve-codebase-architecture`, `zoom-out`, `handoff`. Plus `CONVENTIONS.md` and copy-paste
-`templates/`.
+Sixteen skills: `setup-skills`, `grill-me`, `grill-with-docs`, `to-prd`, `to-issues`,
+`triage`, `tdd`, `functional-test`, `review`, `security-review`, `verify`, `finish`,
+`diagnose`, `improve-codebase-architecture`, `zoom-out`, `handoff`. A one-screen
+[SKILLS.md](./SKILLS.md) cheat sheet lists them by tier (everyday vs occasional). Plus
+`CONVENTIONS.md`, `WORKFLOW.md`, and copy-paste `templates/` (including the enforcement pack).
 
 ## Install (Claude Code / compatible agents)
 
@@ -90,7 +114,7 @@ repo, then each person runs:
 /plugin install engineering-skills@engineering-tools
 ```
 
-Here `ibrahimhayeck/claude-sdlc-skills` is the **owner/repo**; `engineering-skills@engineering-tools` is **plugin@marketplace** (the `name` fields in `plugin.json` and `marketplace.json`). One install brings all fourteen skills.
+Here `ibrahimhayeck/claude-sdlc-skills` is the **owner/repo**; `engineering-skills@engineering-tools` is **plugin@marketplace** (the `name` fields in `plugin.json` and `marketplace.json`). One install brings all sixteen skills.
 
 **Option B — drop-in skills.** Copy the `skills/*` folders into `~/.claude/skills/` (global)
 or a project's `.claude/skills/`, and keep `CONVENTIONS.md` + `templates/` where the team can

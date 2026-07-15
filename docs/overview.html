@@ -147,6 +147,24 @@ h3{font-size:15px;margin:20px 0 4px}
 .fk .role{font-size:13px;margin:0 0 6px}
 .fk .why{font-size:12px;color:var(--muted)}
 .fk .why b{color:var(--ink)}
+.inv{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.invcard{border:1px solid var(--border);border-radius:12px;padding:12px 15px;background:var(--surface);box-shadow:var(--shadow)}
+.invcard h4{margin:0 0 7px;font:700 13px var(--mono);color:var(--brand)}
+.invcard ul{margin:0;padding-left:18px}
+.invcard li{font-size:12.5px;margin:3px 0;line-height:1.4}
+.invcard li code{background:none;padding:0;font-size:12px;color:var(--ink);font-weight:600}
+.invcard li span{color:var(--muted)}
+.invcard.wide{grid-column:1 / -1}
+.qbar{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 14px}
+.qbar .q{flex:1 1 260px;border:1px dashed var(--border-strong);border-radius:10px;padding:9px 12px;font-size:12.5px;background:var(--panel);color:var(--muted)}
+.qbar .q b{color:var(--ink)}
+.lane{border:1px solid var(--border);border-left:5px solid var(--ac,var(--brand));border-radius:12px;padding:11px 14px;margin:10px 0;background:var(--surface);box-shadow:var(--shadow)}
+.lane .lh{font-weight:800;font-size:13.5px}
+.lane .lh .tagx{font-weight:600;font-size:11.5px;color:var(--muted);margin-left:8px}
+.lane .lcond{color:var(--muted);font-size:11.5px;margin:1px 0 9px}
+.lane .chain{margin:0}
+.forcebar{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 2px;font-size:12.5px;align-items:center}
+.forcebar code{background:var(--panel2)}
 .temp{background:var(--panel2);border:1px solid var(--border);border-radius:5px;padding:0 6px;font-size:11px;font-weight:700}
 .foot{margin-top:14px;padding:12px 15px;border:1px dashed var(--border-strong);border-radius:12px;color:var(--muted);font-size:12.5px;line-height:1.55}
 .foot b{color:var(--ink)}
@@ -270,7 +288,9 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
   <span class="carrow">▶</span>
   <div class="cstep ac-review"><b>review</b><small>/review</small></div>
   <span class="carrow">▶</span>
-  <div class="cmerge">merge ✓</div>
+  <div class="cstep" style="--ac:var(--brand)"><b>verify</b><small>/verify</small></div>
+  <span class="carrow">▶</span>
+  <div class="cstep" style="--ac:var(--glossary)"><b>finish</b><small>/finish → merge ✓</small></div>
 </div>
 <div class="chain sub">
   <span class="cbranch">↳ touches auth or data?</span><span class="carrow">▶</span>
@@ -284,7 +304,57 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
 </div>
 <p class="muted">You stay in control — it <b>suggests</b> the next step, you decide. Two reflexes are always on: <b>/review asks a safety-gate question</b> ("does this touch auth or data?") and runs <b>/security-review</b> when yes; and <b>/diagnose</b> takes over the moment something breaks. Any point is a valid start — a bug report jumps straight to debug, "review my branch" straight to review.</p>
 
-<h2 id="first-change"><span class="n">3</span>Your first change, start to finish</h2>
+<h2 id="flow"><span class="n">3</span>Choose your flow — simple vs full</h2>
+<p class="sub">Two questions pick the lane. The agent right-sizes automatically and <b>announces which lane it's taking</b> — and you can override anytime.</p>
+<div class="qbar">
+  <div class="q"><b>Q1 · Trivial?</b> typo, one-liner, config bump, tiny fix</div>
+  <div class="q"><b>Q2 · Risky or multi-repo?</b> touches auth, data, schema, a public API, or several repos</div>
+</div>
+
+<div class="lane" style="--ac:var(--test)">
+  <div class="lh">Express <span class="tagx">Q1 = yes · smallest, safest changes</span></div>
+  <div class="chain">
+    <div class="cstep" style="--ac:var(--muted)"><b>make the change</b></div>
+    <span class="carrow">▶</span>
+    <div class="cstep" style="--ac:var(--brand)"><b>/verify</b><small>evidence gate</small></div>
+    <span class="carrow">▶</span>
+    <div class="cmerge">commit / PR ✓</div>
+  </div>
+</div>
+
+<div class="lane" style="--ac:var(--brand)">
+  <div class="lh">Standard <span class="tagx">Q1 no, Q2 no · a feature or bug in one repo</span></div>
+  <div class="chain">
+    <div class="cstep ac-align"><b>/grill-with-docs</b></div><span class="carrow">▶</span>
+    <div class="cstep ac-build"><b>/tdd</b></div><span class="carrow">▶</span>
+    <div class="cstep ac-test"><b>/functional-test</b></div><span class="carrow">▶</span>
+    <div class="cstep ac-review"><b>/review</b></div><span class="carrow">▶</span>
+    <div class="cstep" style="--ac:var(--brand)"><b>/verify</b></div><span class="carrow">▶</span>
+    <div class="cstep" style="--ac:var(--glossary)"><b>/finish</b></div>
+  </div>
+</div>
+
+<div class="lane" style="--ac:var(--security)">
+  <div class="lh">Full <span class="tagx">Q2 = yes · risky / cross-cutting / multi-repo</span></div>
+  <div class="chain">
+    <div class="cstep ac-align"><b>/grill-with-docs</b></div><span class="carrow">▶</span>
+    <div class="cstep" style="--ac:var(--pln)"><b>/to-prd</b></div><span class="carrow">▶</span>
+    <div class="cstep" style="--ac:var(--pln)"><b>/to-issues</b></div><span class="carrow">▶</span>
+    <div class="cstep ac-build"><b>/tdd</b></div><span class="carrow">▶</span>
+    <div class="cstep ac-test"><b>/functional-test</b></div><span class="carrow">▶</span>
+    <div class="cstep ac-review"><b>/review</b></div><span class="carrow">▶</span>
+    <div class="cstep ac-security"><b>/security-review</b></div><span class="carrow">▶</span>
+    <div class="cstep" style="--ac:var(--brand)"><b>/verify</b></div><span class="carrow">▶</span>
+    <div class="cstep" style="--ac:var(--glossary)"><b>/finish</b></div>
+  </div>
+</div>
+
+<div class="forcebar">
+  <b>Force a lane:</b> start your request with <code>quick:</code> (express) · <code>full:</code> (standard) · <code>risky:</code> (full) — or just say "this is trivial" / "let's do this properly" mid-flow.
+</div>
+<div class="foot">Reflexes on any lane: <b>/diagnose</b> when something breaks · <b>/improve-codebase-architecture</b> periodically. Two gates apply to <i>every</i> lane: <b>/verify</b> (no "done" without evidence) and synthetic data only — never real/production data. <b>CI enforcement is optional</b> and comes later — the in-loop gate is <code>/verify</code>, not a CI check.</div>
+
+<h2 id="first-change"><span class="n">4</span>Your first change, start to finish</h2>
 <p class="sub">A real example. The italic line is what you type; below it is what happens.</p>
 <div class="tl">
   <div class="turn you">
@@ -310,7 +380,7 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
 </div>
 <p class="muted">Five plain sentences, and the agent walked the whole loop — proving the feature end-to-end and catching a data-exposure bug before it shipped. You never looked up a command.</p>
 
-<h2 id="commands"><span class="n">4</span>Your everyday commands</h2>
+<h2 id="commands"><span class="n">5</span>Your everyday commands</h2>
 <p class="sub">You rarely type these — describe the work instead. The build loop, plus two always-on reflexes (<b>debug</b> when something breaks, <b>security review</b> when a change touches auth or data).</p>
 <div class="cmd4">
   <div class="cmdcard ac-align">
@@ -351,7 +421,7 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
   </div>
 </div>
 
-<h2 id="faq"><span class="n">5</span>Good to know</h2>
+<h2 id="faq"><span class="n">6</span>Good to know</h2>
 <div class="faq"><b>Do I have to run setup or create docs?</b><p>No. Nothing is required. <code>CONTEXT.md</code> and ADRs are created only if they'd help, and never for trivial changes.</p></div>
 <div class="faq"><b>What if I don't know which command to use?</b><p>Don't — just describe the task. If nothing fires, type the closest phrase (e.g. "review this") and it will.</p></div>
 <div class="faq"><b>Touching auth or data?</b><p><code>/review</code> asks a safety-gate question before merge and runs <code>/security-review</code> when the answer is yes. In data-sensitive work (e.g. anything with PHI/PII) that pass is expected, not optional.</p></div>
@@ -360,7 +430,7 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
 
 </section>
 <section class="tabpanel" id="p-skills">
-<h2 id="skills">All skills <span class="tiernote" style="color:var(--brand);background:color-mix(in srgb,var(--brand) 12%,var(--surface))">all 14 · one plugin</span></h2>
+<h2 id="skills">All skills <span class="tiernote" style="color:var(--brand);background:color-mix(in srgb,var(--brand) 12%,var(--surface))">all 16 · one plugin</span></h2>
 <p class="sec-sub">The complete toolkit in the single <b>engineering-skills</b> plugin, grouped by phase — planning, triage, architecture, and handoff, plus the everyday skills above. They all install together; you only invoke what a task needs.</p>
 
 <span class="phase p-setup">Setup · once per repo</span>
@@ -426,6 +496,18 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
   <span class="cmd">/security-review</span>
   <div class="what">A focused security pass: secrets, authn/authz (incl. IDOR), input validation &amp; injection, sensitive-data handling, crypto, and dependency risk — findings ranked critical to low, plus an explicit list of what was checked and found safe.</div>
   <div class="use"><b>Use it</b> when a change touches auth, external input, data access, or dependencies.</div>
+</div>
+
+<span class="phase p-review">Verify &amp; land</span>
+<div class="skill ac-review">
+  <span class="cmd">/verify</span>
+  <div class="what">Evidence-before-claims gate — won't say "done / passing / fixed" without running the check <b>this turn</b> and reading the output. Stops premature success claims.</div>
+  <div class="use"><b>Use it</b> before any commit, PR, or completion claim.</div>
+</div>
+<div class="skill ac-review">
+  <span class="cmd">/finish</span>
+  <div class="what">Lands a reviewed change: final green verification of the whole branch, confirm the acceptance criteria, then PR / merge / keep / discard, and clean up.</div>
+  <div class="use"><b>Use it</b> to close out a change cleanly.</div>
 </div>
 
 <span class="phase p-debug">Debug &amp; understand</span>
@@ -645,7 +727,7 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
   </div>
   <div class="concept c2">
     <div class="ct">Plugin</div>
-    <div class="cd">A bundle you install as a unit — skills plus optional slash commands, subagents, hooks, and MCP servers. Defined by <code>plugin.json</code>. Ours bundles all 14 skills.</div>
+    <div class="cd">A bundle you install as a unit — skills plus optional slash commands, subagents, hooks, and MCP servers. Defined by <code>plugin.json</code>. Ours bundles all 16 skills.</div>
   </div>
   <div class="concept c3">
     <div class="ct">Marketplace</div>
@@ -663,6 +745,57 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
     templates/  docs/  README.md</pre></div>
 <p class="muted"><code>plugin.json</code> → <code>{ "name": "engineering-skills", "version": "0.1.0", "skills": [ ... ] }</code>. <code>marketplace.json</code> → <code>{ "name": "engineering-tools", "plugins": [ { "name": "engineering-skills", "source": "./" } ] }</code>. The <code>"source": "./"</code> means the plugin sits at the root of this same repo; a marketplace can also point at other folders or other repos, so one catalog can offer many plugins.</p>
 
+<h3>What's in this repo</h3>
+<p class="sec-sub">The actual contents of <code>claude-sdlc-skills</code>, folder by folder.</p>
+<div class="inv">
+  <div class="invcard">
+    <h4>.claude-plugin/</h4>
+    <ul>
+      <li><code>plugin.json</code> <span>— the plugin: lists the 14 skills</span></li>
+      <li><code>marketplace.json</code> <span>— the catalog (<code>engineering-tools</code>)</span></li>
+    </ul>
+  </div>
+  <div class="invcard">
+    <h4>docs/</h4>
+    <ul>
+      <li><code>overview.html</code> <span>— this page</span></li>
+      <li><code>testing-lifecycle.md</code> <span>— testing setup→execution</span></li>
+      <li><span>+ archived <code>overview-*.zip</code> snapshots</span></li>
+    </ul>
+  </div>
+  <div class="invcard">
+    <h4>templates/</h4>
+    <ul>
+      <li><code>CONTEXT.md</code> <span>— glossary starter</span></li>
+      <li><code>CONTEXT-MAP.md</code> <span>— multi-context / org glossary</span></li>
+      <li><code>ADR.md</code> <span>— decision record</span></li>
+      <li><code>PRD.md</code> <span>— product requirements</span></li>
+      <li><code>functional-test-plan.md</code> <span>— acceptance-test plan</span></li>
+    </ul>
+  </div>
+  <div class="invcard">
+    <h4>root</h4>
+    <ul>
+      <li><code>README.md</code> <span>— team-facing intro + install</span></li>
+      <li><code>CONVENTIONS.md</code> <span>— where CONTEXT/PRD/ADR live</span></li>
+      <li><code>NOTICE.md</code> <span>— attribution (mattpocock/skills, MIT)</span></li>
+      <li><code>push-to-github.sh</code> <span>— helper to publish the repo</span></li>
+    </ul>
+  </div>
+  <div class="invcard wide">
+    <h4>skills/ — 14 skills, one folder each (a <code>SKILL.md</code>, some with supporting files)</h4>
+    <ul>
+      <li><code>setup-skills/</code> <span>— + issue-tracker-{github,jira,local}.md, docs-location.md, triage-labels.md, domain.md, testing.md</span></li>
+      <li><code>grill-me/</code> · <code>grill-with-docs/</code> <span>(+ CONTEXT-FORMAT.md, ADR-FORMAT.md)</span></li>
+      <li><code>to-prd/</code> · <code>to-issues/</code> · <code>triage/</code> <span>(+ AGENT-BRIEF.md, OUT-OF-SCOPE.md)</span></li>
+      <li><code>tdd/</code> · <code>functional-test/</code> <span>(+ API-TESTS.md, E2E-PLAYWRIGHT.md, CROSS-REPO.md)</span></li>
+      <li><code>review/</code> · <code>security-review/</code></li>
+      <li><code>diagnose/</code> <span>(+ scripts/hitl-loop.template.sh)</span> · <code>zoom-out/</code> · <code>handoff/</code></li>
+      <li><code>improve-codebase-architecture/</code> <span>(+ LANGUAGE.md, DEEPENING.md, INTERFACE-DESIGN.md)</span></li>
+    </ul>
+  </div>
+</div>
+
 <h3>How to create one</h3>
 <p class="muted">(1) Build the plugin — a <code>skills/</code> folder plus <code>plugin.json</code>. (2) Write <code>marketplace.json</code> listing it. (3) Host it — push the repo to GitHub (public, or private for a team). (4) Version it — bump <code>version</code> in <code>plugin.json</code> when skills change. This repo already has all four.</p>
 
@@ -676,7 +809,7 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
 <p class="muted">The repo already contains <code>.claude-plugin/plugin.json</code> and <code>marketplace.json</code>. Each teammate runs, in Claude Code:</p>
 <div class="term"><div class="term-bar"><i></i><i></i><i></i><span>Claude Code</span></div><pre><span class="g">/plugin marketplace add</span> ibrahimhayeck/claude-sdlc-skills
 <span class="g">/plugin install</span> engineering-skills@engineering-tools</pre></div>
-<p class="muted">The <code>marketplace add</code> line uses the <b>owner/repo</b>; the <code>install</code> line uses <b>plugin@marketplace</b> (the <code>name</code> fields inside the two JSON files). One install brings all fourteen skills. Everyone then runs <code>/setup-skills</code> once per repo.</p>
+<p class="muted">The <code>marketplace add</code> line uses the <b>owner/repo</b>; the <code>install</code> line uses <b>plugin@marketplace</b> (the <code>name</code> fields inside the two JSON files). One install brings all sixteen skills. Everyone then runs <code>/setup-skills</code> once per repo.</p>
 </div>
 
 <div class="opt">

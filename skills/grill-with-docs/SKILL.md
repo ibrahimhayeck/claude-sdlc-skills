@@ -5,6 +5,10 @@ description: Grilling session that stress-tests your plan against the existing d
 
 <what-to-do>
 
+**First, right-size (don't over-grill).** If this is a trivial change — a typo, a one-liner,
+a config bump — say so and skip straight to making it and running `/verify`; no grilling
+needed. Grill for standard and risky changes. See `WORKFLOW.md`.
+
 Interview me relentlessly about every aspect of this plan until we reach a shared
 understanding. Walk down each branch of the design tree, resolving dependencies between
 decisions one-by-one. For each question, provide your recommended answer.

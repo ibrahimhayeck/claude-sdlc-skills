@@ -1,0 +1,30 @@
+# OPTIONAL — adopt only when you're ready to harden the standard (e.g. after a pilot).
+# The framework's required gate is the local /verify run; this CI check is extra enforcement.
+# Copy to .github/workflows/checks.yml. Runs the same tests /finish runs, so a red build blocks the PR.
+# Only once you mark this workflow a REQUIRED status check in branch protection does it become binding.
+name: checks
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # --- adapt this to the repo's stack (see docs/agents/testing.md) ---
+      # Node:   - uses: actions/setup-node@v4 ; run: npm ci && npm test
+      # Python: - uses: actions/setup-python@v5 ; run: pip install -r requirements.txt && pytest
+      # JVM:    - uses: actions/setup-java@v4 ; run: mvn -B test
+      - name: Run tests
+        run: echo "REPLACE with this repo's test command, e.g. npm test"
+
+  # Optional: gate E2E separately so a flaky browser test doesn't block fast feedback,
+  # but keep it required for merges to main.
+  # e2e:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - run: npx playwright test

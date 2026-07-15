@@ -12,6 +12,11 @@ Adaptations in this pack:
 - Data/environment guardrails for testing (synthetic data only; PHI/PII called out for
   regulated domains).
 - A new language-agnostic `functional-test` skill (API + Playwright + cross-repo).
+- New `review` / `security-review` skills.
+- `verify` (evidence-before-completion) and `finish` (land-the-change) skills, and the
+  "announce the active skill" convention, adapted from concepts in
+  **[obra/superpowers](https://github.com/obra/superpowers)** (MIT, © Jesse Vincent).
 
-The original MIT license text should be retained here when this plugin is distributed. See
-https://github.com/mattpocock/skills/blob/main/LICENSE
+The original MIT license texts should be retained here when this plugin is distributed:
+- mattpocock/skills — https://github.com/mattpocock/skills/blob/main/LICENSE
+- obra/superpowers — https://github.com/obra/superpowers/blob/main/LICENSE
