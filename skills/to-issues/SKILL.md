@@ -8,7 +8,7 @@ description: Break a plan, spec, or PRD into independently-grabbable issues on t
 Break a plan into independently-grabbable issues using vertical slices (tracer bullets).
 
 The issue tracker should already be configured — run `/setup-skills` if
-`docs/agents/issue-tracker.md` is missing. The steps below are tracker-agnostic: "issue"
+`docs/agents/config.md` is missing. The steps below are tracker-agnostic: "issue"
 means a GitHub issue, a Jira story, or a local `.scratch/` markdown file, per your config.
 
 ## Process
@@ -25,8 +25,9 @@ glossary; respect ADRs in the area.
 Each issue is a **tracer bullet** — a thin slice cutting through ALL layers end-to-end
 (schema, API, UI, tests), NOT a horizontal slice of one layer.
 
-Slices are **HITL** (need a human — architectural call, design review) or **AFK** (an agent
-can implement and merge unattended). Prefer AFK.
+Tag each slice **needs-human** (a human call — an architectural decision or design review) or
+**agent-ready** (fully specified; an agent can implement and merge it unattended). Prefer
+agent-ready where possible.
 
 <vertical-slice-rules>
 - Each slice delivers a narrow but COMPLETE path through every layer.
@@ -41,18 +42,18 @@ a functional-test issue per seam (contract tests) and one for any end-to-end jou
 `functional-test`).
 
 ### 4. Quiz the user
-Present the breakdown as a numbered list. Per slice show: **Title**, **Type** (HITL/AFK),
-**Repo**, **Blocked by**, **User stories covered**. Ask:
+Present the breakdown as a numbered list. Per slice show: **Title**, **Type** (needs-human /
+agent-ready), **Repo**, **Blocked by**, **User stories covered**. Ask:
 - Is the granularity right (too coarse / too fine)?
 - Are dependencies correct?
 - Should any slices merge or split?
-- Are HITL/AFK marked correctly?
+- Are needs-human / agent-ready marked correctly?
 Iterate until approved.
 
 ### 5. Publish to the issue tracker
 Create an issue per approved slice under the parent, in dependency order (so you can
-reference real keys/ids in "Blocked by"). Apply `needs-triage`. Use the template below. Do
-NOT modify the parent beyond linking.
+reference real keys/ids in "Blocked by"). Use the template below. Do NOT modify the parent
+beyond linking.
 
 <issue-template>
 ## Parent

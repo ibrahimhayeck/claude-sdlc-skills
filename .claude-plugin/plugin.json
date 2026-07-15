@@ -1,17 +1,15 @@
 {
   "name": "engineering-skills",
-  "version": "0.2.0",
-  "description": "A comprehensive, simple-to-use set of engineering skills: align, document, plan, build, test, review, verify, finish, debug, and improve. Works with any issue tracker (GitHub, Jira, or local markdown docs) and any language. Based on mattpocock/skills (MIT).",
+  "version": "0.3.0",
+  "description": "A comprehensive, simple-to-use set of engineering skills: align, plan, build, test, review, verify, finish, debug, and improve. Right-sizes to the change. Works with any issue tracker (GitHub, Jira, or local markdown) and any language. Based on mattpocock/skills and obra/superpowers (MIT).",
   "author": {
     "name": "Engineering"
   },
   "skills": [
     "./skills/setup-skills",
-    "./skills/grill-me",
     "./skills/grill-with-docs",
     "./skills/to-prd",
     "./skills/to-issues",
-    "./skills/triage",
     "./skills/tdd",
     "./skills/functional-test",
     "./skills/review",
@@ -20,7 +18,6 @@
     "./skills/finish",
     "./skills/diagnose",
     "./skills/improve-codebase-architecture",
-    "./skills/zoom-out",
-    "./skills/handoff"
+    "./skills/zoom-out"
   ]
 }

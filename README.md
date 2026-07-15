@@ -7,11 +7,12 @@ and keep the codebase healthy** — the same way across every repo. Built on
 (GitHub / Jira / local markdown docs), language-agnostic testing, and an added
 `functional-test` skill (API + Playwright).
 
-> **Most days you use four.** It's one plugin with 14 skills, but the everyday loop is just
-> `/grill-with-docs` → `/tdd` → `/review` → `/diagnose`. They **hand off to each other**, so
-> you describe your work in plain language, the right one fires, and it offers the next step.
-> The other ten (planning, triage, functional/security testing, architecture, handoff) stay
-> out of your way until a task calls for them — nothing to run or remember up front.
+> **Most days it's one flow.** It's one plugin with 13 skills, but the everyday loop is
+> `/grill-with-docs` → `/tdd` → `/functional-test` → `/review` → `/verify` → `/finish`, with
+> `/diagnose` as a reflex. They **hand off to each other**, so you describe your work in plain
+> language, the right one fires, and it offers the next step. The rest (planning, security
+> review, architecture) stay out of your way until a task calls for them — and the process
+> right-sizes to the change (see [WORKFLOW.md](./WORKFLOW.md)).
 >
 > ```
 > /plugin marketplace add ibrahimhayeck/claude-sdlc-skills
@@ -23,22 +24,21 @@ and keep the codebase healthy** — the same way across every repo. Built on
 Each is a slash command in your agent. You only ever run step 0 once per repo.
 
 0. **Once per repo:** `/setup-skills` — records this repo's issue tracker, where PRDs/ADRs
-   live, triage labels, and the `CONTEXT.md` layout into `CLAUDE.md` + `docs/agents/`.
-1. **Before building:** `/grill-with-docs` — the agent interviews you, sharpens terms, and
-   updates `CONTEXT.md` / ADRs as you go. (`/grill-me` for non-code plans.)
+   live, the domain-doc layout, and test frameworks into one `docs/agents/config.md` + a
+   pointer in `CLAUDE.md`.
+1. **Before building:** `/grill-with-docs` — interviews you, sharpens terms, and captures
+   decisions in `CONTEXT.md` / ADRs as you go (also handles non-code plans, skipping capture).
 2. **Capture the plan:** `/to-prd` — writes the PRD to the configured location and opens the
    tracking item (GitHub issue / Jira epic / local doc).
 3. **Break it down:** `/to-issues` — turns the plan into issues, one per repo per vertical slice.
-4. **Manage the queue:** `/triage` — moves incoming issues through a state machine.
-5. **Build it:** `/tdd` for units, `/functional-test` for acceptance (API, Playwright E2E,
+4. **Build it:** `/tdd` for units, `/functional-test` for acceptance (API, Playwright E2E,
    cross-service flows).
-6. **Review it:** `/review` checks a diff/PR against the acceptance criteria, glossary, and
-   ADRs; `/security-review` for changes touching auth, input, data, or dependencies.
-7. **Verify &amp; land it:** `/verify` refuses to claim "done" without fresh evidence (it runs
-   the check and reads the output); `/finish` does the final green check, then PR/merge/cleanup.
-8. **When stuck:** `/diagnose` (disciplined debugging) and `/zoom-out` (understand unfamiliar code).
-9. **Keep it healthy:** `/improve-codebase-architecture` every so often. `/handoff` when
-   context runs low.
+5. **Review it:** `/review` checks a diff/PR against the acceptance criteria, glossary, and
+   ADRs; `/security-review` (OWASP + compliance) for changes touching auth, input, data, or deps.
+6. **Verify &amp; land it:** `/verify` refuses to claim "done" without fresh evidence; `/finish`
+   does the final green check, then opens the PR and cleans up.
+7. **When stuck:** `/diagnose` (disciplined debugging) and `/zoom-out` (understand unfamiliar code).
+8. **Keep it healthy:** `/improve-codebase-architecture` on demand.
 
 The core loop: **align → build → test → review → verify → finish**, with **debug** and
 **improve** as reflexes.
@@ -57,7 +57,7 @@ You can switch later by re-running `/setup-skills`.
 ## Pick your test frameworks (default = auto-detect)
 
 `/tdd` and `/functional-test` detect the framework from each repo by default — but a developer
-can **pin** a choice in `docs/agents/testing.md` (unit, API, and E2E, each with a run command).
+can **pin** a choice in `docs/agents/config.md` (unit, API, and E2E, each with a run command).
 Precedence is **repo file → org default → auto-detect**, so one repo can lock its tools, or a
 whole **set of repos** can share defaults via a `testing-defaults.md` in the central docs repo.
 No code changes — just edit the config.
@@ -98,9 +98,9 @@ versioning, adoption playbook) is in [CONTRIBUTING.md](./CONTRIBUTING.md); chang
 
 ## What's in the box
 
-Sixteen skills: `setup-skills`, `grill-me`, `grill-with-docs`, `to-prd`, `to-issues`,
-`triage`, `tdd`, `functional-test`, `review`, `security-review`, `verify`, `finish`,
-`diagnose`, `improve-codebase-architecture`, `zoom-out`, `handoff`. A one-screen
+Thirteen skills: `setup-skills`, `grill-with-docs`, `to-prd`, `to-issues`, `tdd`,
+`functional-test`, `review`, `security-review`, `verify`, `finish`, `diagnose`,
+`improve-codebase-architecture`, `zoom-out`. A one-screen
 [SKILLS.md](./SKILLS.md) cheat sheet lists them by tier (everyday vs occasional). Plus
 `CONVENTIONS.md`, `WORKFLOW.md`, and copy-paste `templates/` (including the enforcement pack).
 
@@ -114,7 +114,7 @@ repo, then each person runs:
 /plugin install engineering-skills@engineering-tools
 ```
 
-Here `ibrahimhayeck/claude-sdlc-skills` is the **owner/repo**; `engineering-skills@engineering-tools` is **plugin@marketplace** (the `name` fields in `plugin.json` and `marketplace.json`). One install brings all sixteen skills.
+Here `ibrahimhayeck/claude-sdlc-skills` is the **owner/repo**; `engineering-skills@engineering-tools` is **plugin@marketplace** (the `name` fields in `plugin.json` and `marketplace.json`). One install brings all thirteen skills.
 
 **Option B — drop-in skills.** Copy the `skills/*` folders into `~/.claude/skills/` (global)
 or a project's `.claude/skills/`, and keep `CONVENTIONS.md` + `templates/` where the team can
@@ -130,9 +130,8 @@ data** in tests, fixtures, logs, traces, or screenshots, and tests run against d
 environments. In regulated domains (health, finance) this means no PHI/PII.
 
 ## Customizing
-Meant to be forked. Edit any `SKILL.md`, the label vocabulary in
-`setup-skills/triage-labels.md`, or the tracker/docs seed files. Bump `version` in
-`.claude-plugin/plugin.json` when you change them.
+Meant to be forked. Edit any `SKILL.md`, or the per-repo settings in `docs/agents/config.md`.
+Bump `version` in `.claude-plugin/plugin.json` when you change skills.
 
 ---
 Adapted from [mattpocock/skills](https://github.com/mattpocock/skills), MIT License. See

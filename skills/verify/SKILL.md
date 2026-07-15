@@ -12,6 +12,10 @@ description: A hard gate before claiming any work is complete, fixed, passing, o
 in *this* turn and read its output, you cannot say it passes, works, is fixed, or is done.
 Violating the letter of this rule is violating the spirit of it.
 
+**This is an always-on rule, not just a step.** Every skill in this pack applies it before
+making any completion claim — you don't have to invoke `/verify` for it to bind. `/verify` is
+the named reference for the rule.
+
 ## The gate — run before any success claim
 1. **Identify** the command that would prove the claim.
 2. **Run** it fresh and in full (not a partial, not a remembered earlier run).

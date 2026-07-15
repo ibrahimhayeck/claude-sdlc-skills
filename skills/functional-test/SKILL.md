@@ -21,14 +21,17 @@ Two kinds, chosen by what the feature exposes:
 
 For a change that spans several repos/services, see [CROSS-REPO.md](./CROSS-REPO.md).
 
+**When to run:** expected whenever a change touches an **endpoint or a user-facing flow**;
+skip it for pure internal refactors (`/tdd` units cover those).
+
 ## Step 0 — Which framework? (config first, then detect)
 
 Resolve the API and E2E frameworks in this order and stop at the first that answers:
 
-1. **`docs/agents/testing.md`** in this repo — if it pins a `framework`/`runner` (anything
+1. **`docs/agents/config.md`** (Testing section) — if it pins a `framework`/`runner` (anything
    not `auto`), use exactly that. This is how a developer locks a repo to a specific choice.
-2. **Org default** — if `testing.md` says `inherit`, read `testing-defaults.md` in the
-   central docs repo. This is how you standardise a *set* of repos.
+2. **Org default** — if it says `inherit`, read `testing-defaults.md` in the central docs
+   repo. This is how you standardise a *set* of repos.
 3. **Auto-detect** (the default) — the team is polyglot (Node/TS, Java, Python, .NET, Ruby,
    React, …), so match the repo's **existing** conventions:
    - Read the manifest (`package.json`, `pom.xml`/`build.gradle`, `pyproject.toml`/
@@ -40,8 +43,8 @@ Resolve the API and E2E frameworks in this order and stop at the first that answ
      for JVM, `httpx`+pytest for Python, `WebApplicationFactory` for .NET); Web E2E →
      **Playwright** via `@playwright/test` (the default).
 
-Run tests with the `runner` command from `testing.md` when set. Use the repo's domain
-glossary (`CONTEXT.md`) so test names speak the project's language. Respect ADRs in the area.
+Run tests with the `runner` command from `config.md` when set. Use the repo's domain glossary
+(`CONTEXT.md`) so test names speak the project's language. Respect ADRs in the area.
 
 ## Workflow
 

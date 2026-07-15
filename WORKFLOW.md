@@ -32,8 +32,9 @@ radius, the more up-front alignment and review.
 
 ## Two gates that always apply (any size)
 
-- **`/verify`** — never claim "done / passing / fixed" without running the check this turn and
-  reading the output.
+- **`/verify` (always-on).** Never claim "done / passing / fixed" without running the check
+  this turn and reading the output. This isn't just a step you invoke — every skill applies it
+  before making any completion claim.
 - **No real or production data** in tests, fixtures, logs, or screenshots (PHI/PII in regulated
   domains). Synthetic only.
 

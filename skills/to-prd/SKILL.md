@@ -8,7 +8,7 @@ interview the user — just synthesize what you already know. (If the plan is st
 `/grill-with-docs` first.)
 
 The issue tracker and docs location should already be configured — run `/setup-skills` if
-`docs/agents/issue-tracker.md` or `docs/agents/docs-location.md` are missing.
+`docs/agents/config.md` is missing.
 
 ## Process
 
@@ -25,11 +25,11 @@ The issue tracker and docs location should already be configured — run `/setup
 
 4. Write the PRD using the template below.
 
-5. **Save the PRD** to the configured docs location (`docs/agents/docs-location.md` — either
+5. **Save the PRD** to the configured docs location (per `docs/agents/config.md` — either
    `docs/prds/<slug>.md` in this repo or `prds/<KEY>.md` in the central docs repo). Then open
-   the tracking item in the configured issue tracker (`docs/agents/issue-tracker.md`) —
-   a GitHub issue, a Jira epic, or a local `.scratch/` file — link it to the PRD, and apply
-   `needs-triage`. Put the tracker key in the PRD frontmatter so code, docs, and tests stay linked.
+   the tracking item in the configured issue tracker — a GitHub issue, a Jira epic, or a local
+   `.scratch/` file — and link it to the PRD. Put the tracker key in the PRD frontmatter so
+   code, docs, and tests stay linked.
 
 <prd-template>
 

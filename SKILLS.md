@@ -15,19 +15,18 @@ You rarely type these — **describe the work** and the right skill fires. Full 
 | "land it / open the PR" | `/finish` | final green check → PR/merge/keep/discard + cleanup |
 | "X is broken / slow" | `/diagnose` | reproduce → hypothesise → fix + regression test |
 
-## Occasional — bigger moments (8)
+## Occasional — bigger moments (6)
 
 | When | Skill |
 |------|-------|
 | Turn a discussion into a PRD + ticket | `/to-prd` |
 | Break a plan into shippable issues | `/to-issues` |
-| Groom incoming bugs/requests | `/triage` |
-| Change touches auth / data / input / deps | `/security-review` |
+| Change touches auth / data / input / deps | `/security-review` (OWASP + compliance) |
 | Codebase feels tangled / hard to test | `/improve-codebase-architecture` |
 | Dropped into unfamiliar code | `/zoom-out` |
-| Align on a non-code plan | `/grill-me` |
-| Context running low; hand to a fresh session | `/handoff` |
 | One-time per-repo setup | `/setup-skills` |
+
+*(Non-code plans? `/grill-with-docs` handles those too — it just skips the doc capture.)*
 
 ## Right-size it
 **Trivial** change → just make it + `/verify`. **Standard** → the full loop above.

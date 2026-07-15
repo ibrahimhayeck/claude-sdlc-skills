@@ -5,7 +5,11 @@ description: Disciplined diagnosis loop for hard bugs and performance regression
 
 # Diagnose
 
-A discipline for hard bugs. Skip phases only when explicitly justified.
+A discipline for hard bugs.
+
+**Right-size first.** For an obvious bug (a typo, a visible off-by-one), just fix it and add a
+regression test — skip the loop. Reserve the six phases below for **hard, intermittent, or
+performance** bugs where the cause isn't obvious.
 
 When exploring the codebase, use the project's domain glossary (`CONTEXT.md`) to get a clear
 mental model of the relevant modules, and check ADRs in the area you're touching.
@@ -28,7 +32,7 @@ Ways to construct one, in roughly this order:
 7. **Property / fuzz loop** — for "sometimes wrong output", run 1000 random inputs.
 8. **Bisection harness** — automate "boot at state X, check, repeat" for `git bisect run`.
 9. **Differential loop** — run the same input through old vs new (or two configs) and diff.
-10. **HITL bash script** — last resort. If a human must click, drive them with
+10. **Human-driven script** — last resort. If a person must click, drive them with
     [scripts/hitl-loop.template.sh](./scripts/hitl-loop.template.sh) so the loop stays structured.
 
 **Iterate on the loop itself.** Make it faster (cache setup, narrow scope), sharper (assert
@@ -51,7 +55,7 @@ reproducible (or high-rate for flaky bugs), and that you've captured the exact s
 Generate **3–5 ranked, falsifiable hypotheses** before testing any. Each states a prediction:
 "If X is the cause, then changing Y makes the bug disappear." Show the ranked list to the
 user before testing — they often re-rank instantly ("we just deployed #3"). Don't block if
-they're AFK.
+the user is away.
 
 ## Phase 4 — Instrument
 Each probe maps to a specific prediction. **Change one variable at a time.** Prefer a
@@ -60,10 +64,11 @@ everything and grep". **Tag every debug log** with a unique prefix (e.g. `[DEBUG
 cleanup is one grep. For performance, measure first (baseline, profiler, query plan), then bisect.
 
 ## Phase 5 — Fix + regression test
-Write the regression test **before the fix** — but only if there's a **correct seam** where
-the test exercises the real bug pattern. If the only seam is too shallow, that itself is the
-finding: note it. If a correct seam exists: turn the repro into a failing test → watch it
-fail → apply the fix → watch it pass → re-run the Phase 1 loop against the original scenario.
+**Always leave a regression test.** When a **correct seam** exists (one that exercises the real
+bug pattern), write it *before* the fix: turn the repro into a failing test → watch it fail →
+apply the fix → watch it pass → re-run the Phase 1 loop against the original scenario. If no
+correct seam exists, add the closest test you can **and flag the missing seam as a finding** —
+don't ship the fix with no guard at all.
 
 ## Phase 6 — Cleanup + post-mortem
 - [ ] Original repro no longer reproduces
@@ -71,6 +76,9 @@ fail → apply the fix → watch it pass → re-run the Phase 1 loop against the
 - [ ] All `[DEBUG-...]` instrumentation removed (grep the prefix)
 - [ ] Throwaway prototypes deleted or clearly marked
 - [ ] The correct hypothesis is stated in the commit/PR message
+
+Before declaring it fixed, **re-run the loop and read the output** — "should be fixed" isn't
+fixed (`/verify`).
 
 ## Next step (core chain)
 Once the fix is in with a regression test, offer to `/review` the change before it merges —

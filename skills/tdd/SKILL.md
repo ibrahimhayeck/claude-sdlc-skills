@@ -30,12 +30,12 @@ RIGHT (vertical):    test1→impl1, test2→impl2, test3→impl3, …
 ### 1. Planning
 Explore using the domain glossary (`CONTEXT.md`) so test/interface names match the project
 language; respect ADRs in the area. Before writing code:
-- **Framework:** use the unit `framework`/`runner` pinned in `docs/agents/testing.md` if set;
-  if it's `auto`, match the repo's existing test setup. Don't introduce a new framework
-  without the user's OK.
+- **Framework:** use the unit `framework`/`runner` pinned in `docs/agents/config.md` (Testing
+  section) if set; if it's `auto`, match the repo's existing test setup. Don't introduce a new
+  framework without the user's OK.
 - Confirm the interface changes needed.
-- Confirm which behaviours to test (prioritize — you can't test everything; focus on
-  critical paths and complex logic).
+- **Coverage:** every new behaviour gets a test. Put the deeper edge-case coverage on the
+  critical and complex paths, but nothing new ships untested.
 - Look for **deep modules**: a simple interface over a deep implementation.
 - Design interfaces for testability (inject dependencies; avoid hidden global state).
 - List behaviours (not implementation steps) and get user approval.
@@ -66,6 +66,9 @@ couples tests to structure. Prefer real objects and in-memory/test databases.
 [ ] Code is minimal for this test
 [ ] No speculative features added
 ```
+
+Before saying tests pass, **run them and read the output** — no completion claim without
+fresh evidence (`/verify`).
 
 ## Data note
 Use synthetic data only — no real or production data in tests or fixtures (no PHI/PII in

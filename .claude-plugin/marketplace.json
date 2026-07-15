@@ -5,13 +5,13 @@
   },
   "metadata": {
     "description": "Comprehensive engineering skills. Tracker-agnostic (GitHub / Jira / local docs), language-agnostic.",
-    "version": "0.2.0"
+    "version": "0.3.0"
   },
   "plugins": [
     {
       "name": "engineering-skills",
       "source": "./",
-      "description": "One plugin, 14 skills: align → document → plan → build → test → review → debug → improve. Four everyday skills (grill-with-docs, tdd, review, diagnose) chain automatically; the rest trigger only when a task needs them. Works with GitHub, Jira, or local markdown, and any language."
+      "description": "One plugin, 13 skills: align → build → test → review → verify → finish, with debug and improve as reflexes. Right-sizes to the change; the everyday skills chain automatically. Works with GitHub, Jira, or local markdown, and any language."
     }
   ]
 }

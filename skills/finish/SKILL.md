@@ -17,16 +17,17 @@ Never finish on unverified work.
    stop and route to `/tdd` (clear fix) or `/diagnose` (unclear cause).
 2. **Confirm scope.** Re-read the tracking item's / PRD's acceptance criteria and tick each
    one off, or explicitly note what's deferred and why. "Tests pass" is not "requirements met."
-3. **Choose how to land** — present the options rather than assuming:
-   - **Open a PR** (default for team repos) — title + a short what/why summary, linked to the
-     tracking item, noting the tests you ran and their result.
-   - **Merge to main** — only if your flow allows direct merge and the branch is green.
+3. **Land it — default to opening a PR.** Unless the user says otherwise:
+   - **Open a PR** (default) — **auto-create it via `gh`/the tracker's API** when a connector/CLI
+     is available (title + short what/why summary, linked to the tracking item, tests run +
+     result); otherwise draft the title/description for the user to open. Other options if asked:
+   - **Merge to main** — only if the flow allows direct merge and the branch is green.
    - **Keep the branch** — not ready to land yet.
    - **Discard** — abandon the work; confirm with the user first.
 4. **Clean up.** Delete the merged branch / worktree, remove scratch and debug artifacts, and
    confirm no secrets or real/production data were committed.
 5. **Update the tracker.** Close or transition the tracking item per
-   `docs/agents/issue-tracker.md`; link the PR/commit.
+   `docs/agents/config.md`; link the PR/commit.
 
 ## On CI
 The required gate here is **local** — step 1's fresh test run (this is `/verify` applied to

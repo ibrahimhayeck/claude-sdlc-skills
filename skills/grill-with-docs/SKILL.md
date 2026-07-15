@@ -1,6 +1,6 @@
 ---
 name: grill-with-docs
-description: Grilling session that stress-tests your plan against the existing domain model, sharpens terminology, and updates documentation (CONTEXT.md, ADRs) inline as decisions crystallise. Use before starting any non-trivial change to align with the agent and think deeply about what you're building. Based on mattpocock/skills (MIT).
+description: Relentless grilling session that stress-tests your plan against the existing domain model and sharpens terminology, capturing resolved terms in CONTEXT.md and hard-to-reverse decisions as ADRs. Use before any non-trivial change to align and think deeply. Works for code work (captures docs) and for pure non-code plans/designs (grills the same way, skips doc capture). Based on mattpocock/skills + obra/superpowers (MIT).
 ---
 
 <what-to-do>
@@ -8,6 +8,10 @@ description: Grilling session that stress-tests your plan against the existing d
 **First, right-size (don't over-grill).** If this is a trivial change — a typo, a one-liner,
 a config bump — say so and skip straight to making it and running `/verify`; no grilling
 needed. Grill for standard and risky changes. See `WORKFLOW.md`.
+
+**Non-code plans:** if we're aligning on something that isn't code (a rollout, an approach, a
+design decision), grill exactly the same way but **skip the CONTEXT.md / ADR capture** below —
+there's nothing to write.
 
 Interview me relentlessly about every aspect of this plan until we reach a shared
 understanding. Walk down each branch of the design tree, resolving dependencies between
@@ -29,7 +33,7 @@ The authoritative rules are in this plugin's `CONVENTIONS.md`. In short:
   bounded contexts uses `CONTEXT-MAP.md` at the root pointing to per-context `CONTEXT.md`s.
 - **Repo-local ADRs** live in that repo's `docs/adr/`.
 - **PRDs and cross-repo ADRs** live in the configured docs location — see
-  `docs/agents/docs-location.md`. Don't write those here.
+  `docs/agents/config.md`. Don't write those here.
 
 ```
 code-repo/
@@ -38,7 +42,10 @@ code-repo/
 └── src/
 ```
 
-Create files lazily — only when you have something real to write.
+**For code work, capturing is required — not optional.** Every session updates `CONTEXT.md`
+with the terms you resolve, and records decisions (an ADR when the call is hard-to-reverse —
+see below; otherwise a line in the PRD/commit). Create the files the first time there's
+something to write.
 
 ## During the session
 
@@ -56,8 +63,9 @@ Stress-test domain relationships with specific edge-case scenarios that force pr
 ### Cross-reference with code
 When the user states how something works, check the code agrees. Surface contradictions.
 
-### Update CONTEXT.md inline
-When a term is resolved, update `CONTEXT.md` right there — don't batch. Use the format in
+### Update CONTEXT.md inline (required)
+Every term you resolve MUST land in `CONTEXT.md`, right there — don't batch, don't skip it.
+Use the format in
 [CONTEXT-FORMAT.md](./CONTEXT-FORMAT.md). `CONTEXT.md` is a glossary and nothing else — no
 implementation details, no spec, no scratch pad.
 

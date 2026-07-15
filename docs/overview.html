@@ -282,7 +282,7 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
 
 <section class="tabpanel active" id="p-start">
 <h2 id="start"><span class="n">1</span>Installed?</h2>
-<p class="sub">Run the two commands in the <b>Install</b> bar at the top of the page (Claude Code). That's the whole setup — no <code>/setup-skills</code>, no config files. It's one plugin with 16 skills, but you only learn a handful. Then just describe your work.</p>
+<p class="sub">Run the two commands in the <b>Install</b> bar at the top of the page (Claude Code). That's the whole setup — no <code>/setup-skills</code>, no config files. It's one plugin with 13 skills, but you only learn a handful. Then just describe your work.</p>
 
 <h2 id="habit"><span class="n">2</span>The one habit</h2>
 <p class="sub"><b>Describe what you want in plain language.</b> The matching skill triggers on its own, and when it finishes it offers the next step. Say yes, and the chain flows:</p>
@@ -437,23 +437,18 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
 
 </section>
 <section class="tabpanel" id="p-skills">
-<h2 id="skills">All skills <span class="tiernote" style="color:var(--brand);background:color-mix(in srgb,var(--brand) 12%,var(--surface))">all 16 · one plugin</span></h2>
-<p class="sec-sub">The complete toolkit in the single <b>engineering-skills</b> plugin, grouped by phase — planning, triage, architecture, and handoff, plus the everyday skills above. They all install together; you only invoke what a task needs.</p>
+<h2 id="skills">All skills <span class="tiernote" style="color:var(--brand);background:color-mix(in srgb,var(--brand) 12%,var(--surface))">all 13 · one plugin</span></h2>
+<p class="sec-sub">The complete toolkit in the single <b>engineering-skills</b> plugin, grouped by phase — planning, build & test, review, and architecture, plus the everyday skills above. They all install together; you only invoke what a task needs.</p>
 
 <span class="phase p-setup">Setup · once per repo</span>
 <div class="skill ac-setup">
   <span class="cmd">/setup-skills</span>
-  <div class="files">writes: CLAUDE.md, docs/agents/*.md</div>
-  <div class="what">Records this repo's <b>issue tracker</b> (GitHub, Jira, or local markdown), <b>where PRDs/ADRs live</b> (in-repo or a central docs repo), the <b>triage label</b> vocabulary, and the <b>CONTEXT.md layout</b>.</div>
+  <div class="files">writes: docs/agents/config.md + a CLAUDE.md pointer</div>
+  <div class="what">Records this repo's <b>issue tracker</b> (GitHub, Jira, or local markdown), <b>where PRDs/ADRs live</b>, the <b>domain-doc layout</b>, and the <b>test frameworks</b> — all in one config file.</div>
   <div class="use"><b>Use it</b> once per repo before anything else — every other skill reads what it writes. Re-run only to switch trackers.</div>
 </div>
 
 <span class="phase p-align">Align</span>
-<div class="skill ac-align">
-  <span class="cmd">/grill-me</span>
-  <div class="what">Interviews you relentlessly about a plan or design, one question at a time, resolving every branch of the decision tree.</div>
-  <div class="use"><b>Use it</b> to stress-test any non-code plan before committing to it.</div>
-</div>
 <div class="skill ac-align">
   <span class="cmd">/grill-with-docs</span>
   <div class="files">updates: CONTEXT.md, docs/adr/</div>
@@ -473,12 +468,6 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
   <div class="what">Breaks the plan into <b>tracer-bullet vertical slices</b> — thin end-to-end issues, each demoable on its own. For multi-repo work it creates one issue per repo per slice, linked to the parent.</div>
   <div class="use"><b>Use it</b> to turn a PRD into grabbable work.</div>
 </div>
-<div class="skill ac-plan">
-  <span class="cmd">/triage</span>
-  <div class="what">Moves incoming issues through a state machine — needs-triage, needs-info, ready-for-agent, ready-for-human, wontfix — reproducing bugs and writing durable agent briefs.</div>
-  <div class="use"><b>Use it</b> to keep the backlog groomed and hand well-specified work to AFK agents.</div>
-</div>
-
 <span class="phase p-build">Build &amp; test</span>
 <div class="skill ac-build">
   <span class="cmd">/tdd</span>
@@ -496,12 +485,12 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
 <div class="skill ac-review">
   <span class="cmd">/review</span>
   <div class="files">reads: PRD / acceptance criteria, CONTEXT.md, docs/adr/</div>
-  <div class="what">Reviews a diff, PR, or branch against the <b>acceptance criteria</b>, the <b>glossary</b>, and the <b>ADRs</b> — flagging correctness, missing tests, architectural smells, naming, and data guardrails by severity (blocker / should-fix / nit) — then posts the review to the configured tracker.</div>
+  <div class="what">Reviews a diff, PR, or branch against the <b>acceptance criteria</b>, the <b>glossary</b>, and the <b>ADRs</b> — flagging correctness, missing tests, architectural smells, naming, and data guardrails by severity (blocker / should-fix / nit); presented in chat, with an option to post to the PR.</div>
   <div class="use"><b>Use it</b> on every change before merge.</div>
 </div>
 <div class="skill ac-review">
   <span class="cmd">/security-review</span>
-  <div class="what">A focused security pass: secrets, authn/authz (incl. IDOR), input validation &amp; injection, sensitive-data handling, crypto, and dependency risk — findings ranked critical to low, plus an explicit list of what was checked and found safe.</div>
+  <div class="what">A focused security pass structured on the <b>OWASP Top 10</b> with <b>compliance hooks</b> (PHI/PII) — access control, crypto, injection, auth, vulnerable deps, logging, SSRF — ranked critical to low, plus what was checked and found safe.</div>
   <div class="use"><b>Use it</b> when a change touches auth, external input, data access, or dependencies.</div>
 </div>
 
@@ -529,16 +518,11 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
   <div class="use"><b>Use it</b> when you're dropped into unfamiliar code.</div>
 </div>
 
-<span class="phase p-improve">Improve &amp; hand off</span>
+<span class="phase p-improve">Improve</span>
 <div class="skill ac-improve">
   <span class="cmd">/improve-codebase-architecture</span>
   <div class="what">Finds <b>deepening opportunities</b> — shallow modules to consolidate into deep, testable ones — informed by your glossary and ADRs. Presents candidates, then designs interfaces with you.</div>
-  <div class="use"><b>Use it</b> every few days to fight architectural entropy.</div>
-</div>
-<div class="skill ac-improve">
-  <span class="cmd">/handoff</span>
-  <div class="what">Compacts the current conversation into a handoff document (saved to a temp dir, secrets redacted) so a fresh agent can continue.</div>
-  <div class="use"><b>Use it</b> when context is running low.</div>
+  <div class="use"><b>Use it</b> on demand when the codebase feels tangled or hard to test.</div>
 </div>
 
 </section>
@@ -547,7 +531,7 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
 <p class="sec-sub">Configure the frameworks once; every stage honours that choice — with auto-detect as the default.</p>
 
 <div class="chain">
-  <div class="cstep" style="--ac:var(--config)"><b>1 · setup</b><small>testing.md</small></div>
+  <div class="cstep" style="--ac:var(--config)"><b>1 · setup</b><small>config.md</small></div>
   <span class="carrow">▶</span>
   <div class="cstep" style="--ac:var(--pln)"><b>2 · plan</b><small>PRD tests</small></div>
   <span class="carrow">▶</span>
@@ -567,9 +551,9 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
 
 <h3>Who picks the framework — the flexible part</h3>
 <div class="opt" style="border-color:var(--config);background:color-mix(in srgb,var(--config) 6%,var(--surface))">
-<p class="muted"><b>Default is auto-detect</b> — the skills read your manifest and existing tests, and never add a dependency without asking. To pin a choice, set it in <code>docs/agents/testing.md</code>. Resolution order:</p>
+<p class="muted"><b>Default is auto-detect</b> — the skills read your manifest and existing tests, and never add a dependency without asking. To pin a choice, set it in <code>docs/agents/config.md</code> (Testing section). Resolution order:</p>
 <div class="chain sub">
-  <span class="pill">repo testing.md</span><span class="carrow">▶</span>
+  <span class="pill">repo config.md</span><span class="carrow">▶</span>
   <span class="pill">org testing-defaults.md</span><span class="carrow">▶</span>
   <span class="pill">auto-detect</span>
 </div>
@@ -587,12 +571,12 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
 
 <h3>Stage by stage</h3>
 <div class="filekey">
-  <div class="fk" style="--ac:var(--config)"><h4>1 · Setup — testing.md</h4><div class="role">/setup-skills writes the pinned frameworks + run commands (or leaves them auto).</div><div class="why"><b>Once per repo</b> — everything downstream honours it.</div></div>
+  <div class="fk" style="--ac:var(--config)"><h4>1 · Setup — config.md</h4><div class="role">/setup-skills writes the pinned frameworks + run commands (or leaves them auto).</div><div class="why"><b>Once per repo</b> — everything downstream honours it.</div></div>
   <div class="fk" style="--ac:var(--pln)"><h4>2 · Plan — PRD tests</h4><div class="role">/grill-with-docs + /to-prd record which behaviours get unit vs functional tests, and the contract seams.</div><div class="why"><b>Deliberate coverage</b> tied to acceptance criteria.</div></div>
   <div class="fk ac-build"><h4>3 · Unit — /tdd</h4><div class="role">Red-green-refactor, one behaviour at a time, through public interfaces.</div><div class="why">Fast feedback while building; survives refactors.</div></div>
   <div class="fk ac-test"><h4>4 · End-to-end — /functional-test</h4><div class="role">API tests, Playwright browser flows, and cross-repo contract tests through the real interface.</div><div class="why">Proves the feature works; locks cross-service seams.</div></div>
   <div class="fk ac-review"><h4>5 · Review — /review</h4><div class="role">Checks acceptance criteria have tests, then asks the auth/data safety gate → /security-review.</div><div class="why">No untested behaviour or unreviewed data change reaches merge.</div></div>
-  <div class="fk" style="--ac:var(--brand)"><h4>6 · Execute — CI</h4><div class="role">Runs with the runner from testing.md. Units gate every change; E2E gates merges to main; contract tests run on both services.</div><div class="why">Regressions caught before deploy.</div></div>
+  <div class="fk" style="--ac:var(--brand)"><h4>6 · Execute — CI</h4><div class="role">Runs with the runner from config.md. Units gate every change; E2E gates merges to main; contract tests run on both services.</div><div class="why">Regressions caught before deploy.</div></div>
   <div class="fk ac-debug"><h4>↺ Debug — /diagnose</h4><div class="role">Builds a failing test to reproduce a bug, fixes it, leaves a regression test.</div><div class="why">The bug can't return; hands back to /review.</div></div>
   <div class="fk" style="--ac:var(--glossary)"><h4>Persistence</h4><div class="role">All tests + contract files are committed to the repo.</div><div class="why">The next iteration/agent runs the same suite; the contract stays the source of truth.</div></div>
 </div>
@@ -636,7 +620,7 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
     <div class="cardrole">Owns the end-to-end user journey (entry point).</div>
     <div class="row agent"><code>CLAUDE.md</code><span class="note"><code>## Agent skills</code> block, points to <code>docs/agents/</code>.</span></div>
     <div class="row glossary"><code>CONTEXT.md</code><span class="note">Frontend glossary (Cart, CheckoutStep). Versions with the code.</span></div>
-    <div class="row config"><code>docs/agents/*.md</code><span class="note">Written once by <code>/setup-skills</code>: issue-tracker, docs-location, triage-labels, domain.</span></div>
+    <div class="row config"><code>docs/agents/config.md</code><span class="note">Written once by <code>/setup-skills</code> — tracker, docs location, domain, testing (one file).</span></div>
     <div class="row decision"><code>docs/adr/0003-optimistic-cart.md</code><span class="note">A decision local to the frontend.</span></div>
     <div class="row decision"><code>docs/adr/0007-stub.md</code><span class="note">One-line stub to cross-repo ADR-0007 in the hub.</span></div>
     <div class="row plan"><code>.scratch/ORD-42/000-prd.md</code><span class="note">Pointer to the central PRD.</span></div>
@@ -649,7 +633,7 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
     <div class="cardrole">Consumer of the payments contract; owns order data.</div>
     <div class="row agent"><code>CLAUDE.md</code><span class="note">Agent skills block, points to <code>docs/agents/</code>.</span></div>
     <div class="row glossary"><code>CONTEXT.md</code><span class="note">Backend glossary (Order, LineItem, Payment).</span></div>
-    <div class="row config"><code>docs/agents/*.md</code><span class="note">Same four config files, per this repo.</span></div>
+    <div class="row config"><code>docs/agents/config.md</code><span class="note">Same single config, per this repo.</span></div>
     <div class="row decision"><code>docs/adr/0005-order-state-machine.md</code><span class="note">Backend-local decision.</span></div>
     <div class="row decision"><code>docs/adr/0007-stub.md</code><span class="note">Stub to central ADR-0007 (consumer side).</span></div>
     <div class="row plan"><code>.scratch/ORD-42/003-create-order.md</code><span class="note">Local issue — slice.</span></div>
@@ -663,7 +647,7 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
     <div class="cardrole">Provider of the contract; owned by another team.</div>
     <div class="row agent"><code>CLAUDE.md</code><span class="note">Agent skills block.</span></div>
     <div class="row glossary"><code>CONTEXT.md</code><span class="note">Its own glossary (Charge, Refund, PaymentIntent).</span></div>
-    <div class="row config"><code>docs/agents/*.md</code><span class="note">Its own setup config.</span></div>
+    <div class="row config"><code>docs/agents/config.md</code><span class="note">Its own setup config.</span></div>
     <div class="row decision"><code>docs/adr/0007-stub.md</code><span class="note">Stub to central ADR-0007 (provider side).</span></div>
     <div class="row plan"><code>contracts/payments-openapi.yaml</code><span class="note"><b>The contract itself</b> — source of truth for the seam both sides test against.</span></div>
     <div class="row plan"><code>.scratch/ORD-42/005-charge-endpoint.md</code><span class="note">Local issue — slice.</span></div>
@@ -675,7 +659,7 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
     <div class="cardrole">Schema &amp; migrations for order/checkout data.</div>
     <div class="row agent"><code>CLAUDE.md</code><span class="note">Agent skills block.</span></div>
     <div class="row glossary"><code>CONTEXT.md</code><span class="note">Schema domain terms, aligned to orders-api.</span></div>
-    <div class="row config"><code>docs/agents/*.md</code><span class="note">Its own setup config.</span></div>
+    <div class="row config"><code>docs/agents/config.md</code><span class="note">Its own setup config.</span></div>
     <div class="row decision"><code>docs/adr/0006-orders-schema.md</code><span class="note">Local decision (table design, indexing).</span></div>
     <div class="row plan"><code>migrations/2026_07_checkout.sql</code><span class="note">The schema change — the persistent build artifact.</span></div>
     <div class="row plan"><code>.scratch/ORD-42/006-schema-migration.md</code><span class="note">Local issue — slice.</span></div>
@@ -698,7 +682,7 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
   </div>
   <div class="fk" style="--ac:var(--config)">
     <h4>docs/agents/</h4>
-    <div class="role">Per-repo settings the skills read: issue tracker, docs location, triage labels, domain layout, and <code>testing.md</code> (pin your unit/API/E2E frameworks, or leave on auto-detect).</div>
+    <div class="role">Per-repo settings the skills read, all in one <code>config.md</code>: issue tracker, PRD/ADR location, domain layout, and test frameworks (pin unit/API/E2E, or leave auto-detect).</div>
     <div class="why"><b>Why it persists:</b> written once by <code>/setup-skills</code>; every skill and every future run behaves consistently with zero reconfiguration.</div>
   </div>
   <div class="fk" style="--ac:var(--decision)">
@@ -731,7 +715,7 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
 <p class="muted">The repo already contains <code>.claude-plugin/plugin.json</code> and <code>marketplace.json</code>. Each teammate runs, in Claude Code:</p>
 <div class="term"><div class="term-bar"><i></i><i></i><i></i><span>Claude Code</span></div><pre><span class="g">/plugin marketplace add</span> ibrahimhayeck/claude-sdlc-skills
 <span class="g">/plugin install</span> engineering-skills@engineering-tools</pre></div>
-<p class="muted">The <code>marketplace add</code> line uses the <b>owner/repo</b>; the <code>install</code> line uses <b>plugin@marketplace</b> (the <code>name</code> fields inside the two JSON files). One install brings all sixteen skills. Everyone then runs <code>/setup-skills</code> once per repo.</p>
+<p class="muted">The <code>marketplace add</code> line uses the <b>owner/repo</b>; the <code>install</code> line uses <b>plugin@marketplace</b> (the <code>name</code> fields inside the two JSON files). One install brings all thirteen skills. Everyone then runs <code>/setup-skills</code> once per repo.</p>
 </div>
 
 <div class="opt">
@@ -779,7 +763,7 @@ cp -r skills/* &lt;repo&gt;/.claude/skills/</pre></div>
   </div>
   <div class="concept c2">
     <div class="ct">Plugin</div>
-    <div class="cd">A bundle you install as a unit — skills plus optional slash commands, subagents, hooks, and MCP servers. Defined by <code>plugin.json</code>. Ours bundles all 16 skills.</div>
+    <div class="cd">A bundle you install as a unit — skills plus optional slash commands, subagents, hooks, and MCP servers. Defined by <code>plugin.json</code>. Ours bundles all 13 skills.</div>
   </div>
   <div class="concept c3">
     <div class="ct">Marketplace</div>
@@ -803,7 +787,7 @@ cp -r skills/* &lt;repo&gt;/.claude/skills/</pre></div>
   <div class="invcard">
     <h4>.claude-plugin/</h4>
     <ul>
-      <li><code>plugin.json</code> <span>— the plugin: lists the 16 skills (v0.2.0)</span></li>
+      <li><code>plugin.json</code> <span>— the plugin: lists the 13 skills (v0.3.0)</span></li>
       <li><code>marketplace.json</code> <span>— the catalog (<code>engineering-tools</code>)</span></li>
     </ul>
   </div>
@@ -843,14 +827,14 @@ cp -r skills/* &lt;repo&gt;/.claude/skills/</pre></div>
     </ul>
   </div>
   <div class="invcard wide">
-    <h4>skills/ — 16 skills, one folder each (a <code>SKILL.md</code>, some with supporting files)</h4>
+    <h4>skills/ — 13 skills, one folder each (a <code>SKILL.md</code>, some with supporting files)</h4>
     <ul>
-      <li><code>setup-skills/</code> <span>— + issue-tracker-{github,jira,local}.md, docs-location.md, triage-labels.md, domain.md, testing.md</span></li>
-      <li><code>grill-me/</code> · <code>grill-with-docs/</code> <span>(+ CONTEXT-FORMAT.md, ADR-FORMAT.md)</span></li>
-      <li><code>to-prd/</code> · <code>to-issues/</code> · <code>triage/</code> <span>(+ AGENT-BRIEF.md, OUT-OF-SCOPE.md)</span></li>
+      <li><code>setup-skills/</code> <span>(+ config.md — the single per-repo config template)</span></li>
+      <li><code>grill-with-docs/</code> <span>(+ CONTEXT-FORMAT.md, ADR-FORMAT.md)</span></li>
+      <li><code>to-prd/</code> · <code>to-issues/</code></li>
       <li><code>tdd/</code> · <code>functional-test/</code> <span>(+ API-TESTS.md, E2E-PLAYWRIGHT.md, CROSS-REPO.md)</span></li>
       <li><code>review/</code> · <code>security-review/</code> · <code>verify/</code> · <code>finish/</code></li>
-      <li><code>diagnose/</code> <span>(+ scripts/hitl-loop.template.sh)</span> · <code>zoom-out/</code> · <code>handoff/</code></li>
+      <li><code>diagnose/</code> <span>(+ scripts/hitl-loop.template.sh)</span> · <code>zoom-out/</code></li>
       <li><code>improve-codebase-architecture/</code> <span>(+ LANGUAGE.md, DEEPENING.md, INTERFACE-DESIGN.md)</span></li>
     </ul>
   </div>
