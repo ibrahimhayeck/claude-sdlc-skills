@@ -235,6 +235,10 @@ th,td{padding:9px 12px;text-align:left;vertical-align:top;border-bottom:1px soli
 tr:last-child td{border-bottom:none}
 th{background:var(--panel2);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
 td code{background:var(--panel2)}
+.installbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;margin:14px 0 0;padding:12px 16px;border:1px solid var(--border);border-radius:14px;background:var(--panel);box-shadow:var(--shadow)}
+.installbar .lbl{font-weight:800;font-size:14px}
+.installbar .lbl span{display:block;font-weight:600;font-size:11.5px;color:var(--muted)}
+.installbar .term{flex:1 1 420px;min-width:0;margin:0}
 footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color:var(--muted);font-size:12.5px}
 @media(max-width:640px){.grid,.grid3{grid-template-columns:1fr}.page{padding:16px 14px 60px}.hero{padding:32px 22px}.hero h1{font-size:28px}}
 </style>
@@ -257,6 +261,17 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
   </a>
 </header>
 
+<div class="installbar">
+  <div class="lbl">Install<span>Claude Code · one plugin, no setup</span></div>
+  <div class="term">
+    <button class="copybtn" data-copy="/plugin marketplace add ibrahimhayeck/claude-sdlc-skills
+/plugin install engineering-skills@engineering-tools">Copy</button>
+    <div class="term-bar"><i></i><i></i><i></i><span>Claude Code</span></div>
+    <pre><span class="g">/plugin marketplace add</span> ibrahimhayeck/claude-sdlc-skills
+<span class="g">/plugin install</span> engineering-skills@engineering-tools</pre>
+  </div>
+</div>
+
 <div class="tabs" role="tablist" aria-label="Sections">
   <button role="tab" data-target="p-start" aria-selected="true">🚀 Get started</button>
   <button role="tab" data-target="p-skills" aria-selected="false">📚 All skills</button>
@@ -266,16 +281,8 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
 </div>
 
 <section class="tabpanel active" id="p-start">
-<h2 id="start"><span class="n">1</span>Install once</h2>
-<p class="sub">One plugin, no configuration. In Claude Code:</p>
-<div class="term">
-  <button class="copybtn" data-copy="/plugin marketplace add ibrahimhayeck/claude-sdlc-skills
-/plugin install engineering-skills@engineering-tools">Copy</button>
-  <div class="term-bar"><i></i><i></i><i></i><span>Claude Code</span></div>
-  <pre><span class="g">/plugin marketplace add</span> ibrahimhayeck/claude-sdlc-skills
-<span class="g">/plugin install</span> engineering-skills@engineering-tools</pre>
-</div>
-<p class="muted">That's the whole setup — no <code>/setup-skills</code>, no config files. It's one plugin with 14 skills, but you only learn a handful.</p>
+<h2 id="start"><span class="n">1</span>Installed?</h2>
+<p class="sub">Run the two commands in the <b>Install</b> bar at the top of the page (Claude Code). That's the whole setup — no <code>/setup-skills</code>, no config files. It's one plugin with 16 skills, but you only learn a handful. Then just describe your work.</p>
 
 <h2 id="habit"><span class="n">2</span>The one habit</h2>
 <p class="sub"><b>Describe what you want in plain language.</b> The matching skill triggers on its own, and when it finishes it offers the next step. Say yes, and the chain flows:</p>
@@ -717,91 +724,6 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color
 
 </section>
 <section class="tabpanel" id="p-install">
-<h2 id="concept">Plugins &amp; marketplaces</h2>
-<p class="sec-sub">Like an app store: the <b>marketplace</b> is the store, a <b>plugin</b> is an app, and a <b>skill</b> is a feature inside the app.</p>
-
-<div class="grid3">
-  <div class="concept c1">
-    <div class="ct">Skill</div>
-    <div class="cd">One capability — a folder with a <code>SKILL.md</code> the agent reads when a task matches (e.g. <code>functional-test</code>). On its own, just a file.</div>
-  </div>
-  <div class="concept c2">
-    <div class="ct">Plugin</div>
-    <div class="cd">A bundle you install as a unit — skills plus optional slash commands, subagents, hooks, and MCP servers. Defined by <code>plugin.json</code>. Ours bundles all 16 skills.</div>
-  </div>
-  <div class="concept c3">
-    <div class="ct">Marketplace</div>
-    <div class="cd">A catalog listing one or more plugins and where to find them — how they're discovered, installed, versioned, updated. Defined by <code>marketplace.json</code>. Ours is <code>engineering-tools</code>.</div>
-  </div>
-</div>
-
-<h3>How the files fit together</h3>
-<p class="muted">Both definition files live in a <code>.claude-plugin/</code> folder at the repo root:</p>
-<div class="term"><div class="term-bar"><i></i><i></i><i></i><span>repo layout</span></div><pre>claude-sdlc-skills/     <span class="c"># the git repo you host</span>
-    .claude-plugin/
-        plugin.json         <span class="c"># what is this plugin + its skills</span>
-        marketplace.json    <span class="c"># what plugins this catalog offers + where</span>
-    skills/                 <span class="c"># the actual skills the plugin ships</span>
-    templates/  docs/  README.md</pre></div>
-<p class="muted"><code>plugin.json</code> → <code>{ "name": "engineering-skills", "version": "0.1.0", "skills": [ ... ] }</code>. <code>marketplace.json</code> → <code>{ "name": "engineering-tools", "plugins": [ { "name": "engineering-skills", "source": "./" } ] }</code>. The <code>"source": "./"</code> means the plugin sits at the root of this same repo; a marketplace can also point at other folders or other repos, so one catalog can offer many plugins.</p>
-
-<h3>What's in this repo</h3>
-<p class="sec-sub">The actual contents of <code>claude-sdlc-skills</code>, folder by folder.</p>
-<div class="inv">
-  <div class="invcard">
-    <h4>.claude-plugin/</h4>
-    <ul>
-      <li><code>plugin.json</code> <span>— the plugin: lists the 14 skills</span></li>
-      <li><code>marketplace.json</code> <span>— the catalog (<code>engineering-tools</code>)</span></li>
-    </ul>
-  </div>
-  <div class="invcard">
-    <h4>docs/</h4>
-    <ul>
-      <li><code>overview.html</code> <span>— this page</span></li>
-      <li><code>testing-lifecycle.md</code> <span>— testing setup→execution</span></li>
-      <li><span>+ archived <code>overview-*.zip</code> snapshots</span></li>
-    </ul>
-  </div>
-  <div class="invcard">
-    <h4>templates/</h4>
-    <ul>
-      <li><code>CONTEXT.md</code> <span>— glossary starter</span></li>
-      <li><code>CONTEXT-MAP.md</code> <span>— multi-context / org glossary</span></li>
-      <li><code>ADR.md</code> <span>— decision record</span></li>
-      <li><code>PRD.md</code> <span>— product requirements</span></li>
-      <li><code>functional-test-plan.md</code> <span>— acceptance-test plan</span></li>
-    </ul>
-  </div>
-  <div class="invcard">
-    <h4>root</h4>
-    <ul>
-      <li><code>README.md</code> <span>— team-facing intro + install</span></li>
-      <li><code>CONVENTIONS.md</code> <span>— where CONTEXT/PRD/ADR live</span></li>
-      <li><code>NOTICE.md</code> <span>— attribution (mattpocock/skills, MIT)</span></li>
-      <li><code>push-to-github.sh</code> <span>— helper to publish the repo</span></li>
-    </ul>
-  </div>
-  <div class="invcard wide">
-    <h4>skills/ — 14 skills, one folder each (a <code>SKILL.md</code>, some with supporting files)</h4>
-    <ul>
-      <li><code>setup-skills/</code> <span>— + issue-tracker-{github,jira,local}.md, docs-location.md, triage-labels.md, domain.md, testing.md</span></li>
-      <li><code>grill-me/</code> · <code>grill-with-docs/</code> <span>(+ CONTEXT-FORMAT.md, ADR-FORMAT.md)</span></li>
-      <li><code>to-prd/</code> · <code>to-issues/</code> · <code>triage/</code> <span>(+ AGENT-BRIEF.md, OUT-OF-SCOPE.md)</span></li>
-      <li><code>tdd/</code> · <code>functional-test/</code> <span>(+ API-TESTS.md, E2E-PLAYWRIGHT.md, CROSS-REPO.md)</span></li>
-      <li><code>review/</code> · <code>security-review/</code></li>
-      <li><code>diagnose/</code> <span>(+ scripts/hitl-loop.template.sh)</span> · <code>zoom-out/</code> · <code>handoff/</code></li>
-      <li><code>improve-codebase-architecture/</code> <span>(+ LANGUAGE.md, DEEPENING.md, INTERFACE-DESIGN.md)</span></li>
-    </ul>
-  </div>
-</div>
-
-<h3>How to create one</h3>
-<p class="muted">(1) Build the plugin — a <code>skills/</code> folder plus <code>plugin.json</code>. (2) Write <code>marketplace.json</code> listing it. (3) Host it — push the repo to GitHub (public, or private for a team). (4) Version it — bump <code>version</code> in <code>plugin.json</code> when skills change. This repo already has all four.</p>
-
-<h3>Why bother vs. copying skill folders</h3>
-<p class="muted">One-command install of the whole bundle, versioned updates (push once, everyone runs <code>update</code>), and central discovery — a private repo becomes your internal "app store".</p>
-
 <h2 id="install">Install</h2>
 
 <div class="opt">
@@ -845,6 +767,100 @@ cp -r skills/* &lt;repo&gt;/.claude/skills/</pre></div>
   <tr><td>Local markdown</td><td><code>.scratch/&lt;feature&gt;/*.md</code> in the repo</td><td>Solo work, prototypes, no tracker</td></tr>
   <tr><td>Other</td><td>Described in one paragraph</td><td>Linear, Azure DevOps, ...</td></tr>
 </table>
+
+<h2 id="concept" style="margin-top:40px">Reference — plugins &amp; marketplaces</h2>
+<p class="sec-sub">Secondary: how the packaging works and what's in the repo. Skip unless you're curious or maintaining the plugin.</p>
+<p class="sec-sub">Like an app store: the <b>marketplace</b> is the store, a <b>plugin</b> is an app, and a <b>skill</b> is a feature inside the app.</p>
+
+<div class="grid3">
+  <div class="concept c1">
+    <div class="ct">Skill</div>
+    <div class="cd">One capability — a folder with a <code>SKILL.md</code> the agent reads when a task matches (e.g. <code>functional-test</code>). On its own, just a file.</div>
+  </div>
+  <div class="concept c2">
+    <div class="ct">Plugin</div>
+    <div class="cd">A bundle you install as a unit — skills plus optional slash commands, subagents, hooks, and MCP servers. Defined by <code>plugin.json</code>. Ours bundles all 16 skills.</div>
+  </div>
+  <div class="concept c3">
+    <div class="ct">Marketplace</div>
+    <div class="cd">A catalog listing one or more plugins and where to find them — how they're discovered, installed, versioned, updated. Defined by <code>marketplace.json</code>. Ours is <code>engineering-tools</code>.</div>
+  </div>
+</div>
+
+<h3>How the files fit together</h3>
+<p class="muted">Both definition files live in a <code>.claude-plugin/</code> folder at the repo root:</p>
+<div class="term"><div class="term-bar"><i></i><i></i><i></i><span>repo layout</span></div><pre>claude-sdlc-skills/     <span class="c"># the git repo you host</span>
+    .claude-plugin/
+        plugin.json         <span class="c"># what is this plugin + its skills</span>
+        marketplace.json    <span class="c"># what plugins this catalog offers + where</span>
+    skills/                 <span class="c"># the actual skills the plugin ships</span>
+    templates/  docs/  README.md</pre></div>
+<p class="muted"><code>plugin.json</code> → <code>{ "name": "engineering-skills", "version": "0.1.0", "skills": [ ... ] }</code>. <code>marketplace.json</code> → <code>{ "name": "engineering-tools", "plugins": [ { "name": "engineering-skills", "source": "./" } ] }</code>. The <code>"source": "./"</code> means the plugin sits at the root of this same repo; a marketplace can also point at other folders or other repos, so one catalog can offer many plugins.</p>
+
+<h3>What's in this repo</h3>
+<p class="sec-sub">The actual contents of <code>claude-sdlc-skills</code>, folder by folder.</p>
+<div class="inv">
+  <div class="invcard">
+    <h4>.claude-plugin/</h4>
+    <ul>
+      <li><code>plugin.json</code> <span>— the plugin: lists the 16 skills (v0.2.0)</span></li>
+      <li><code>marketplace.json</code> <span>— the catalog (<code>engineering-tools</code>)</span></li>
+    </ul>
+  </div>
+  <div class="invcard">
+    <h4>docs/</h4>
+    <ul>
+      <li><code>overview.html</code> <span>— this page</span></li>
+      <li><code>testing-lifecycle.md</code> <span>— testing setup→execution</span></li>
+      <li><span>+ archived <code>overview-*.zip</code> snapshots</span></li>
+    </ul>
+  </div>
+  <div class="invcard">
+    <h4>templates/</h4>
+    <ul>
+      <li><code>CONTEXT.md</code> · <code>CONTEXT-MAP.md</code> <span>— glossary starters</span></li>
+      <li><code>ADR.md</code> · <code>PRD.md</code> <span>— decision / requirements</span></li>
+      <li><code>functional-test-plan.md</code> <span>— acceptance-test plan</span></li>
+      <li><code>enforcement/</code> <span>— opt-in PR template, CI check, pre-commit</span></li>
+    </ul>
+  </div>
+  <div class="invcard">
+    <h4>root — docs</h4>
+    <ul>
+      <li><code>README.md</code> <span>— intro + install</span></li>
+      <li><code>WORKFLOW.md</code> <span>— the loop + right-sizing</span></li>
+      <li><code>SKILLS.md</code> <span>— one-screen cheat sheet</span></li>
+      <li><code>CONVENTIONS.md</code> <span>— where CONTEXT/PRD/ADR live</span></li>
+    </ul>
+  </div>
+  <div class="invcard">
+    <h4>root — governance</h4>
+    <ul>
+      <li><code>CHANGELOG.md</code> <span>— version history</span></li>
+      <li><code>CONTRIBUTING.md</code> <span>— owner, versioning, adoption</span></li>
+      <li><code>NOTICE.md</code> <span>— attribution (mattpocock/skills, superpowers; MIT)</span></li>
+      <li><code>push-to-github.sh</code> <span>— publish helper</span></li>
+    </ul>
+  </div>
+  <div class="invcard wide">
+    <h4>skills/ — 16 skills, one folder each (a <code>SKILL.md</code>, some with supporting files)</h4>
+    <ul>
+      <li><code>setup-skills/</code> <span>— + issue-tracker-{github,jira,local}.md, docs-location.md, triage-labels.md, domain.md, testing.md</span></li>
+      <li><code>grill-me/</code> · <code>grill-with-docs/</code> <span>(+ CONTEXT-FORMAT.md, ADR-FORMAT.md)</span></li>
+      <li><code>to-prd/</code> · <code>to-issues/</code> · <code>triage/</code> <span>(+ AGENT-BRIEF.md, OUT-OF-SCOPE.md)</span></li>
+      <li><code>tdd/</code> · <code>functional-test/</code> <span>(+ API-TESTS.md, E2E-PLAYWRIGHT.md, CROSS-REPO.md)</span></li>
+      <li><code>review/</code> · <code>security-review/</code> · <code>verify/</code> · <code>finish/</code></li>
+      <li><code>diagnose/</code> <span>(+ scripts/hitl-loop.template.sh)</span> · <code>zoom-out/</code> · <code>handoff/</code></li>
+      <li><code>improve-codebase-architecture/</code> <span>(+ LANGUAGE.md, DEEPENING.md, INTERFACE-DESIGN.md)</span></li>
+    </ul>
+  </div>
+</div>
+
+<h3>How to create one</h3>
+<p class="muted">(1) Build the plugin — a <code>skills/</code> folder plus <code>plugin.json</code>. (2) Write <code>marketplace.json</code> listing it. (3) Host it — push the repo to GitHub (public, or private for a team). (4) Version it — bump <code>version</code> in <code>plugin.json</code> when skills change. This repo already has all four.</p>
+
+<h3>Why bother vs. copying skill folders</h3>
+<p class="muted">One-command install of the whole bundle, versioned updates (push once, everyone runs <code>update</code>), and central discovery — a private repo becomes your internal "app store".</p>
 
 <footer>
 Repo: <a href="https://github.com/ibrahimhayeck/claude-sdlc-skills">github.com/ibrahimhayeck/claude-sdlc-skills</a><br>
